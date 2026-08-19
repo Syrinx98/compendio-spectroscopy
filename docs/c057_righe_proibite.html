@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.7 - Righe proibite: perche' esistono e come si usano</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html" class="qui">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>5.7 - Righe proibite: perche' esistono e come si usano</h1>
+<p><strong>Dispensa: cap. 5.7 (pag. 69-78).</strong></p>
+<p><em>Prima meta' in <strong>PODS</strong> (il mistero storico del nebulio, vedi il<br />
+<a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a>), seconda meta' a <strong>mattoncini</strong> sui due diagnostici.</em></p>
+<p>Nelle nebulose si osservano righe intensissime che in laboratorio non si erano mai viste. Per un po'<br />
+si e' pensato che venissero da un elemento sconosciuto, e gli era stato dato pure un nome<br />
+("nebulio"). Poi si e' capito che erano righe <strong>di elementi normalissimi</strong>, che pero' sulla Terra<br />
+non si riescono a produrre.</p>
+<p>Questo capitolo spiega perche', e poi mostra la cosa piu' utile del corso: come usarle per<br />
+<strong>misurare</strong> temperatura e densita' di un gas lontano anni luce.</p>
+<hr />
+<h2>1. Cosa vuol dire "proibita"</h2>
+<p>Una transizione e' proibita quando <strong>viola le regole di selezione del dipolo elettrico</strong>, che sono<br />
+il meccanismo con cui avvengono le transizioni normali.</p>
+<p>Ma proibita <strong>non vuol dire impossibile</strong>: l' atomo puo' comunque scendere per altre vie, il<br />
+<strong>quadrupolo elettrico</strong> o il <strong>dipolo magnetico</strong>. Sono canali molto meno efficienti, ma esistono.</p>
+<p>Il risultato e' un $A_{21}$ ridicolmente piccolo:</p>
+<table>
+<thead>
+<tr>
+<th>tipo di transizione</th>
+<th>$A_{21}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permessa (dipolo elettrico)</td>
+<td>$\sim 10^8$ s$^{-1}$</td>
+</tr>
+<tr>
+<td>proibita</td>
+<td>$\sim 10^{-2}$ s$^{-1}$</td>
+</tr>
+</tbody>
+</table>
+<p>Dieci ordini di grandezza.</p>
+<p><em><strong>Questa e' la parte che conta:</strong> il nome "proibita" e' fuorviante e conviene tradurselo. Sono righe<br />
+<strong>improbabili</strong>, o <strong>pigre</strong>: l' atomo ci mette secondi o minuti a fare quello che di solito fa in<br />
+$10^{-8}$ secondi. Non e' che non lo fa: e' che se la prende comoda.</em></p>
+<p><strong>Notazione:</strong> le righe proibite si scrivono fra parentesi quadre, tipo <strong>[O III]</strong>.</p>
+<hr />
+<h2>2. Il livello metastabile</h2>
+<p>Un livello si dice <strong>metastabile</strong> quando l' unica via d' uscita e' una transizione proibita.</p>
+<p>L' elettrone che ci finisce sopra ci resta parcheggiato <strong>secondi o minuti</strong>, invece dei<br />
+$10^{-8}$ secondi di un livello normale.</p>
+<hr />
+<h3>2.1 Perché stanno sempre a pochi eV</h3>
+<p>Questa e' una domanda che uno dovrebbe farsi, perche' non e' una coincidenza.</p>
+<p>I livelli metastabili stanno tipicamente <strong>pochi eV</strong> sopra il fondamentale, e il motivo e' che<br />
+nascono dalla <strong>stessa configurazione elettronica</strong> del fondamentale: gli elettroni sono negli<br />
+stessi orbitali, solo con spin o momenti angolari organizzati diversamente.</p>
+<p>Da qui seguono due cose insieme:</p>
+<ol>
+<li><strong>costa poco arrivarci</strong>, perche' riorganizzare gli spin senza cambiare orbitale non richiede<br />
+   molta energia -&gt; pochi eV</li>
+<li><strong>e' proibito tornare giu'</strong>, perche' una transizione di dipolo elettrico dentro la stessa<br />
+   configurazione non e' permessa</li>
+</ol>
+<p><em><strong>Nota subito così de botto:</strong> le due cose hanno la stessa causa. Sono a bassa energia <strong>perche'</strong><br />
+condividono la configurazione col fondamentale, e sono proibite <strong>per lo stesso motivo</strong>. Non sono<br />
+due proprieta' separate che capitano insieme.</em></p>
+<p>E la prima e' proprio quello che serve: pochi eV vuol dire <strong>raggiungibili per urto</strong> a $10^4$ K,<br />
+dove gli elettroni hanno 0.86 eV. Il fondamentale dell' idrogeno, che sta a 10.2 eV dal primo<br />
+livello eccitato, non lo raggiunge nessuno.</p>
+<hr />
+<h2>3. Perché si vedono solo nelle nebulose</h2>
+<p>Adesso si mette insieme tutto quello che si e' costruito nel<br />
+<a href="c051_atomo_due_livelli.html">capitolo 5</a>.</p>
+<p>La densita' critica e':</p>
+<p>$$N_c = \frac{A_{21}}{Q_{21}}$$</p>
+<p>Se $A_{21}$ e' minuscolo, allora <strong>$N_c$ e' bassissima</strong>. Per le righe proibite $N_c$ sta intorno<br />
+a $10^2 - 10^6$ cm$^{-3}$, che e' un vuoto spinto per gli standard terrestri.</p>
+<table>
+<thead>
+<tr>
+<th>ambiente</th>
+<th>$N_e$</th>
+<th>cosa succede</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>laboratorio, anche in vuoto</td>
+<td>$\gg N_c$</td>
+<td><strong>quenching</strong>: l' urto arriva prima dell' emissione</td>
+</tr>
+<tr>
+<td>fotosfera stellare ($10^{14}$)</td>
+<td>$\ggg N_c$</td>
+<td>quenching totale</td>
+</tr>
+<tr>
+<td>nebulosa ($10^2 - 10^4$)</td>
+<td>$\ll N_c$</td>
+<td><strong>l' atomo fa in tempo a emettere</strong></td>
+</tr>
+</tbody>
+</table>
+<p>In una nebulosa l' atomo eccitato puo' starsene tranquillo per minuti: tanto non passa nessuno a<br />
+disturbarlo.</p>
+<hr />
+<h3>3.1 La conseguenza da tenere</h3>
+<blockquote>
+<p><strong>vedere una riga proibita e' gia' la prova che il gas e' rarefatto.</strong></p>
+</blockquote>
+<p>Non serve nessuna misura ulteriore: la sua sola presenza nello spettro dice che $N_e < N_c$.</p>
+<hr />
+<h3>3.2 Sono sempre righe di emissione</h3>
+<p>E lo si puo' argomentare in due modi, che poi sono lo stesso.</p>
+<p><strong>Guardando come si popolano</strong>: il livello metastabile si popola <strong>per urto</strong>, non per<br />
+assorbimento di fotoni. Un atomo nel fondamentale che vede passare un fotone della giusta energia<br />
+non lo assorbe, perche' quella transizione e' proibita in tutte e due i versi.</p>
+<p><strong>Guardando il criterio del <a href="c03_trasporto.html">capitolo 3</a></strong>: nella nebulosa $I_0 \approx 0$ e il<br />
+gas emette, quindi $I < S$, quindi emissione.</p>
+<hr />
+<h2>4. E adesso il bello: si usano per misurare</h2>
+<p>Il fatto che si vedano solo nelle nebulose sarebbe una curiosita'. Quello che le rende importanti<br />
+e' che dallo spettro si tirano fuori <strong>temperatura e densita'</strong> del gas.</p>
+<p>Il trucco e' sempre quello del <a href="c055_ricombinazione.html">capitolo 5.5</a>: <strong>si fa il rapporto fra due<br />
+righe</strong>, cosi' la geometria si semplifica e resta solo la fisica.</p>
+<p>E la fisica che resta e' diversa a seconda di come sono messi i livelli:</p>
+<table>
+<thead>
+<tr>
+<th>se i due livelli sono...</th>
+<th>il rapporto sente...</th>
+<th>esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a energie <strong>molto diverse</strong></td>
+<td>la <strong>temperatura</strong></td>
+<td>[O III]</td>
+</tr>
+<tr>
+<td>a energie <strong>quasi uguali</strong></td>
+<td>la <strong>densita'</strong></td>
+<td>[S II]</td>
+</tr>
+</tbody>
+</table>
+<p>Adesso i due casi uno per volta.</p>
+<hr />
+<h2>5. [O III], il termometro</h2>
+<p>L' ossigeno ionizzato due volte ha due livelli metastabili, e stanno a energie <strong>ben separate</strong>:</p>
+<p><img alt="" src="data/livelli_o3.png" /></p>
+<table>
+<thead>
+<tr>
+<th>livello</th>
+<th>energia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - fondamentale</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 - metastabile</td>
+<td><strong>2.48 eV</strong></td>
+</tr>
+<tr>
+<td>3 - metastabile</td>
+<td><strong>5.34 eV</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Le transizioni possibili sono quattro (la $2 \to 1$ finisce su due sottolivelli del fondamentale):</p>
+<table>
+<thead>
+<tr>
+<th>transizione</th>
+<th>riga</th>
+<th>usata?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$3 \to 1$</td>
+<td>2321 A</td>
+<td>no, e' nell' UV</td>
+</tr>
+<tr>
+<td>$3 \to 2$</td>
+<td><strong>4363 A</strong></td>
+<td>si'</td>
+</tr>
+<tr>
+<td>$2 \to 1$</td>
+<td><strong>4959 A</strong></td>
+<td>si'</td>
+</tr>
+<tr>
+<td>$2 \to 1$</td>
+<td><strong>5007 A</strong></td>
+<td>si'</td>
+</tr>
+</tbody>
+</table>
+<p>E il rapporto che si usa e':</p>
+<p>$$R_{[O \, III]} = \frac{I_{4959} + I_{5007}}{I_{4363}}$$</p>
+<hr />
+<h3>5.1 Perché è un termometro</h3>
+<p>Le due righe al numeratore partono dal livello 2 (2.48 eV), quella al denominatore parte dal<br />
+livello 3 (5.34 eV).</p>
+<p>Per popolare il livello 3 serve un elettrone <strong>piu' energetico</strong> che per popolare il livello 2. E<br />
+quanti elettroni energetici ci sono dipende <strong>solo dalla temperatura</strong>.</p>
+<p>Quindi:</p>
+<ul>
+<li><strong>gas freddo</strong>: pochi elettroni arrivano fino al livello 3 -&gt; la 4363 e' debolissima -&gt;<br />
+  $R$ <strong>grande</strong></li>
+<li><strong>gas caldo</strong>: il livello 3 si popola -&gt; la 4363 cresce -&gt; $R$ <strong>piccolo</strong></li>
+</ul>
+<p>Nel rapporto la geometria se ne va e resta essenzialmente il fattore di Boltzmann della differenza<br />
+di energia:</p>
+<p>$$R \sim e^{\Delta\chi / k_B T}$$</p>
+<p>Per dare l' idea di quanto sia sbilanciato: eccitare al livello 2 e' circa <strong>200 volte piu'<br />
+probabile</strong> che eccitare al livello 3.</p>
+<hr />
+<h3>5.2 Perché è cieco alla densità</h3>
+<p>Questa e' la parte che rende [O III] uno strumento pulito, e va detta esplicitamente.</p>
+<p>Le densita' critiche dei suoi livelli metastabili stanno <strong>molto sopra</strong> il range nebulare. Quindi<br />
+in una nebulosa siamo sempre e comunque nel regime $N_e \ll N_c$ per tutte e tre le righe, e la<br />
+densita' <strong>non entra nel rapporto</strong>.</p>
+<p>$R_{[O \, III]}$ misura la temperatura e non si fa disturbare da nient' altro.</p>
+<hr />
+<h2>6. [S II], il densimetro</h2>
+<p>Lo zolfo ionizzato una volta ha anche lui due livelli metastabili, ma stanno praticamente <strong>alla<br />
+stessa energia</strong>:</p>
+<p><img alt="" src="data/livelli_s2.png" /></p>
+<table>
+<thead>
+<tr>
+<th>riga</th>
+<th>energia del livello</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6716 A</td>
+<td>1.845 eV</td>
+</tr>
+<tr>
+<td>6731 A</td>
+<td>1.841 eV</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quattro millesimi di eV</strong> di differenza, contro i 2.9 eV che separavano i due livelli di [O III].</p>
+<p>Il rapporto che si usa e':</p>
+<p>$$R_{[S \, II]} = \frac{I_{6716}}{I_{6731}}$$</p>
+<hr />
+<h3>6.1 Perché la temperatura non conta</h3>
+<p>Il fattore di Boltzmann fra i due livelli e' $e^{-0.004/k_BT}$, e a $10^4$ K vale praticamente <strong>1</strong>.</p>
+<p>Cioe': un elettrone che ha abbastanza energia per popolare uno dei due, ne ha abbastanza anche per<br />
+popolare l' altro. La temperatura non riesce a distinguerli.</p>
+<hr />
+<h3>6.2 Perché la densità invece conta</h3>
+<p>Perche' i due livelli hanno <strong>$A_{21}$ diversi</strong>, e quindi <strong>densita' critiche diverse</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>riga</th>
+<th>$N_c$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6716</td>
+<td>~1400 cm$^{-3}$</td>
+</tr>
+<tr>
+<td>6731</td>
+<td>~3600 cm$^{-3}$</td>
+</tr>
+</tbody>
+</table>
+<p>E quei due numeri stanno <strong>dentro</strong> il range delle densita' nebulari, mentre quelli di [O III]<br />
+stanno molto piu' su.</p>
+<p>Alzando la densita', la transizione <strong>piu' lenta</strong> (quella con $N_c$ piu' bassa, la 6716) viene<br />
+spenta per prima dagli urti, mentre l' altra regge ancora un po'. Quindi il rapporto cala.</p>
+<table>
+<thead>
+<tr>
+<th>regime</th>
+<th>$R_{[S \, II]}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$N_e \ll N_c$ (bassa densita')</td>
+<td>~<strong>1.4</strong></td>
+</tr>
+<tr>
+<td>$N_e \gg N_c$ (alta densita')</td>
+<td>~<strong>0.4</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>6.3 Attenzione: funziona solo dentro una finestra</h3>
+<p>Vale la pena dirlo perche' e' il limite del metodo.</p>
+<p>Se la densita' e' <strong>troppo bassa</strong>, nessuna delle due righe e' disturbata: si comportano uguali e<br />
+il rapporto e' piatto a 1.4.</p>
+<p>Se la densita' e' <strong>troppo alta</strong>, tutte e due sono spente allo stesso modo: il rapporto e' piatto<br />
+a 0.4.</p>
+<p>Il rapporto misura qualcosa <strong>solo nella zona in mezzo</strong>, dove una e' spenta e l' altra no. Ed e'<br />
+esattamente il motivo per cui serve che le $N_c$ cadano dentro il range che si vuole misurare.</p>
+<p><em><strong>In pratica:</strong> e' il principio di qualsiasi strumento di misura. Un termometro da<br />
+febbre non serve a misurare la temperatura del forno. Uno strumento funziona nel range in cui la<br />
+grandezza che misuri fa cambiare davvero quello che leggi.</em></p>
+<hr />
+<h2>7. Il quadro dei due diagnostici</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>[O III]</th>
+<th>[S II]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>separazione dei livelli</td>
+<td><strong>2.9 eV</strong></td>
+<td><strong>0.004 eV</strong></td>
+</tr>
+<tr>
+<td>$N_c$ rispetto al range nebulare</td>
+<td>molto <strong>sopra</strong></td>
+<td><strong>dentro</strong></td>
+</tr>
+<tr>
+<td>il rapporto sente</td>
+<td>la <strong>temperatura</strong></td>
+<td>la <strong>densita'</strong></td>
+</tr>
+<tr>
+<td>righe</td>
+<td>(4959+5007)/4363</td>
+<td>6716/6731</td>
+</tr>
+<tr>
+<td>valori</td>
+<td>$R$ grande = freddo</td>
+<td>1.4 = rarefatto, 0.4 = denso</td>
+</tr>
+</tbody>
+</table>
+<p>Usati <strong>insieme</strong> danno temperatura e densita' della stessa nebulosa: [O III] misura $T_e$ senza<br />
+sentire la densita', poi con quella $T_e$ nota si legge [S II] per avere $N_e$.</p>
+<hr />
+<h2>8. In breve</h2>
+<ul>
+<li>proibita = viola le regole di selezione del <strong>dipolo elettrico</strong>, ma avviene lo stesso per<br />
+  quadrupolo elettrico o dipolo magnetico</li>
+<li>proibita <strong>non vuol dire impossibile</strong>: vuol dire $A_{21} \sim 10^{-2}$ invece di $10^8$</li>
+<li><strong>metastabile</strong> = livello da cui si esce solo con una transizione proibita</li>
+<li>stanno a pochi eV perche' hanno la <strong>stessa configurazione elettronica</strong> del fondamentale, ed e'<br />
+  la stessa ragione per cui la transizione e' proibita</li>
+<li>si popolano <strong>per urto</strong>, non per assorbimento, e sono sempre righe di <strong>emissione</strong></li>
+<li>$N_c = A_{21}/Q_{21}$ e' bassissima: in laboratorio si spengono, in una nebulosa no</li>
+<li><strong>vedere una riga proibita e' gia' la prova che il gas e' rarefatto</strong></li>
+<li><strong>[O III]</strong> = termometro: livelli lontani (2.48 e 5.34 eV), $N_c$ fuori range</li>
+<li><strong>[S II]</strong> = densimetro: livelli vicini (0.004 eV), $N_c$ dentro range</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> "Proibita" non vuol dire impossibile. Allora cosa vuol dire, esattamente, e che numero<br />
+cambia? (-&gt; sezione 1)</p>
+<p><strong>2.</strong> I livelli metastabili stanno sempre a pochi eV sopra il fondamentale. Non e' una<br />
+coincidenza: da cosa dipende? E perche' proprio quella stessa cosa li rende proibiti?<br />
+(-&gt; sezione 2.1)</p>
+<p><strong>3.</strong> Vedi una riga proibita nello spettro. Prima ancora di misurare qualsiasi cosa, cosa sai<br />
+gia' di quel gas? (-&gt; sezione 3.1)</p>
+<p><strong>4.</strong> [O III] misura la temperatura e [S II] la densita'. Cos' e' che rende uno un termometro e<br />
+l' altro un densimetro? La risposta e' una sola proprieta', detta in due modi. (-&gt; sezioni 5.1 e 6.2)</p>
+<p><strong>5.</strong> Perche' [O III] <strong>non</strong> funziona anche come densimetro, visto che ha pure lui delle $N_c$?<br />
+(-&gt; sezione 5.2)</p>
+<p><strong>6.</strong> Misuri $R_{[S\,II]} = 1.4$. Puoi dire quanto vale la densita', o solo qualcosa di piu'<br />
+debole? (-&gt; sezione 6.3)</p>
+<p><strong>7.</strong> Le righe proibite si popolano per urto e non per assorbimento. Prova a spiegare perche'<br />
+usando le stesse regole di selezione della sezione 1. (-&gt; sezione 3.2)</p>
+<div class="piedi"><a href="c056_polvere.html">&larr; 5.6 - Estinzione da polvere</a><a class="avanti" href="c06_continui.html">6 - I continui &rarr;</a></div>
+</main>
+</div></body></html>

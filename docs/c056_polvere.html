@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.6 - Estinzione da polvere</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html" class="qui">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>5.6 - Estinzione da polvere</h1>
+<p><strong>Dispensa: cap. 5.6 (pag. 66-69).</strong></p>
+<p><em>Capitolo in <strong>PODS</strong> nella seconda meta': il problema di misurare la polvere sembra<br />
+impossibile (servirebbe conoscere lo spettro vero), e la via d' uscita e' un' idea sola.</em></p>
+<p>Fin qui si e' sempre parlato di gas. Ma nel mezzo interstellare, oltre al gas, ci sono i <strong>grani di<br />
+polvere</strong>: silicati, grafite, alluminio, ferro.</p>
+<p>E questi grani rovinano tutto:</p>
+<blockquote>
+<p>quando guardo una stella o una nebulosa <strong>non vedo il suo spettro vero</strong>. La luce ha attraversato<br />
+uno strato di polvere e mi arriva indebolita e con la forma cambiata.</p>
+</blockquote>
+<p>Questo capitolo serve a due cose: capire <strong>come</strong> la polvere cambia lo spettro, e imparare a<br />
+<strong>misurarla</strong> per poterla togliere.</p>
+<hr />
+<h2>1. Cosa fa la polvere</h2>
+<p>Due cose, e vanno tenute distinte anche se producono lo stesso effetto:</p>
+<p><strong>assorbe</strong>: il grano si prende il fotone, si scalda, e riemette nell' infrarosso</p>
+<p><strong>diffonde (scattering)</strong>: il grano devia il fotone in un' altra direzione</p>
+<p>Dal mio punto di vista il risultato e' lo stesso - quel fotone non mi arriva - e infatti i due<br />
+processi si mettono insieme in un unico coefficiente. Per questo si parla di <strong>estinzione</strong> e non<br />
+di assorbimento: e' la somma delle due cose.</p>
+<hr />
+<h2>2. Come si scrive l'attenuazione</h2>
+<p>E' la stessa equazione del <a href="c03_trasporto.html">capitolo 3</a>, ma senza il termine di emissione: la<br />
+polvere lungo il cammino toglie luce e basta (quello che riemette lo riemette nell' infrarosso,<br />
+quindi non torna nella banda che stai guardando).</p>
+<p>$$dI_\lambda = -k_\lambda I_\lambda \, ds = -I_\lambda \, d\tau_\lambda$$</p>
+<p>che integrata da':</p>
+<p>$$I_\lambda = I_{0,\lambda} \, e^{-\tau_\lambda}$$</p>
+<p>$I_{0,\lambda}$ $\quad$ lo spettro <strong>intrinseco</strong>, quello che la sorgente ha davvero</p>
+<p>$I_\lambda$ $\quad$ quello che misuro io</p>
+<p>$\tau_\lambda = \int k_\lambda ds$ $\quad$ la profondita' ottica della polvere lungo il cammino</p>
+<p>Niente di nuovo, e' l' equazione del trasporto con $S = 0$.</p>
+<hr />
+<h2>3. In magnitudini</h2>
+<p>Gli astronomi non lavorano con $e^{-\tau}$ ma con le magnitudini, quindi traduciamo. Per<br />
+definizione di magnitudine:</p>
+<p>$$I_\lambda = I_{0,\lambda} \, 10^{-0.4 A_\lambda}$$</p>
+<p>Confrontando i due esponenti si ottiene la conversione, che e' solo un cambio di base del<br />
+logaritmo:</p>
+<p>$$A_\lambda = 2.5 \log e \cdot \tau_\lambda = 1.086 \, \tau_\lambda$$</p>
+<p>$A_\lambda$ $\quad$ <strong>estinzione in magnitudini</strong> a quella lunghezza d' onda</p>
+<p><em><strong>Attenzione:</strong> il coefficiente e' 1.086, cioe' praticamente 1. Quindi:<br />
+<strong>$\tau = 1$ vale circa una magnitudine di estinzione.</strong> E' una di quelle coincidenze comode che<br />
+conviene tenere in testa, perche' permette di passare da un linguaggio all' altro a mente.</em></p>
+<hr />
+<h2>4. Perché si parla di arrossamento</h2>
+<p>Il punto e' che $\tau_\lambda$ <strong>dipende dalla lunghezza d' onda</strong>, e dipende parecchio: la polvere<br />
+assorbe molto piu' nel blu che nel rosso.</p>
+<p>Studiando coppie di stelle dello stesso tipo spettrale a distanze diverse si scopre che la<br />
+dipendenza si puo' <strong>fattorizzare</strong>:</p>
+<p>$$\tau_\lambda = c \cdot f(\lambda)$$</p>
+<p>$c$ $\quad$ dipende da <strong>quanta</strong> polvere c'e' lungo quella direzione</p>
+<p>$f(\lambda)$ $\quad$ la <strong>legge di estinzione</strong>: la forma, che e' sempre la stessa</p>
+<p><em><strong>Occhio a questo:</strong> questa fattorizzazione e' quello che rende il problema risolvibile.<br />
+Vuol dire che la polvere ha sempre lo stesso "colore", cambia solo quanta ce n'e'. Quindi mi basta<br />
+misurare <strong>un</strong> numero ($c$) e so l' attenuazione a <strong>tutte</strong> le lunghezze d' onda.</em></p>
+<hr />
+<h3>4.1 La legge standard</h3>
+<p>La piu' usata e' quella di <strong>Cardelli, Clayton &amp; Mathis 1989 (CCM89)</strong>, normalizzata alla banda V<br />
+(5500 A):</p>
+<p>$$\frac{A(\lambda)}{A(V)} = a(x) + \frac{b(x)}{3.1}, \qquad x = \frac{10000}{\lambda} - 1.82$$</p>
+<p>$x$ $\quad$ numero d' onda traslato, vale zero in banda V</p>
+<p>$a(x), b(x)$ $\quad$ due polinomi, scritti per esteso nella dispensa</p>
+<p>$3.1$ $\quad$ il valore standard di $R_V = A(V)/E(B-V)$ per il mezzo interstellare diffuso</p>
+<hr />
+<h3>4.2 Quanto arrossa, in numeri</h3>
+<p>Se $A(V) = 1$ magnitudine, del flusso originale sopravvive:</p>
+<table>
+<thead>
+<tr>
+<th>banda</th>
+<th>quanto passa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U (ultravioletto)</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>V (visibile)</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>I (infrarosso vicino)</td>
+<td>63%</td>
+</tr>
+</tbody>
+</table>
+<p>Lo spettro esce <strong>tutto piu' debole ma sbilanciato verso il rosso</strong>, e la stella sembra piu' fredda<br />
+di quello che e'. Questo e' l' <strong>arrossamento</strong>, e si quantifica con l' <strong>eccesso di colore</strong>:</p>
+<p>$$E(B-V) = (B-V)_{oss} - (B-V)_0 = \frac{A(V)}{3.1}$$</p>
+<p><img alt="" src="data/curva_estinzione.png" /></p>
+<hr />
+<h2>5. Come si misura: il decremento di Balmer</h2>
+<p>E qui torna il trucco del <a href="c055_ricombinazione.html">capitolo 5.5</a>, ed e' il pezzo che rende utile tutto<br />
+il resto.</p>
+<p>Il problema di misurare l' estinzione e' che dovrei conoscere lo spettro intrinseco, e non lo<br />
+conosco: e' quello che sto cercando di ricostruire. Serve <strong>qualcosa di cui so gia' la risposta</strong>.</p>
+<p>Quel qualcosa e' il rapporto fra due righe di ricombinazione:</p>
+<p>$$\left( \frac{I_{H\alpha}}{I_{H\beta}} \right)_0 \approx 2.86$$</p>
+<p>Lo so gia', perche' nel <a href="c055_ricombinazione.html">capitolo 5.5</a> si e' visto che nel rapporto la<br />
+geometria si semplifica: non dipende da quanto e' grande la nebulosa, quanto e' densa o quanto e'<br />
+lontana. Vale per <strong>tutte</strong> le nebulose.</p>
+<hr />
+<h3>5.1 Il ragionamento</h3>
+<ol>
+<li>so che quel rapporto <strong>deve</strong> valere 2.86</li>
+<li>lo misuro, e mi viene per esempio 4.2</li>
+<li>la differenza me l' ha messa la polvere: $H\beta$ (4861 A, blu) e' stata attenuata piu' di<br />
+   $H\alpha$ (6563 A, rosso)</li>
+<li>da <strong>quanto</strong> mi sono scostato ricavo quanta polvere c'e'</li>
+</ol>
+<p>Mettendo insieme l' attenuazione delle due righe con la CCM89:</p>
+<p>$$\frac{I_{H\alpha}}{I_{H\beta}} = \left( \frac{I_{H\alpha}}{I_{H\beta}} \right)_0 10^{0.1386 \, A(V)}$$</p>
+<p>e invertendo:</p>
+<p>$$A(V) = 7.215 \, \log \frac{(I_{H\alpha}/I_{H\beta})_{misurato}}{2.86}$$</p>
+<hr />
+<h3>5.2 Perché questo metodo è comodo</h3>
+<p><strong>Non serve sapere niente della nebulosa.</strong> Non quanto e' lontana, non quanto e' grande, non quanto<br />
+gas contiene. Tutta quella roba sta sia sopra che sotto nel rapporto e se ne va.</p>
+<p>Servono solo due cose: il rapporto <strong>misurato</strong> fra due righe che escono dallo stesso posto, e il<br />
+valore <strong>teorico</strong> che quel rapporto dovrebbe avere.</p>
+<p><em><strong>Vale la pena dirlo:</strong> e' il principio generale di tutta la spettroscopia diagnostica.<br />
+Un rapporto fra due righe della stessa sorgente e' un numero che non dipende dalla sorgente, e<br />
+quindi si puo' confrontare con la teoria. Ogni volta che nel corso salta fuori uno strumento di<br />
+misura - questo, il termometro [O III], il densimetro [S II] - sotto c'e' sempre lo stesso trucco.</em></p>
+<hr />
+<h3>5.3 Altre coppie di righe</h3>
+<p>Si puo' fare con qualsiasi coppia, cambia solo il coefficiente davanti:</p>
+<table>
+<thead>
+<tr>
+<th>coppia</th>
+<th>coefficiente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$H\alpha / H\beta$</td>
+<td>7.215</td>
+</tr>
+<tr>
+<td>$H\beta / H\gamma$</td>
+<td>13.713</td>
+</tr>
+<tr>
+<td>$H\beta / H\delta$</td>
+<td>9.362</td>
+</tr>
+</tbody>
+</table>
+<p>Il coefficiente <strong>cresce</strong> quando le due righe sono piu' vicine in lunghezza d' onda: la<br />
+differenza di estinzione fra loro e' piu' piccola, quindi va amplificata di piu' per tirarne fuori<br />
+lo stesso $A(V)$. Che vuol dire anche che la misura e' piu' rumorosa.</p>
+<p>I rapporti teorici della serie si danno sempre <strong>rispetto a $H\beta$</strong>:<br />
+$H\gamma/H\beta \approx 0.47$, $H\delta/H\beta \approx 0.26$, e cosi' via.</p>
+<hr />
+<h2>6. In breve</h2>
+<ul>
+<li>la polvere <strong>assorbe e diffonde</strong>: dal mio punto di vista i due effetti si sommano in un unico<br />
+  coefficiente di estinzione</li>
+<li>$I_\lambda = I_{0,\lambda} e^{-\tau_\lambda}$, cioe' il trasporto con $S = 0$</li>
+<li>in magnitudini: $A_\lambda = 1.086 \, \tau_\lambda$, quindi <strong>$\tau = 1$ ~ 1 magnitudine</strong></li>
+<li>$\tau$ cresce verso il blu -&gt; lo spettro si <strong>arrossa</strong> e la sorgente sembra piu' fredda</li>
+<li>$\tau_\lambda = c \cdot f(\lambda)$: la forma e' universale, cambia solo quanta polvere c'e'</li>
+<li>si misura col <strong>decremento di Balmer</strong>: si confronta $H\alpha/H\beta$ misurato col valore teorico<br />
+  2.86, e l' eccesso da' $A(V)$</li>
+<li>funziona perche' nel rapporto <strong>la geometria si semplifica</strong>: non serve sapere niente della<br />
+  nebulosa</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Per misurare quanto la polvere ha attenuato una sorgente servirebbe sapere com' era la<br />
+sorgente prima. Ma non lo sai. Come se ne esce? (-&gt; sezione 5)</p>
+<p><strong>2.</strong> Perche' la polvere fa sembrare una stella piu' <strong>fredda</strong> di quello che e'? (-&gt; sezione 4.2)</p>
+<p><strong>3.</strong> Il metodo del decremento di Balmer funziona senza sapere niente della nebulosa: ne' distanza,<br />
+ne' dimensione, ne' quanto gas contiene. Da dove viene questa liberta'? (-&gt; sezione 5.2, e<br />
+<a href="c055_ricombinazione.html">capitolo 5.5</a>)</p>
+<p><strong>4.</strong> Perche' il coefficiente per la coppia $H\beta/H\gamma$ (13.7) e' piu' grande di quello per<br />
+$H\alpha/H\beta$ (7.2)? E cosa vuol dire in pratica sulla qualita' della misura? (-&gt; sezione 5.3)</p>
+<p><strong>5.</strong> Una profondita' ottica $\tau = 2$ quante magnitudini di estinzione fa, all' incirca?<br />
+(-&gt; sezione 3)</p>
+<div class="piedi"><a href="c055_ricombinazione.html">&larr; 5.5 - Righe di ricombinazione otticamente sottili</a><a class="avanti" href="c057_righe_proibite.html">5.7 - Righe proibite: perche' esistono e come si usano &rarr;</a></div>
+</main>
+</div></body></html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Di cosa parla tutto il corso</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html" class="qui">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>Di cosa parla tutto il corso</h1>
+<p><em>Questo capitolo e' scritto in <strong>PODS</strong>: si parte da quello che si osservava, si mette<br />
+l' obiezione che ha bloccato tutti per decenni, e si vede cosa se ne e' dedotto. E' anche la<br />
+storia vera di come e' andata.</em></p>
+<p>Prima di aprire la dispensa serve sapere <strong>a che domanda risponde</strong> questo corso. E il modo<br />
+piu' onesto per dirlo e' raccontare come ci sono arrivati, perche' i due problemi che hanno tenuto<br />
+in scacco gli astronomi per mezzo secolo sono esattamente i due pilastri del programma.</p>
+<hr />
+<h2>1. Da dove nasce la faccenda</h2>
+<p><strong>Premise:</strong> Newton, nel 1666, fa passare la luce del Sole attraverso un prisma e la vede<br />
+scomporsi nei colori. Fin qui e' un bell' esperimento e basta: quello che esce e' una striscia<br />
+continua, non c'e' nessuna informazione dentro.</p>
+<p>Nel 1802 Wollaston guarda meglio e nota che quella striscia <strong>non e' continua</strong>: ci sono delle<br />
+righe scure. Le prende per confini fra i colori e non ci fa troppo caso.</p>
+<p>Nel 1814 Fraunhofer costruisce strumenti molto migliori e ne conta <strong>centinaia</strong>. Le cataloga con<br />
+le lettere (la piu' famosa e' la D, nel giallo), ne misura le posizioni, e soprattutto fa una cosa<br />
+che nessuno aveva fatto: punta lo strumento su <strong>altre stelle</strong>. E scopre che anche loro hanno le<br />
+righe, ma non le stesse.</p>
+<p><strong>Objection:</strong> Bellissimo, ma a cosa serve? Nel 1835 il filosofo Auguste Comte scrive che la<br />
+composizione chimica delle stelle e' l' esempio perfetto di una cosa che l' uomo <strong>non potra' mai<br />
+sapere</strong>, perche' li' non ci andremo mai.</p>
+<hr />
+<h2>2. La svolta: le righe sono firme</h2>
+<p><strong>Deduction:</strong> Comte ci prende male, e ci mette poco a essere smentito.</p>
+<p>Nel 1859 Kirchhoff e Bunsen mettono in fila una cosa che cambia tutto. Scaldando un elemento in<br />
+laboratorio, quello emette righe <strong>in posizioni sue</strong>, sempre le stesse. E le righe scure del Sole<br />
+cadono <strong>esattamente</strong> dove cadono le righe di emissione degli elementi terrestri: la riga D del<br />
+Sole sta dove sta il sodio.</p>
+<p>Quindi ogni elemento lascia una <strong>firma</strong> sempre uguale, e non si puo' confondere con quella di<br />
+un altro. Le righe scure del Sole diventano un modo per leggere di cosa e' fatto.</p>
+<p><strong>Specification:</strong> Ne escono tre regole, che sono il minimo sindacale per andare avanti:</p>
+<ol>
+<li>un corpo denso e caldo fa un <strong>continuo</strong> (nessuna riga)</li>
+<li>un gas rarefatto e caldo fa righe <strong>in emissione</strong></li>
+<li>un gas piu' freddo davanti a un continuo fa righe <strong>in assorbimento</strong>, nelle stesse posizioni in<br />
+   cui, da solo, le farebbe in emissione</li>
+</ol>
+<p><em><strong>Qui si nota una cosa:</strong> in ventiquattro anni si e' passati da "non lo sapremo mai" a "so di<br />
+cosa e' fatto il Sole". E l' unico strumento nuovo era un prisma messo davanti a un telescopio. Da<br />
+qui in poi il gioco del corso e' sempre lo stesso: <strong>guardare dove cadono le righe e quanto sono<br />
+forti, e da li' risalire alle condizioni fisiche del gas</strong>.</em></p>
+<hr />
+<h2>3. Primo problema: perché le stelle non si somigliano</h2>
+<p>Con le firme in mano, si comincia a classificare. Secchi prima, poi il gruppo di Harvard - Pickering<br />
+e le donne che lavoravano con lui, in particolare Annie Jump Cannon - mettono in fila decine di<br />
+migliaia di spettri.</p>
+<p>Ne esce la sequenza che si usa ancora oggi: <strong>O B A F G K M</strong>, che e' un ordinamento per<br />
+temperatura.</p>
+<p><strong>Premise:</strong> Guardando le righe dell' idrogeno lungo questa sequenza (la serie di <strong>Balmer</strong>, quella<br />
+che cade nel visibile), si vede una cosa strana: sono deboli nelle O, crescono, diventano<br />
+fortissime nelle <strong>A0</strong>, e poi calano di nuovo fino a sparire nelle M.</p>
+<p><strong>Objection:</strong> Ma l' idrogeno e' l' elemento piu' abbondante <strong>dappertutto</strong>, e la composizione<br />
+chimica di queste stelle e' piu' o meno la stessa. Se le righe misurassero quanto idrogeno c'e',<br />
+dovrebbero essere uguali in tutte.</p>
+<p><strong>Deduction:</strong> Quindi la forza della riga non misura <strong>quanto</strong> idrogeno c'e': misura quanti atomi<br />
+di idrogeno stanno nella <strong>condizione giusta</strong> per fare quella transizione.</p>
+<p>E per fare Balmer un atomo deve essere due cose insieme: <strong>neutro</strong> (se e' ionizzato non ha piu'<br />
+l' elettrone) ed <strong>eccitato su $n=2$</strong>. Due condizioni che tirano in direzioni opposte quando la<br />
+temperatura sale.</p>
+<p><strong>Specification:</strong> Servono due strumenti, e arrivano fra il 1900 e il 1920: <strong>Boltzmann</strong> per<br />
+sapere come si distribuiscono gli elettroni fra i livelli, e <strong>Saha</strong> (1920) per sapere quanti<br />
+atomi sono ancora neutri.</p>
+<p>Chi chiude la partita e' Cecilia Payne, nel 1925: applica Saha agli spettri stellari e ne tira<br />
+fuori che le stelle sono fatte quasi tutte di <strong>idrogeno ed elio</strong>. Le righe forti del ferro nel<br />
+Sole non volevano dire tanto ferro, volevano dire ferro in condizione buona per assorbire.</p>
+<blockquote>
+<p><strong>Questo problema, e i due strumenti che lo risolvono, sono i capitoli 2, 3 e 4 del corso.</strong></p>
+</blockquote>
+<hr />
+<h2>4. Secondo problema: il nebulio</h2>
+<p><strong>Premise:</strong> Nel 1864 Huggins punta lo spettroscopio su una <strong>nebulosa</strong>, aspettandosi lo spettro<br />
+di un ammasso di stelle non risolte, cioe' un continuo con le sue righe scure.</p>
+<p>Vede tutt' altro: niente continuo, e <strong>poche righe luminose</strong>. Fra queste, una riga verde molto<br />
+forte che non corrisponde a <strong>nessun</strong> elemento conosciuto in laboratorio.</p>
+<p><strong>Objection:</strong> Ma le firme sono firme: se quella riga non la fa nessun elemento terrestre, allora<br />
+li' fuori c'e' un elemento che sulla Terra non esiste.</p>
+<p>Lo chiamano <strong>nebulio</strong>. Regge per sessant' anni.</p>
+<p><strong>Deduction:</strong> Nel 1927 Bowen fa saltare il banco, e la spiegazione e' molto piu' bella<br />
+dell' elemento nuovo. Quella riga a <strong>5007 A</strong> e' <strong>ossigeno</strong>, ionizzato due volte, roba<br />
+normalissima. Solo che nasce da una transizione <strong>proibita</strong>: talmente improbabile che l' atomo ci<br />
+mette secondi a farla, invece dei $10^{-8}$ secondi delle transizioni normali.</p>
+<p>In laboratorio non la vedi mai, perche' anche nel miglior vuoto che sai fare l' atomo viene urtato<br />
+e spento molto prima di riuscire a emettere. In una nebulosa no: li' il gas e' cosi' rarefatto che<br />
+l' atomo puo' aspettare tranquillo.</p>
+<p><strong>Specification:</strong> Quindi il nebulio non era un elemento: era una <strong>condizione fisica</strong> mai vista<br />
+prima. E la condizione e' la <strong>densita' bassissima</strong>.</p>
+<p><em><strong>Nota:</strong> questa e' la chiave di lettura di tutta la seconda meta' del corso.<br />
+Fotosfera stellare e nebulosa hanno la <strong>stessa temperatura</strong>, circa $10^4$ K. Quello che le separa<br />
+sono <strong>dieci ordini di grandezza di densita'</strong>. Ogni volta che nel corso succede qualcosa di<br />
+apparentemente assurdo, la risposta e' quasi sempre "perche' li' il gas e' rarefatto".</em></p>
+<blockquote>
+<p><strong>Questo problema, e tutto quello che ne discende, sono i capitoli dal 5 al 9.</strong></p>
+</blockquote>
+<hr />
+<h2>5. Le due metà del corso, messe in tabella</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>fotosfera stellare</th>
+<th>nebulosa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>temperatura</td>
+<td>~$10^4$ K</td>
+<td>~$10^4$ K</td>
+</tr>
+<tr>
+<td>densita' elettronica</td>
+<td>~$10^{14}$ cm$^{-3}$</td>
+<td>$10^2 - 10^4$ cm$^{-3}$</td>
+</tr>
+<tr>
+<td>collisioni</td>
+<td>continue</td>
+<td>rarissime</td>
+</tr>
+<tr>
+<td>chi comanda le popolazioni</td>
+<td>Boltzmann e Saha (siamo in <strong>LTE</strong>)</td>
+<td>il bilancio fatto a mano (<strong>non</strong> siamo in LTE)</td>
+</tr>
+<tr>
+<td>cosa vedi</td>
+<td>righe in <strong>assorbimento</strong></td>
+<td>righe in <strong>emissione</strong></td>
+</tr>
+<tr>
+<td>capitoli</td>
+<td>2, 3, 4</td>
+<td>5, 6, 7, 8, 9</td>
+</tr>
+</tbody>
+</table>
+<p>Le due colonne sono identiche in temperatura e diversissime in densita'. Tenere presente questa<br />
+tabella vale piu' di meta' del corso.</p>
+<hr />
+<h2>6. Cosa si impara a fare, alla fine</h2>
+<p>Vale la pena dire dove si va a parare, se no i capitoli in mezzo sembrano scollegati. Alla fine del<br />
+corso, guardando lo spettro di un gas che non vedrai mai da vicino, sai tirare fuori:</p>
+<table>
+<thead>
+<tr>
+<th>cosa misuri</th>
+<th>come</th>
+<th>capitolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>di che elementi e' fatto</td>
+<td>dove cadono le righe</td>
+<td>tutto</td>
+</tr>
+<tr>
+<td>la <strong>temperatura</strong> della nebulosa</td>
+<td>rapporto fra due righe di [O III]</td>
+<td>5.7</td>
+</tr>
+<tr>
+<td>la <strong>densita'</strong> della nebulosa</td>
+<td>rapporto fra due righe di [S II]</td>
+<td>5.7</td>
+</tr>
+<tr>
+<td>quanta <strong>polvere</strong> c'e' davanti</td>
+<td>decremento di Balmer, 2.86</td>
+<td>5.6</td>
+</tr>
+<tr>
+<td>la <strong>densita'</strong> di una fotosfera</td>
+<td>quanto sono larghe le righe</td>
+<td>4</td>
+</tr>
+<tr>
+<td>la <strong>velocita' di rotazione</strong> di una stella</td>
+<td>quanto sono larghe le righe</td>
+<td>4</td>
+</tr>
+<tr>
+<td>quanto e' <strong>grande</strong> la zona ionizzata</td>
+<td>raggio di Stromgren</td>
+<td>8</td>
+</tr>
+<tr>
+<td>la <strong>temperatura della stella</strong> che illumina</td>
+<td>come sono stratificati gli ioni</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>Tutti questi trucchi hanno la stessa struttura, ed e' bene riconoscerla subito: <strong>si fa il rapporto<br />
+fra due righe che escono dallo stesso posto</strong>, cosi' tutto quello che dipende da quanto e' grande,<br />
+quanto e' densa e quanto e' lontana la sorgente <strong>si semplifica</strong>, e resta solo la fisica.</p>
+<hr />
+<h2>Domande tattiche</h2>
+<p>Provaci prima, poi vai a vedere.</p>
+<p><strong>1.</strong> Comte diceva che non avremmo mai saputo di cosa sono fatte le stelle, e si sbagliava. Che<br />
+cosa, esattamente, non aveva previsto? (-&gt; sezione 2)</p>
+<p><strong>2.</strong> Una nebulosa e una fotosfera stellare stanno tutte e due a $10^4$ K e sono fatte piu' o meno<br />
+degli stessi elementi. Come mai una la vedi in emissione e l' altra in assorbimento? (-&gt; sezioni 4<br />
+e 5)</p>
+<p><strong>3.</strong> Ti dicono che in una certa nube di gas si vede benissimo la riga verde a 5007 A. Senza fare<br />
+nessun conto, cosa puoi gia' dire di quella nube? (-&gt; sezione 4)</p>
+<p><strong>4.</strong> Le righe di Balmer sono fortissime nelle A0 e deboli nelle O. Uno studente conclude che le<br />
+stelle A0 hanno piu' idrogeno delle O. Dov' e' l' errore, e come glielo spieghi in due frasi?<br />
+(-&gt; sezione 3)</p>
+<p><strong>5.</strong> Tutti i metodi di misura elencati nella sezione 6 hanno una cosa in comune. Quale, e perche'<br />
+quella cosa e' cosi' importante? (-&gt; sezione 6)</p>
+<div class="piedi"><a href="index.html">&larr; Compendio di Astronomical Spectroscopy</a><a class="avanti" href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca &rarr;</a></div>
+</main>
+</div></body></html>

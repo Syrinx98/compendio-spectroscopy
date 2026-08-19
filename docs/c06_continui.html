@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 - I continui</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html" class="qui">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>6 - I continui</h1>
+<p><strong>Dispensa: cap. 6 (pag. 79-92).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong>, ma corti: c'e' una regola madre e tre casi che le obbediscono.<br />
+Il pezzo delicato e' il gradino, e li' si va piano.</em></p>
+<p>Fin qui si sono guardate le righe. Ma in uno spettro, sotto le righe, c'e' sempre un <strong>continuo</strong>:<br />
+emissione a tutte le lunghezze d' onda, senza salti.</p>
+<p>Da dove viene?</p>
+<hr />
+<h2>1. La regola madre</h2>
+<p>Tutto il capitolo sta in una riga:</p>
+<p>$$\text{elettrone legato} \rightarrow \text{riga} \qquad\qquad \text{elettrone libero} \rightarrow \text{continuo}$$</p>
+<p><strong>Perche'</strong>: se l' elettrone e' attaccato all' atomo puo' stare solo su livelli discreti, quindi i<br />
+salti sono discreti e quello che esce sono righe.</p>
+<p>Se invece e' <strong>libero</strong>, la sua energia cinetica puo' valere qualsiasi cosa (segue Maxwell-Boltzmann<br />
+e dipende da $T_e$). Quindi i fotoni che escono possono avere qualsiasi energia: viene fuori un<br />
+continuo.</p>
+<p><em><strong>Da ricordare:</strong> questa regola risolve da sola meta' delle domande sul capitolo. Se<br />
+ti chiedono da dove viene un continuo, la risposta comincia sempre con "c'e' un elettrone libero in<br />
+gioco".</em></p>
+<hr />
+<h3>1.1 Chi è che irraggia</h3>
+<p>Sempre e solo l' <strong>elettrone</strong>. Il nucleo, in pratica, non irraggia.</p>
+<p>Il motivo e' il rapporto di massa. Il protone pesa 1836 volte l' elettrone, quindi a parita' di<br />
+forza sente un' accelerazione 1836 volte piu' piccola. E la potenza irraggiata va come<br />
+l' accelerazione <strong>al quadrato</strong> (formula di Larmor), quindi il protone irraggia un fattore<br />
+$\sim 3 \times 10^6$ in meno.</p>
+<p>I nuclei fanno da <strong>sorgente di campo elettrico</strong> e restano li' praticamente fermi.</p>
+<hr />
+<h2>2. Come si ordinano i tre casi</h2>
+<p>Il modo piu' pulito di tenerli a mente e' guardare <strong>com'e' l' elettrone prima e dopo</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>processo</th>
+<th>prima</th>
+<th>dopo</th>
+<th>continuo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>free-free</strong></td>
+<td>libero</td>
+<td>libero</td>
+<td>liscio, nessuna soglia</td>
+</tr>
+<tr>
+<td><strong>free-bound</strong></td>
+<td>libero</td>
+<td>legato</td>
+<td><strong>con gradini</strong></td>
+</tr>
+<tr>
+<td><strong>sincrotrone</strong></td>
+<td>libero</td>
+<td>libero</td>
+<td>legge di potenza, non termico</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Free-free (bremsstrahlung)</h2>
+<p>L' elettrone libero passa vicino a uno ione. Il campo dello ione lo devia e lo frena, lui perde un<br />
+pezzo di energia cinetica e la butta fuori come fotone.</p>
+<p>Prima era libero, dopo e' ancora libero: cambia solo la velocita'.</p>
+<p><strong>Perche' e' liscio</strong>: l' energia persa nella deviazione puo' essere qualunque, dipende da quanto<br />
+vicino ci passa e da quanto andava veloce. Quindi non ci sono ne' soglie ne' gradini.</p>
+<hr />
+<h3>3.1 Il taglio ad alta frequenza</h3>
+<p>C'e' pero' un limite ovvio: <strong>un elettrone non puo' emettere un fotone piu' energetico della sua<br />
+energia cinetica.</strong></p>
+<p>$$\frac{1}{2} m_e v^2 \geq h\nu$$</p>
+<p>Integrando su una maxwelliana con quel vincolo, viene fuori un esponenziale:</p>
+<p>$$\varepsilon_{ff} \propto \frac{N_e N_i}{T_e^{1/2}} \, g_{ff} \, e^{-h\nu / k_B T_e}$$</p>
+<p>$g_{ff}$ $\quad$ fattore di Gaunt, una correzione quantistica, sta intorno a 1.2-1.5</p>
+<p>L' esponenziale dice che sopra $k_B T_e$ il continuo crolla: gli elettroni non hanno abbastanza<br />
+energia per fare quei fotoni.</p>
+<hr />
+<h3>3.2 Le dipendenze, che sono due formule diverse</h3>
+<p>Qui e' facile fare confusione, quindi separiamo:</p>
+<p><strong>monocromatica</strong> (a una data $\nu$): va come $N_e^2$ e come $T_e^{-1/2}$, ma c'e' anche<br />
+l' esponenziale che <strong>cresce</strong> con $T_e$. In un certo intervallo l' esponenziale vince, e<br />
+$\varepsilon_{ff}$ sale con la temperatura.</p>
+<p><strong>integrata</strong> su tutte le frequenze: l' esponenziale e' gia' stato integrato via e resta</p>
+<p>$$\varepsilon_{ff} \propto N_e N_i \, T_e^{1/2}$$</p>
+<p>Cioe' il segno dell' esponente di $T_e$ <strong>si rovescia</strong> fra le due. Vale la pena sapere di quale<br />
+delle due si sta parlando.</p>
+<hr />
+<h3>3.3 Nel radio</h3>
+<p>Il free-free e' un processo <strong>puramente collisionale</strong>, quindi siamo in LTE e vale<br />
+$\varepsilon_{ff} = k_{ff} B_\nu(T_e)$.</p>
+<p>Nel radio ($h\nu \ll k_B T_e$) la profondita' ottica va come</p>
+<p>$$\tau_{ff} \propto T_e^{-1.35} \, \nu^{-2.1} \, EM$$</p>
+<p>dove $EM = \int N_e N_i \, dr$ e' l' <strong>emission measure</strong>.</p>
+<p>L' esponente negativo su $\nu$ dice che <strong>a frequenza bassa il gas diventa opaco</strong>. Una nube tipica<br />
+diventa otticamente spessa sotto qualche centinaio di MHz, e i due regimi danno cose diverse:</p>
+<table>
+<thead>
+<tr>
+<th>regime</th>
+<th>andamento</th>
+<th>cosa ci tiri fuori</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\tau \ll 1$ (sopra ~1 GHz)</td>
+<td>$I_\nu \propto T_e^{-0.35} \nu^{-0.1}$, quasi piatto</td>
+<td>la <strong>densita' elettronica</strong></td>
+</tr>
+<tr>
+<td>$\tau \gg 1$ (sotto ~1 GHz)</td>
+<td>$I_\nu \propto T_e \, \nu^2$</td>
+<td>la <strong>temperatura</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Free-bound (continuo di ricombinazione)</h2>
+<p>Qui l' elettrone libero viene <strong>catturato</strong> da uno ione e finisce legato su un livello $n$. E' il<br />
+contrario esatto della fotoionizzazione.</p>
+<p>E' lo stesso processo di cui si parla nel <a href="c055_ricombinazione.html">capitolo 5.5</a>: li' interessava la<br />
+<strong>cascata</strong>, qui interessa il fotone della <strong>cattura</strong>.</p>
+<p>$$h\nu = E_{cin} + \frac{13.6}{n^2} \; eV$$</p>
+<hr />
+<h3>4.1 Perché ha i gradini e il free-free no</h3>
+<p>E' la differenza chiave fra i due, quindi la scrivo lenta.</p>
+<p>$E_{cin}$ puo' essere qualsiasi cosa, <strong>ma non puo' essere negativa</strong>. Quindi anche se l' elettrone<br />
+arriva fermissimo, il fotone vale almeno $13.6/n^2$.</p>
+<blockquote>
+<p>ogni livello $n$ ha la sua <strong>energia minima</strong>, e sotto quella soglia le catture su quel livello<br />
+non producono niente.</p>
+</blockquote>
+<p>Quindi il continuo di ricombinazione non e' liscio: e' fatto di pezzi che si accendono uno alla<br />
+volta.</p>
+<table>
+<thead>
+<tr>
+<th>$n$</th>
+<th>$\chi_n$</th>
+<th>$\lambda$ della soglia</th>
+<th>serie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>13.6 eV</td>
+<td>912 A</td>
+<td>Lyman</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.4 eV</td>
+<td><strong>3648 A</strong></td>
+<td>Balmer</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5 eV</td>
+<td>8208 A</td>
+<td>Paschen</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>4.2 Come si legge un gradino</h3>
+<p>Prendi il salto di Balmer, a 3648 A, e arrivaci <strong>da destra</strong>, cioe' da lunghezze d' onda piu'<br />
+lunghe (fotoni meno energetici):</p>
+<ul>
+<li><strong>a 4000 A</strong>: le catture su $n=2$ non possono contribuire, sono troppo poco energetiche.<br />
+  Contribuiscono solo $n=3$ e oltre.</li>
+<li><strong>a 3600 A</strong>: si aggiungono <strong>tutte</strong> le catture su $n=2$, che sono tantissime.</li>
+</ul>
+<p>Un canale nuovo si apre di colpo, e l' emissione <strong>salta su</strong>. Quello e' il gradino.</p>
+<p><img alt="" src="data/continui_gradini.png" /></p>
+<p><em><strong>Da tenere:</strong> il gradino sembra un difetto del grafico e invece e' roba da<br />
+leggere. La sua posizione ti<br />
+dice quale livello si e' aperto, e la sua altezza quanto quel livello viene popolato. E' il modo in<br />
+cui il continuo si porta dietro la struttura discreta dell' atomo.</em></p>
+<hr />
+<h3>4.3 Chi vince fra free-free e free-bound</h3>
+<p>Nelle nebulose vince <strong>la ricombinazione</strong>, e c'e' un numero preciso: il free-free supera il<br />
+free-bound solo sopra</p>
+<p>$$T_e > 3.15 \times 10^5 \; K$$</p>
+<p>Le nebulose stanno a $10^4$ K, cioe' una trentina di volte sotto. Quindi nel visibile e nell' UV il<br />
+continuo che vedi e' quello <strong>di ricombinazione</strong>.</p>
+<hr />
+<h3>4.4 Un risultato che serve dopo</h3>
+<p>La sezione d' urto di ricombinazione va come $1/v^2$: <strong>ricombinano preferenzialmente gli elettroni<br />
+lenti</strong>, mentre la fotoionizzazione ne libera di veloci.</p>
+<p>Conseguenza: anche in equilibrio di ionizzazione, con tante ionizzazioni quante ricombinazioni, il<br />
+bilancio energetico netto e' un <strong>riscaldamento del gas</strong>. Serve nel<br />
+<a href="c09_equilibrio_termico.html">capitolo 9</a>.</p>
+<hr />
+<h2>5. Il continuo a due fotoni</h2>
+<p>C'e' un terzo continuo, tipico delle nebulose, e nasce da una transizione proibita.</p>
+<p>L' idrogeno che finisce sul livello <strong>2s</strong> non puo' scendere a 1s emettendo un fotone solo: quella<br />
+transizione e' proibita. Quello che fa e' emettere <strong>due fotoni</strong> che si spartiscono i 10.2 eV in<br />
+tutti i modi possibili.</p>
+<p>Siccome la ripartizione e' continua, quello che ne esce e' un <strong>continuo largo</strong> sotto 1216 A.</p>
+<p><em><strong>Qui si nota una cosa:</strong> e' un altro caso in cui il gas rarefatto fa vedere qualcosa che<br />
+altrove non si vedrebbe. A densita' alta il 2s verrebbe spostato per urto prima di riuscire a<br />
+fare il doppio decadimento, quindi questo continuo si spegnerebbe. Stessa logica delle righe<br />
+proibite del <a href="c057_righe_proibite.html">capitolo 5.7</a>.</em></p>
+<hr />
+<h2>6. Sincrotrone</h2>
+<p>Caso completamente diverso dagli altri: qui non serve nessuno ione, serve un <strong>campo magnetico</strong>.</p>
+<p>Elettroni <strong>relativistici</strong> dentro un campo $B$: la forza di Lorentz li fa spiralare attorno alle<br />
+linee di campo, e una carica accelerata irraggia.</p>
+<p>$$\nu_c = \frac{3}{2} \frac{\gamma^2 e B \sin\theta}{2\pi m_e} \propto E^2 B$$</p>
+<p>$\nu_c$ $\quad$ frequenza critica, dove il singolo elettrone emette quasi tutto</p>
+<p>$\theta$ $\quad$ pitch angle, l' angolo fra la velocita' e il campo</p>
+<p>L' emissione esce in un <strong>cono</strong> di semiapertura $1/\gamma$: piu' l' elettrone e' veloce, piu' il<br />
+fascio e' stretto.</p>
+<hr />
+<h3>6.1 Perché viene una legge di potenza</h3>
+<p>Il singolo elettrone da solo non basta: bisogna sommare su tutta la popolazione. E si assume che<br />
+gli elettroni abbiano una distribuzione in energia a legge di potenza (come i raggi cosmici):</p>
+<p>$$N_e(E) \, dE = k E^{-s} \, dE$$</p>
+<p>Mettendo insieme questo con $\nu_c \propto E^2 B$ si arriva a:</p>
+<p>$$I_{syn} \propto \nu^{-\alpha}, \qquad \alpha = \frac{s-1}{2}$$</p>
+<p>$s$ $\quad$ indice della distribuzione in energia degli elettroni</p>
+<p>$\alpha$ $\quad$ indice spettrale: ~0.5 per i resti di supernova, 0.5-2 per le radiosorgenti estese</p>
+<hr />
+<h3>6.2 Come si riconosce a occhio</h3>
+<p><strong>Va disegnato in log-log.</strong> Una legge di potenza in log-log diventa una <strong>retta</strong>, di pendenza<br />
+$-\alpha$.</p>
+<p>E' il modo per distinguerlo al volo da un continuo termico, che in log-log non e' una retta.</p>
+<p><em><strong>Nota:</strong> il sincrotrone e' <strong>non termico</strong>, e questa e' la differenza vera<br />
+con gli altri due. Free-free e free-bound nascono da elettroni con una distribuzione maxwelliana,<br />
+cioe' da un gas che ha una temperatura. Il sincrotrone nasce da elettroni accelerati da qualcos'<br />
+altro (shock, campi magnetici), che una temperatura non ce l' hanno. Per quello lo spettro ha una<br />
+forma completamente diversa.</em></p>
+<hr />
+<h2>7. In breve</h2>
+<ul>
+<li><strong>legato -&gt; riga, libero -&gt; continuo</strong></li>
+<li>irraggia sempre l' <strong>elettrone</strong>, perche' il protone e' 1836 volte piu' pesante e la potenza va<br />
+  come $a^2$</li>
+<li><strong>free-free</strong>: libero prima e dopo, continuo <strong>liscio</strong>, termico, in LTE, importante nel radio</li>
+<li><strong>free-bound</strong>: libero prima e legato dopo, quindi c'e' un' energia <strong>minima</strong> $13.6/n^2$ e il<br />
+  continuo ha i <strong>gradini</strong> (912, 3648, 8208 A)</li>
+<li>nelle nebulose a $10^4$ K <strong>domina il free-bound</strong>: il free-free vincerebbe solo sopra<br />
+  $3 \times 10^5$ K</li>
+<li><strong>due fotoni</strong>: dal 2s dell' idrogeno, continuo largo, tipico del gas rarefatto</li>
+<li><strong>sincrotrone</strong>: elettroni relativistici in campo magnetico, <strong>non termico</strong>, $I \propto<br />
+  \nu^{-\alpha}$ con $\alpha = (s-1)/2$, retta in log-log</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Perche' un elettrone libero fa un continuo e uno legato fa una riga? Deve venire dalla<br />
+regola madre, in una frase. (-&gt; sezione 1)</p>
+<p><strong>2.</strong> Il free-free e' liscio, il free-bound ha i gradini. Eppure in tutti e due c'e' un elettrone<br />
+libero. Da dove salta fuori la differenza? (-&gt; sezione 4.1)</p>
+<p><strong>3.</strong> Ti trovi a 4000 A e ti sposti verso 3600 A. L' emissione salta su. Cosa e' successo<br />
+esattamente in quel punto? (-&gt; sezione 4.2)</p>
+<p><strong>4.</strong> In una nebulosa a $10^4$ K, quale dei due continui domina nel visibile? E a che temperatura<br />
+si invertirebbe? (-&gt; sezione 4.3)</p>
+<p><strong>5.</strong> Guardi uno spettro in log-log e vedi una retta. Cosa hai davanti, e perche' quella forma<br />
+esclude gli altri due processi? (-&gt; sezioni 6.1 e 6.2)</p>
+<p><strong>6.</strong> Il continuo a due fotoni si vede nelle nebulose e non in laboratorio. La ragione e' la<br />
+stessa di un altro capitolo: quale, e perche'? (-&gt; sezione 5, e<br />
+<a href="c057_righe_proibite.html">capitolo 5.7</a>)</p>
+<p><strong>7.</strong> Perche' il nucleo dell' atomo non contribuisce quasi per niente all' emissione? Il conto e'<br />
+di una riga. (-&gt; sezione 1.1)</p>
+<div class="piedi"><a href="c057_righe_proibite.html">&larr; 5.7 - Righe proibite: perche' esistono e come si usano</a><a class="avanti" href="c07_ionizzazione.html">7 - Sezione d' urto ed equilibrio di ionizzazione &rarr;</a></div>
+</main>
+</div></body></html>

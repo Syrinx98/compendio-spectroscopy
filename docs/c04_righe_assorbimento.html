@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 - Righe in assorbimento: quanto e' forte e quanto e' larga</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html" class="qui">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>4 - Righe in assorbimento: quanto e' forte e quanto e' larga</h1>
+<p><strong>Dispensa: cap. 4 (pag. 41-52).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong>. Non c'e' un ragionamento unico da difendere: ci sono sei o sette cose<br />
+diverse da posare una sull' altra, e si prendono una per volta.</em></p>
+<p>Dal <a href="c03_trasporto.html">capitolo 3</a> sappiamo <strong>perche'</strong> in una stella le righe sono scure. Adesso<br />
+le guardiamo da vicino, e ci sono due domande diverse da fare, che vanno tenute ben separate:</p>
+<ol>
+<li><strong>quanta luce manca?</strong> $\rightarrow$ larghezza equivalente (EW)</li>
+<li><strong>quanto e' larga la riga?</strong> $\rightarrow$ FWHM e i meccanismi di allargamento</li>
+</ol>
+<p>Sono due cose indipendenti. Una riga puo' togliere tanta luce restando stretta, oppure toglierne<br />
+poca essendo larghissima.</p>
+<hr />
+<h2>1. Quanta luce manca</h2>
+<p>Voglio un numero che dica quanto una riga e' forte. Ma quale numero?</p>
+<p>La <strong>profondita'</strong> del minimo non va bene: dipende da quanto e' larga la riga e soprattutto da<br />
+quanto e' buono lo spettrografo. Uno strumento con poca risoluzione mi spalma la riga e me la fa<br />
+sembrare meno profonda, pur essendo la stessa identica riga.</p>
+<p>Serve una misura che sia <strong>robusta rispetto allo strumento</strong>.</p>
+<hr />
+<h3>1.1 L'idea</h3>
+<p>Invece di misurare quanto e' profonda, misuro <strong>quanta luce manca in totale</strong>: prendo tutta l' area<br />
+fra il continuo e la riga.</p>
+<p>$$EW = \frac{1}{\bar{I_c}} \int_{\lambda_1}^{\lambda_2} \left( \bar{I_c} - I_\lambda \right) d\lambda$$</p>
+<p>$\bar{I_c}$ $\quad$ il livello del continuo, cioe' quanta luce ci sarebbe se la riga non ci fosse.<br />
+Si misura facendo la media dei punti a destra e a sinistra della riga.</p>
+<p>$(\bar{I_c} - I_\lambda)$ $\quad$ quanto manca, punto per punto</p>
+<p>$\lambda_1, \lambda_2$ $\quad$ dove decido io che la riga comincia e finisce</p>
+<p>Dividendo per il continuo il risultato viene in <strong>Angstrom</strong>, ed e' un' area normalizzata.</p>
+<hr />
+<h3>1.2 Perché si chiama "larghezza"</h3>
+<p>Il nome viene da come si legge il risultato:</p>
+<blockquote>
+<p>la EW e' la larghezza di un rettangolo <strong>completamente nero</strong>, alto quanto il continuo, che<br />
+toglierebbe esattamente la stessa quantita' di luce della riga vera.</p>
+</blockquote>
+<p>Cioe': prendo tutta la luce che manca, sparsa su un profilo che sale e scende, e la impacchetto in<br />
+un rettangolo. La base di quel rettangolo e' la EW.</p>
+<p><img alt="" src="data/ew_rettangolo.png" /></p>
+<p><em><strong>Nota subito così de botto:</strong> ecco perche' e' robusta. Se lo strumento mi allarga la riga, la<br />
+riga diventa piu' bassa ma anche piu' larga, e <strong>l' area non cambia</strong>. La EW misura una proprieta'<br />
+del gas, non dello spettrografo.</em></p>
+<hr />
+<h3>1.3 Come si calcola sui dati</h3>
+<p>Nella pratica lo spettro e' un vettore di numeri, quindi l' integrale diventa una somma:</p>
+<p>$$EW = \frac{\sum_i \left( \bar{I_c} - I_i \right) \Delta\lambda}{\bar{I_c}}$$</p>
+<p>$\Delta\lambda$ $\quad$ il passo di campionamento dello spettro</p>
+<hr />
+<h3>1.4 Esempio numerico</h3>
+<p>Ho questo vettore di flusso, con passo $\Delta\lambda = 1$ A:</p>
+<p>$$100 \quad 100 \quad 60 \quad 40 \quad 60 \quad 100 \quad 100$$</p>
+<p>Decido che la riga va dall' indice 2 (il primo 60) all' indice 4 (il secondo 60).</p>
+<p><strong>Il continuo</strong>: media dei punti fuori dalla riga</p>
+<p>$$\bar{I_c} = \frac{100 + 100 + 100 + 100}{4} = 100$$</p>
+<p><strong>Quello che manca</strong>: punto per punto, quanto sta sotto il continuo</p>
+<p>$$(100-60) + (100-40) + (100-60) = 40 + 60 + 40 = 140$$</p>
+<p><strong>La EW</strong>:</p>
+<p>$$EW = \frac{140}{100} \times 1 \, \unicode{xC5} = 1.4 \; \unicode{xC5}$$</p>
+<p>Vuol dire: quella riga toglie la stessa luce che toglierebbe una banda nera larga 1.4 A.</p>
+<hr />
+<h2>2. Quanto e' larga</h2>
+<p>Una riga non e' mai una linea sottile: ha sempre una larghezza. La misura che si usa e' la<br />
+<strong>FWHM</strong>, la larghezza a meta' altezza.</p>
+<p>La domanda e': da dove viene quella larghezza?</p>
+<p>E' una domanda che si ribalta subito: <strong>misurando la larghezza si<br />
+risale alle proprieta' del gas</strong>. E' cosi' che si misurano temperature, densita' e velocita' di<br />
+rotazione di stelle che non vedremo mai da vicino.</p>
+<p><em><strong>Attenzione a non confonderla con la EW:</strong> la EW dice quanta luce manca, la FWHM dice quanto e'<br />
+larga la riga. Sono due misure diverse che non si implicano a vicenda.</em></p>
+<hr />
+<h3>2.1 I cinque meccanismi, in colpo d'occhio</h3>
+<p>Sono cinque e vanno imparati come lista chiusa. Prima la struttura, poi uno per uno:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>meccanismo</th>
+<th>profilo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>due <strong>lorentziani</strong></td>
+<td>naturale, collisionale</td>
+<td>picco stretto, ali larghe</td>
+</tr>
+<tr>
+<td>due <strong>gaussiani</strong></td>
+<td>Doppler termico, microturbolenza</td>
+<td>campana, ali che crollano</td>
+</tr>
+<tr>
+<td>uno <strong>geometrico</strong></td>
+<td>rotazionale</td>
+<td>semiellisse</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2.2 Allargamento naturale (lorentziano)</h3>
+<p>E' l' unico che c'e' <strong>sempre</strong>, anche con un singolo atomo fermo e isolato nel vuoto.</p>
+<p>Un livello eccitato ha vita media finita, $\Delta t \simeq 1/A$. Per il principio di<br />
+indeterminazione, un livello che dura poco ha un' energia mal definita:</p>
+<p>$$\Delta E \, \Delta t \simeq \hbar \quad \rightarrow \quad \Delta \nu = \frac{1}{2 \pi \Delta t}$$</p>
+<p>Il classico dice la stessa cosa: l' atomo e' un <strong>oscillatore smorzato</strong>, l' onda che emette non<br />
+dura per sempre ma si spegne con costante di tempo $\tau = 1/A$, e un treno d' onda che non dura<br />
+per sempre non ha una frequenza sola.</p>
+<p>$$\text{FWHM}(\lambda) \simeq 1.18 \times 10^{-4} \; \unicode{xC5}$$</p>
+<p><em><strong>Occhio:</strong> in lunghezza d' onda viene un numero <strong>costante</strong>, che non dipende<br />
+da quale riga stai guardando. Ed e' piccolissimo: $10^{-4}$ A e' il piu' piccolo di tutti, non lo<br />
+risolvi mai in uno spettro astrofisico. C'e' sempre, ma non lo vedi mai da solo.</em></p>
+<p>Collegamento in avanti: un livello <strong>metastabile</strong> ha $A$ piccolissimo, quindi vita lunghissima,<br />
+quindi riga naturale ancora piu' stretta. Vedi il <a href="c057_righe_proibite.html">capitolo 5.7</a>.</p>
+<hr />
+<h3>2.3 Doppler termico (gaussiano)</h3>
+<p>Gli atomi del gas si agitano. Ognuno emette alla sua frequenza esatta, ma si sta muovendo rispetto<br />
+a me, quindi io la vedo spostata:</p>
+<p>$$\nu = \nu_0 \left( 1 + \frac{v}{c} \right)$$</p>
+<p>Chi viene verso di me la manda nel blu, chi scappa nel rosso. Siccome le velocita' seguono<br />
+Maxwell-Boltzmann, la riga risultante e' una <strong>gaussiana</strong>:</p>
+<p>$$v_{th} = \sqrt{\frac{2 k_B T}{m}}$$</p>
+<p><strong>Va come $\sqrt{T/m}$: caldo allarga, pesante stringe.</strong></p>
+<table>
+<thead>
+<tr>
+<th>dove</th>
+<th>elemento</th>
+<th>$v_{th}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sole, $T \simeq 5800$ K</td>
+<td>idrogeno</td>
+<td>~9.8 km/s</td>
+</tr>
+<tr>
+<td>nebulosa, $T \simeq 10^4$ K</td>
+<td>idrogeno</td>
+<td><strong>~13 km/s</strong></td>
+</tr>
+<tr>
+<td>nebulosa, $T \simeq 10^4$ K</td>
+<td>ferro ($A=56$)</td>
+<td>13/$\sqrt{56}$ ~ 1.7 km/s</td>
+</tr>
+</tbody>
+</table>
+<p>Per passare da un elemento all' altro basta <strong>dividere per $\sqrt{A}$</strong>.</p>
+<hr />
+<h3>2.4 Microturbolenza (gaussiano)</h3>
+<p>Stessa geometria del Doppler termico, ma quello che si muove non e' il singolo atomo: sono<br />
+<strong>celle di gas intere</strong>, piu' piccole del libero cammino medio del fotone. Il fotone attraversa la<br />
+cella e la vede muoversi tutta insieme.</p>
+<p>Anche questa e' gaussiana, e si somma al termico <strong>in quadratura</strong>:</p>
+<p>$$\Delta \nu = \frac{\nu_0}{c} \sqrt{\frac{2 k_B T}{m} + v_{turb}^2}$$</p>
+<p><em><strong>In pratica:</strong> la microturbolenza <strong>non dipende dalla massa</strong>, perche' a muoversi<br />
+e' la cella intera e non l' atomo. E la cosa serve, perche' e' cosi' che si separano i due<br />
+contributi. Se guardo due elementi di massa molto diversa nello stesso spettro, il termico li<br />
+allarga in modo diverso e la turbolenza li allarga uguale. Due equazioni, due incognite, e tiro<br />
+fuori sia $T$ che $v_{turb}$.</em></p>
+<hr />
+<h3>2.5 Collisionale, o di pressione (lorentziano)</h3>
+<p>Se il gas e' abbastanza denso, gli atomi si urtano. Ogni urto <strong>tronca il treno d' onda</strong>, che e'<br />
+esattamente la stessa fisica dell' allargamento naturale: la vita del livello si accorcia, solo che<br />
+stavolta e' l' urto ad accorciarla invece del decadimento spontaneo.</p>
+<p>Per questo il profilo torna ad essere una <strong>lorentziana</strong>.</p>
+<p>Dipende da:</p>
+<ul>
+<li><strong>la densita' (o pressione) del gas</strong>: piu' urti al secondo</li>
+<li>la sezione d' urto del processo collisionale</li>
+<li>la velocita' termica</li>
+</ul>
+<p><em><strong>Da ricordare:</strong> ecco a cosa serve. E' un misuratore di densita', e da li' esce la<br />
+classificazione delle <strong>classi di luminosita' MK</strong>. Una <strong>nana</strong> ha gravita' superficiale alta,<br />
+atmosfera densa e compatta $\rightarrow$ righe <strong>larghe</strong>. Una <strong>gigante</strong> ha atmosfera rarefatta<br />
+$\rightarrow$ le stesse righe escono <strong>strette</strong>. Guardando la larghezza delle righe distinguo I,<br />
+III e V a parita' di tipo spettrale.</em></p>
+<p>Occhio a questo, che e' l' errore facile: l' urto <strong>non toglie energia al fotone</strong>. La riga resta<br />
+centrata dov' era e si allarga da tutte e due le parti. Quello che cambia e' che l' energia diventa<br />
+meno definita.</p>
+<hr />
+<h3>2.6 Rotazionale (semiellisse)</h3>
+<p>L' unico <strong>geometrico</strong>, e va capito che e' di natura diversa dagli altri quattro.</p>
+<p>La stella ruota. Un lembo del disco viene verso di me, l' altro scappa. Ogni singolo punto della<br />
+superficie emette una riga <strong>stretta</strong>, solo spostata di un po'. Il fatto e' che io il disco<br />
+stellare <strong>non lo risolvo</strong>: mi arriva tutto sommato in un unico spettro, e la somma di tante righe<br />
+strette spostate diversamente e' una riga larga.</p>
+<p>$$\frac{\Delta\lambda}{\lambda}\bigg|_{max} = \frac{V \sin i}{c}$$</p>
+<p>$V$ $\quad$ velocita' di rotazione all' equatore</p>
+<p>$i$ $\quad$ angolo fra l' asse di rotazione e la linea di vista</p>
+<p>Il $\sin i$ c'e' perche' l' inclinazione dell' asse non la conosco: se la stella la vedo <strong>di<br />
+polo</strong> ($i = 0$) la rotazione non allarga niente, perche' nessun punto si avvicina o si allontana.<br />
+Quindi non misuro mai $V$, misuro sempre e solo $V \sin i$.</p>
+<p>Il profilo e' una <strong>semiellisse</strong>, e viene fuori dal fatto che l' intensita' di ogni striscia<br />
+verticale del disco e' proporzionale alla lunghezza della corda.</p>
+<table>
+<thead>
+<tr>
+<th>tipo</th>
+<th>$V \sin i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O, B, A</td>
+<td>100-200 km/s</td>
+</tr>
+<tr>
+<td>F</td>
+<td>~50 km/s</td>
+</tr>
+<tr>
+<td>G</td>
+<td>~10 km/s</td>
+</tr>
+<tr>
+<td>Sole</td>
+<td>~2 km/s</td>
+</tr>
+<tr>
+<td>Be/Oe peculiari</td>
+<td>250-400 km/s</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Mettendoli insieme: il profilo di Voigt</h2>
+<p>Nella realta' ci sono tutti insieme, e il profilo osservato e' la <strong>convoluzione</strong> dei gaussiani<br />
+coi lorentziani. Si chiama <strong>profilo di Voigt</strong>, e ha una forma caratteristica:</p>
+<blockquote>
+<p><strong>nucleo gaussiano, ali lorentziane.</strong></p>
+</blockquote>
+<hr />
+<h3>3.1 Perché viene fuori proprio così</h3>
+<p>Basta guardare come le due funzioni vanno a zero allontanandosi dal centro:</p>
+<p>$$\phi_{gauss} \propto e^{-\Delta^2} \qquad \qquad \phi_{lorentz} \propto \Delta^{-2}$$</p>
+<p>L' esponenziale crolla molto piu' in fretta di una potenza.</p>
+<p><strong>Vicino al centro</strong>: la gaussiana e' grossa e detta lei la forma.<br />
+<strong>Lontano dal centro</strong>: la gaussiana e' gia' sparita, e restano solo le ali lorentziane a reggere.</p>
+<p><img alt="" src="data/profili_voigt.png" /></p>
+<hr />
+<h3>3.2 Righe forti: il centro satura</h3>
+<p>Una cosa pratica da tenere a mente: nelle righe molto forti il centro <strong>si<br />
+satura</strong>, cioe' e' gia' completamente nero e non puo' andare piu' giu'.</p>
+<p>Quindi se aggiungo altri atomi assorbenti, la riga non puo' piu' approfondirsi: cresce <strong>in<br />
+larghezza</strong>, cioe' crescono le ali lorentziane. E' il regime in cui la EW smette di essere<br />
+proporzionale al numero di atomi e ricomincia a crescere solo lentamente.</p>
+<hr />
+<h2>4. In breve</h2>
+<p>Sulla EW:</p>
+<ul>
+<li>misura <strong>quanta luce manca</strong>, in Angstrom, ed e' l' area normalizzata della riga</li>
+<li>si legge come la larghezza di un rettangolo nero che toglie la stessa luce</li>
+<li>e' robusta rispetto allo strumento, perche' allargando la riga l' area non cambia</li>
+</ul>
+<p>Sugli allargamenti:</p>
+<table>
+<thead>
+<tr>
+<th>meccanismo</th>
+<th>causa</th>
+<th>profilo</th>
+<th>dipende da</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>naturale</td>
+<td>vita media finita, Heisenberg</td>
+<td>lorentziano</td>
+<td>$A$; ~$10^{-4}$ A, il piu' piccolo</td>
+</tr>
+<tr>
+<td>Doppler termico</td>
+<td>agitazione termica</td>
+<td>gaussiano</td>
+<td>$\sqrt{T/m}$; H a $10^4$ K = 13 km/s</td>
+</tr>
+<tr>
+<td>microturbolenza</td>
+<td>celle di gas</td>
+<td>gaussiano</td>
+<td>$v_{turb}$, <strong>non</strong> dalla massa</td>
+</tr>
+<tr>
+<td>collisionale</td>
+<td>urti che troncano il treno d' onda</td>
+<td>lorentziano</td>
+<td><strong>densita'</strong> $\rightarrow$ classi MK</td>
+</tr>
+<tr>
+<td>rotazionale</td>
+<td>rotazione della stella</td>
+<td>semiellisse</td>
+<td>$V \sin i / c$, unico geometrico</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>i due lorentziani sono <strong>la stessa fisica</strong>: vita del livello accorciata, una volta dalla natura e<br />
+  una volta dagli urti</li>
+<li>i due gaussiani si sommano <strong>in quadratura</strong> e si distinguono perche' solo il termico dipende<br />
+  dalla massa</li>
+<li>Voigt = nucleo gaussiano, ali lorentziane, perche' $e^{-\Delta^2}$ crolla prima di $\Delta^{-2}$</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Prendi lo stesso spettro e riosservalo con uno spettrografo peggiore, che risolve meno.<br />
+La EW cambia? E la FWHM? (-&gt; sezioni 1.2 e 2)</p>
+<p><strong>2.</strong> In una stella misuri la riga dell' idrogeno e quella del ferro. La riga dell' idrogeno e'<br />
+molto piu' larga. Puoi concludere che l' idrogeno e' piu' caldo del ferro? (-&gt; sezione 2.3)</p>
+<p><strong>3.</strong> Due stelle hanno lo stesso tipo spettrale, ma una ha le righe nettamente piu' larghe.<br />
+Quali due spiegazioni diverse ti vengono in mente, e come faresti a distinguerle? (-&gt; sezioni 2.5 e 2.6)</p>
+<p><strong>4.</strong> Ti dicono: "l' urto sposta la riga verso il rosso perche' il fotone perde energia". Dov' e'<br />
+l' errore? (-&gt; sezione 2.5)</p>
+<p><strong>5.</strong> Guardi due elementi di massa molto diversa nello stesso spettro e trovi che si allargano<br />
+esattamente uguale. Cosa vuol dire? (-&gt; sezione 2.4)</p>
+<p><strong>6.</strong> Una riga e' fortissima e il suo centro e' completamente nero. Aggiungi altri atomi<br />
+assorbenti sul cammino. Cosa cambia nel profilo, e perche' proprio li'? (-&gt; sezioni 3.1 e 3.2)</p>
+<div class="piedi"><a href="c03_trasporto.html">&larr; 3 - Trasporto radiativo: perche' una riga e' scura o luminosa</a><a class="avanti" href="c051_atomo_due_livelli.html">5.1-5.4 - Gas rarefatto: atomo a due livelli, densita' critica, quenching &rarr;</a></div>
+</main>
+</div></body></html>

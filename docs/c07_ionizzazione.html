@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7 - Sezione d' urto ed equilibrio di ionizzazione</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html" class="qui">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>7 - Sezione d' urto ed equilibrio di ionizzazione</h1>
+<p><strong>Dispensa: cap. 7 (pag. 93-98).</strong></p>
+<p><em>Prima meta' a <strong>mattoncini</strong> (la sezione d' urto e' uno strumento, e va costruito prima di<br />
+usarlo), seconda meta' in <strong>PODS</strong>: si scrive il bilancio completo e poi si butta via meta'<br />
+dei termini, ma spiegando ogni volta perche' si puo' fare.</em></p>
+<p>Questo capitolo risponde alla domanda:</p>
+<blockquote>
+<p>in una nebulosa, quanto idrogeno e' ionizzato e quanto e' ancora neutro?</p>
+</blockquote>
+<p>Nel <a href="c02_boltzmann_saha.html">capitolo 2</a> la risposta la dava Saha. Qui Saha <strong>non si puo' usare</strong>,<br />
+perche' vale in equilibrio termodinamico e in una nebulosa non ci siamo. Il bilancio va fatto a<br />
+mano, come nel <a href="c051_atomo_due_livelli.html">capitolo 5</a>.</p>
+<p>Ma prima serve uno strumento.</p>
+<hr />
+<h2>1. La sezione d' urto: cos'e'</h2>
+<p>La sezione d' urto $\sigma$ e' l' <strong>area efficace del bersaglio</strong>: quanto e' probabile che<br />
+l' interazione avvenga, tradotta in centimetri quadri.</p>
+<p>L' immagine da tenere: io fotone (o io elettrone) arrivo addosso a una nube. Ogni bersaglio si<br />
+porta dietro un <strong>dischetto</strong> di area $\sigma$. Se ci finisco dentro succede qualcosa, se ci passo<br />
+di fianco tiro dritto.</p>
+<p><em><strong>SIGNIFICATO FISICO:</strong> $\sigma$ si misura in cm$^2$ ma <strong>non e' la taglia geometrica<br />
+dell' atomo</strong>. E' quanto quell' atomo e' "grosso" <strong>per quel processo li'</strong>. Lo stesso atomo ha<br />
+$\sigma$ diverse per processi diversi, e per la fotoionizzazione cambia anche con l' energia del<br />
+fotone che arriva.</em></p>
+<hr />
+<h3>1.1 Un caso in cui coincide davvero con l' area</h3>
+<p>Per gli urti fra atomi di idrogeno neutri nel fondamentale si prende proprio il disco di Bohr:</p>
+<p>$$\sigma = \pi a_B^2 \simeq 0.88 \times 10^{-16} \; \text{cm}^2$$</p>
+<p>$a_B$ $\quad$ raggio di Bohr, $0.53 \times 10^{-8}$ cm</p>
+<p>Qui $\sigma$ e' davvero l' area dell' atomo, ma e' un caso particolare: sono due palline che si<br />
+urtano. Negli altri casi non e' cosi'.</p>
+<hr />
+<h2>2. Primo uso della sezione d' urto: opacita'</h2>
+<p>Se ho $N$ bersagli per cm$^3$ e ognuno mi offre $\sigma$ di area, in un centimetro di cammino<br />
+intercetto:</p>
+<p>$$k = N \sigma \qquad [\text{cm}^{-1}]$$</p>
+<p>ed e' proprio il coefficiente di assorbimento del <a href="c03_trasporto.html">capitolo 3</a>. Su uno spessore<br />
+$L$:</p>
+<p>$$\tau = N \sigma L$$</p>
+<p>Da cui una lettura molto utile:</p>
+<p>$$\tau = 1 \quad \Leftrightarrow \quad L = \frac{1}{N\sigma}$$</p>
+<p><strong>$\tau = 1$ vuol dire un' interazione a testa</strong>, e $1/(N\sigma)$ e' il <strong>libero cammino medio</strong>:<br />
+la distanza dopo la quale il fotone medio e' stato mangiato.</p>
+<hr />
+<h2>3. Secondo uso: rate collisionali</h2>
+<p>Nelle collisioni il bersaglio non sta fermo: ci arrivo addosso a velocita' $v$, e le velocita' sono<br />
+maxwelliane. Quindi non basta $\sigma$, serve la media del prodotto:</p>
+<p>$$Q = \langle \sigma v \rangle = \int_0^\infty v \, \sigma(v) \, f(v) \, dv \qquad [\text{cm}^3 \text{s}^{-1}]$$</p>
+<p><em><strong>Nota subito così de botto:</strong> le unita' lo spiegano da sole. cm$^2$ per cm/s fa cm$^3$/s, cioe'<br />
+<strong>il volume che il mio dischetto spazza in un secondo</strong>. Moltiplicato per la densita' dei partner<br />
+da' il numero di urti al secondo: $C = N Q$ in s$^{-1}$.</em></p>
+<p>Questo $Q$ e' esattamente quello che entra nell' atomo a due livelli del<br />
+<a href="c051_atomo_due_livelli.html">capitolo 5</a> e nella densita' critica $N_c = A_{21}/Q_{21}$.</p>
+<p>Per la diseccitazione collisionale la dispensa arriva a:</p>
+<p>$$Q_{nm} = \frac{8.63 \times 10^{-6}}{\sqrt{T_e}} \frac{\langle \Omega(m,n) \rangle}{g_n}$$</p>
+<p>$\Omega$ $\quad$ collision strength</p>
+<p>Nota che $Q$ dipende <strong>solo da $T_e$</strong> (va come $T_e^{-1/2}$): la densita' entra dopo, nel rate.</p>
+<hr />
+<h3>3.1 Quanto sono rari gli urti, in numeri</h3>
+<p>Vale la pena vederlo, perche' e' il numero che giustifica tutto il capitolo 5.</p>
+<p>Con $T_e = 10^4$ K viene $Q \simeq 10^{-7}$ cm$^3$ s$^{-1}$, e con $N_e = 10^3$ cm$^{-3}$ il rate e'<br />
+$C = N_e Q \simeq 10^{-4}$ s$^{-1}$:</p>
+<blockquote>
+<p><strong>una diseccitazione collisionale ogni 2.8 ore.</strong></p>
+</blockquote>
+<p>Con gli atomi neutri nel mezzo interstellare diffuso si scende a <strong>un urto ogni 3170 anni</strong>.</p>
+<p>Adesso e' chiaro perche' una riga proibita, che ci mette secondi o minuti a uscire, fa comodamente<br />
+in tempo.</p>
+<hr />
+<h2>4. Terzo uso: la fotoionizzazione</h2>
+<p>Qui $\sigma$ dipende dall' energia del fotone:</p>
+<p>$$\sigma_{bf} \simeq 2.81 \times 10^{29} \frac{Z^4}{n^5 \nu^3} \qquad [\text{cm}^2]$$</p>
+<p>$Z$ $\quad$ carica nucleare efficace</p>
+<p>$n$ $\quad$ livello di partenza dell' elettrone</p>
+<p>$\nu$ $\quad$ frequenza del fotone</p>
+<p>Per l' idrogeno dal fondamentale, alla soglia di 13.6 eV, il valore tabulato e':</p>
+<p>$$\sigma \simeq 6.3 \times 10^{-18} \; \text{cm}^2$$</p>
+<p>cioe' una quindicina di volte <strong>sotto</strong> l' area geometrica dell' atomo.</p>
+<hr />
+<h3>4.1 La dipendenza che conta: $\nu^{-3}$</h3>
+<p>$$\sigma \propto \nu^{-3}$$</p>
+<p>Cala <strong>in fretta</strong> appena il fotone diventa piu' energetico. Conseguenza fisica diretta:</p>
+<ul>
+<li>i fotoni <strong>appena sopra la soglia</strong> vengono divorati subito, a pochi passi dentro la nube</li>
+<li>i fotoni <strong>molto energetici</strong> vedono la nube quasi trasparente e <strong>penetrano molto piu' a fondo</strong></li>
+</ul>
+<p><img alt="" src="data/sezione_urto.png" /></p>
+<p><em><strong>Nota subito così de botto:</strong> questo e' controintuitivo la prima volta. Verrebbe da pensare che<br />
+un fotone piu' energetico ionizzi meglio. Invece no: passa oltre. Ionizzare bene vuol dire avere<br />
+l' energia <strong>giusta</strong>, non tantissima.</em></p>
+<hr />
+<h2>5. L' equilibrio di ionizzazione: l' equazione generale</h2>
+<p>Si scrive che tutto quello che ionizza pareggia tutto quello che ricombina:</p>
+<p>$$N_i R_{i,i+1} + N_i C_{i,i+1} = N_{i+1} R_{i+1,i} + N_{i+1} C_{i+1,i}$$</p>
+<p>$R_{i,i+1}$ $\quad$ rate di <strong>fotoionizzazioni</strong> (s$^{-1}$)</p>
+<p>$C_{i,i+1}$ $\quad$ rate di <strong>ionizzazioni collisionali</strong></p>
+<p>$R_{i+1,i}$ $\quad$ rate di <strong>ricombinazioni</strong></p>
+<p>$C_{i+1,i}$ $\quad$ rate di ricombinazioni collisionali</p>
+<p>Quattro termini. Adesso se ne buttano via due, e i motivi sono interessanti.</p>
+<hr />
+<h3>5.1 Via le ricombinazioni collisionali</h3>
+<p>$C_{i+1,i}$ e' un processo <strong>a tre corpi</strong>: servono uno ione, un elettrone che ricombina, e un<br />
+terzo corpo che si porti via l' energia in eccesso.</p>
+<p>Far incontrare tre cose nello stesso posto richiede <strong>densita' alta</strong>. In una nebulosa non succede<br />
+mai. Si butta.</p>
+<hr />
+<h3>5.2 Via le ionizzazioni collisionali</h3>
+<p>Per ionizzare l' idrogeno per urto servono elettroni da 13.6 eV. Facendo il conto con la<br />
+maxwelliana, la frazione utile e':</p>
+<table>
+<thead>
+<tr>
+<th>$T_e$</th>
+<th>$k_B T_e$</th>
+<th>quanto pesa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$10^4$ K</td>
+<td>0.86 eV</td>
+<td>$2 \times 10^{-6}$</td>
+</tr>
+<tr>
+<td>$2 \times 10^4$ K</td>
+<td>1.72 eV</td>
+<td>$4 \times 10^{-3}$</td>
+</tr>
+<tr>
+<td>$4 \times 10^4$ K</td>
+<td>3.44 eV</td>
+<td>0.17</td>
+</tr>
+<tr>
+<td>$10^5$ K</td>
+<td>8.61 eV</td>
+<td>1.56</td>
+</tr>
+</tbody>
+</table>
+<p>Serve $T_e > 10^5$ K perche' la ionizzazione collisionale conti qualcosa. Le nebulose stanno a<br />
+$10^4$ K, dieci volte sotto. Si butta anche questa.</p>
+<p><em><strong>Attenzione:</strong> guarda quanto e' brusca quella colonna: da $10^4$ a $10^5$ K<br />
+cambia di sei ordini di grandezza. E' la firma dell' esponenziale: quando devi raggiungere<br />
+un' energia molto sopra $k_BT$, non ci arrivi "un po'", non ci arrivi <strong>per niente</strong>.</em></p>
+<p>(Un contributo residuo lo danno i <strong>raggi cosmici</strong>, particelle da 0.3-100 MeV che ionizzano per<br />
+urto: $C_{0,1} \sim 10^{-17}$ s$^{-1}$. Piccolo, ma non zero.)</p>
+<hr />
+<h3>5.3 Quello che resta</h3>
+<p>$$N_0 R_{0,1} = N_1 R_{1,0}$$</p>
+<blockquote>
+<p><strong>le fotoionizzazioni pareggiano le ricombinazioni.</strong></p>
+</blockquote>
+<p>Cioe': in una nebulosa si ionizza <strong>con la luce</strong> e si ricombina <strong>con gli elettroni</strong>. E' tutto qui.</p>
+<hr />
+<h2>6. Il rate di fotoionizzazione</h2>
+<p>$$N_0 R_{0,1} = 4\pi \int_{\nu_0}^{\infty} \frac{k_{bf}}{h\nu} I_\nu \, d\nu$$</p>
+<p>Si integra <strong>da $\nu_0$ in su</strong>, la soglia a 13.6 eV: sotto quella frequenza i fotoni non ionizzano<br />
+e non contano.</p>
+<p>Nel conto entrano due cose:</p>
+<ol>
+<li>$\sigma_{bf} \propto \nu^{-3}$, la sezione d' urto della parte A</li>
+<li>il campo di radiazione della stella, <strong>fortemente diluito</strong></li>
+</ol>
+<hr />
+<h3>6.1 Il fattore di diluizione</h3>
+<p>Questo e' il pezzo che spiega perche' le nebulose sono quello che sono.</p>
+<p>La stella emette come un corpo nero alla sua temperatura, ma la nebulosa e' <strong>lontana</strong>. Il campo<br />
+di radiazione che arriva li' e' lo stesso come <strong>forma</strong> (stessa distribuzione in frequenza), ma<br />
+ridotto in intensita' di un fattore geometrico:</p>
+<p>$$w \sim 10^{-15}$$</p>
+<p>Sono quindici ordini di grandezza.</p>
+<p><em><strong>Occhio a questo:</strong> ecco l' origine di tutto il comportamento non-LTE delle nebulose.<br />
+Il gas "vede" una radiazione che ha la forma di un corpo nero a $4 \times 10^4$ K ma<br />
+l' <strong>intensita'</strong> di quasi niente. Quindi non puo' termalizzarsi con quella radiazione, e le<br />
+popolazioni dei livelli non hanno nessun motivo di seguire Boltzmann. E' la stessa diluizione che<br />
+nel <a href="c051_atomo_due_livelli.html">capitolo 5</a> permetteva di buttare via il termine radiativo<br />
+$U B_{12}$.</em></p>
+<p>Il risultato del conto, per una stella a $4 \times 10^4$ K:</p>
+<p>$$R_{0,1} \sim 10^{-8} \; \text{s}^{-1}$$</p>
+<p>Cioe' un atomo neutro viene fotoionizzato mediamente <strong>una volta ogni tre anni</strong>.</p>
+<hr />
+<h2>7. Il rate di ricombinazione</h2>
+<p>$$R_{1,0} = N_e \alpha, \qquad \alpha = \sum_{n=1}^{\infty} \alpha_n$$</p>
+<p>$\alpha_n$ $\quad$ coefficiente di ricombinazione <strong>sul livello $n$</strong>, in cm$^3$ s$^{-1}$</p>
+<p>La somma su tutti gli $n$ c'e' perche' l' elettrone puo' essere catturato su qualsiasi livello.</p>
+<p>Ogni $\alpha_n$ si ottiene mediando la sezione d' urto di ricombinazione sulla maxwelliana, ed e' lo<br />
+stesso oggetto che nel <a href="c055_ricombinazione.html">capitolo 5.5</a> alimentava la cascata.</p>
+<p>L' andamento:</p>
+<p>$$\alpha_n \propto \frac{1}{T_e^{3/2} \, n^3}$$</p>
+<p><strong>Cala con la temperatura</strong>: un elettrone veloce fa piu' fatica a farsi catturare, sfreccia via.</p>
+<p><strong>Cala come $1/n^3$</strong>: le catture sui livelli bassi sono le piu' probabili.</p>
+<hr />
+<h3>7.1 Ricombinano gli elettroni lenti</h3>
+<p>La sezione d' urto di ricombinazione va come $1/v^2$: <strong>ricombinano preferenzialmente gli elettroni<br />
+lenti</strong>, mentre la fotoionizzazione ne libera di veloci.</p>
+<p>Conseguenza che serve nel <a href="c09_equilibrio_termico.html">capitolo 9</a>: anche in equilibrio perfetto,<br />
+con tante ionizzazioni quante ricombinazioni, il bilancio energetico netto e' un <strong>riscaldamento<br />
+del gas</strong>. Entrano elettroni veloci ed escono elettroni lenti, e la differenza resta nel gas.</p>
+<hr />
+<h2>8. Il risultato</h2>
+<p>Mettendo insieme:</p>
+<p>$$N_0 R_{0,1} = N_1 N_e \alpha \qquad \rightarrow \qquad \frac{N_1}{N_0} = \frac{R_{0,1}}{N_e \alpha}$$</p>
+<p>Coi numeri di una nebulosa tipica, quel rapporto viene <strong>enorme</strong>: l' idrogeno e' ionizzato al<br />
+99.99% e passa. La frazione neutra e' una minuzia.</p>
+<p>E il motivo, guardando i due rate, e' che $R_{0,1}$ ha davanti tutta la luce della stella mentre<br />
+$N_e \alpha$ e' frenato dalla densita' ridicola del gas.</p>
+<hr />
+<h3>8.1 Il collegamento col capitolo dopo</h3>
+<p>Questo conto e' stato fatto <strong>in un punto</strong>, assumendo di sapere quanti fotoni ionizzanti ci sono<br />
+li'.</p>
+<p>Ma i fotoni ionizzanti <strong>si consumano</strong>: piu' vai lontano dalla stella, meno ne restano. Quindi la<br />
+domanda vera diventa: fino a dove arriva la zona ionizzata?</p>
+<p>Quella e' la sfera di Stromgren, <a href="c08_stromgren.html">capitolo 8</a>.</p>
+<hr />
+<h2>9. In breve</h2>
+<p><strong>Sezione d' urto:</strong></p>
+<ul>
+<li>$\sigma$ e' un' <strong>area efficace</strong> in cm$^2$, non la taglia dell' atomo</li>
+<li>$k = N\sigma$, $\tau = N\sigma L$, e $1/(N\sigma)$ e' il libero cammino medio</li>
+<li>$Q = \langle \sigma v \rangle$ in cm$^3$ s$^{-1}$ = <strong>volume spazzato al secondo</strong></li>
+<li>fotoionizzazione: $\sigma \propto Z^4 / (n^5 \nu^3)$, e a 13.6 eV vale $6.3 \times 10^{-18}$<br />
+  cm$^2$</li>
+<li><strong>$\sigma \propto \nu^{-3}$: i fotoni molto energetici penetrano piu' a fondo</strong></li>
+</ul>
+<p><strong>Equilibrio di ionizzazione:</strong></p>
+<ul>
+<li>quattro termini, se ne buttano due: ricombinazione collisionale (serve alta densita') e<br />
+  ionizzazione collisionale (servirebbe $T_e > 10^5$ K)</li>
+<li>resta $N_0 R_{0,1} = N_1 N_e \alpha$: <strong>si ionizza con la luce, si ricombina con gli elettroni</strong></li>
+<li>il campo di radiazione e' <strong>diluito</strong> di $\sim 10^{-15}$: e' l' origine del comportamento non-LTE</li>
+<li>$\alpha_n \propto T_e^{-3/2} n^{-3}$; ricombinano gli elettroni <strong>lenti</strong></li>
+<li>risultato: nelle nebulose l' idrogeno e' ionizzato quasi del tutto</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Un fotone da 100 eV ionizza l' idrogeno "meglio" di uno da 14 eV? Attenzione, la risposta<br />
+non e' quella che viene istintiva. (-&gt; sezione 4.1)</p>
+<p><strong>2.</strong> $\sigma$ si misura in cm$^2$. Vuol dire che e' la dimensione dell' atomo? (-&gt; sezione 1)</p>
+<p><strong>3.</strong> Perche' in una nebulosa si butta via la ionizzazione collisionale, ma non in un gas molto<br />
+piu' caldo? Usa i numeri della tabella. (-&gt; sezione 5.2)</p>
+<p><strong>4.</strong> La ricombinazione a tre corpi si trascura sempre in nebulosa. Il motivo non e' la<br />
+temperatura: qual e'? (-&gt; sezione 5.1)</p>
+<p><strong>5.</strong> Il campo di radiazione della stella arriva alla nebulosa diluito di $10^{-15}$. Quali<br />
+conseguenze ha, in almeno due punti diversi del corso? (-&gt; sezione 6.1, e<br />
+<a href="c051_atomo_due_livelli.html">capitolo 5</a>)</p>
+<p><strong>6.</strong> Ricombinano preferenzialmente gli elettroni lenti. Cosa comporta questo sul bilancio<br />
+energetico del gas, anche quando ionizzazioni e ricombinazioni si pareggiano esattamente?<br />
+(-&gt; sezione 7.1)</p>
+<div class="piedi"><a href="c06_continui.html">&larr; 6 - I continui</a><a class="avanti" href="c08_stromgren.html">8 - La sfera di Stromgren &rarr;</a></div>
+</main>
+</div></body></html>

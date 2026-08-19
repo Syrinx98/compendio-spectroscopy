@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.5 - Righe di ricombinazione otticamente sottili</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html" class="qui">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>5.5 - Righe di ricombinazione otticamente sottili</h1>
+<p><strong>Dispensa: cap. 5.5 (pag. 63-66).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong> nella prima meta' (il fotone di cattura e' un punto in cui e'<br />
+facile incartarsi), poi si tira dritto fino al decremento di Balmer.</em></p>
+<p>Nel <a href="c051_atomo_due_livelli.html">capitolo 5</a> l' atomo restava intero e l' elettrone saliva di<br />
+livello. Qui succede un' altra cosa: l' atomo e' <strong>gia' ionizzato</strong>, e l' elettrone e' <strong>libero</strong>.<br />
+Poi lo riacchiappa.</p>
+<p>Da questo processo nascono le righe piu' importanti che si osservano in una nebulosa.</p>
+<hr />
+<h2>1. Cosa succede, in due passi</h2>
+<p>Uno ione cattura un elettrone libero. L' elettrone atterra su un certo livello $n$, e da li'<br />
+<strong>scende a cascata</strong> verso il basso, facendo vari salti.</p>
+<p>Un fotone viene emesso in <strong>ogni</strong> passaggio:</p>
+<ol>
+<li><strong>nella cattura</strong>, quando l' elettrone passa da libero a legato</li>
+<li><strong>in ogni gradino</strong> della discesa</li>
+</ol>
+<p><em><strong>SIGNIFICATO FISICO:</strong> qui si parla di ioni ed elettroni in generale, vale per qualsiasi<br />
+specie. Pero' sperimentalmente si guarda l' idrogeno, per tre motivi: compone il 90% degli atomi di<br />
+una nebulosa quindi le sue righe sono le piu' forti; ha un elettrone solo quindi i conti si fanno;<br />
+e le sue righe di ricombinazione cadono nel visibile.</em></p>
+<hr />
+<h2>2. Il fotone di cattura</h2>
+<p>Che energia ha il fotone emesso nella cattura? Per l' idrogeno:</p>
+<p>$$h\nu = E_{cin} + \frac{13.6}{n^2}$$</p>
+<p>$h\nu$ $\quad$ energia del fotone emesso</p>
+<p>$E_{cin}$ $\quad$ energia cinetica che l' elettrone aveva <strong>prima</strong> di essere catturato</p>
+<p>$\frac{13.6}{n^2}$ $\quad$ energia di legame del livello dove atterra, cioe' quanto servirebbe per<br />
+strapparlo di nuovo da li'</p>
+<hr />
+<h3>2.1 Perché si sommano</h3>
+<p>Perche' lo <strong>zero</strong> della scala di energia e' l' elettrone <strong>libero e fermo</strong>.</p>
+<ul>
+<li>elettrone libero che si muove: sta <strong>sopra</strong> zero, a $+E_{cin}$</li>
+<li>elettrone legato su $n$: sta <strong>sotto</strong> zero, a $-13.6/n^2$</li>
+</ul>
+<p>Il fotone si porta via tutto il dislivello, che e' la somma dei due pezzi.</p>
+<p><img alt="" src="data/scala_energie_ricombinazione.png" /></p>
+<hr />
+<h3>2.2 Esempio numerico</h3>
+<p>Uno ione cattura un elettrone che aveva 2 eV di energia cinetica, e l' elettrone si mette su $n=3$:</p>
+<p>$$h\nu = 2 + \frac{13.6}{9} = 2 + 1.51 = 3.51 \; eV$$</p>
+<hr />
+<h3>2.3 La conseguenza: la cattura fa un continuo</h3>
+<p>$E_{cin}$ puo' valere <strong>qualsiasi cosa</strong>, perche' l' elettrone libero non ha livelli quantizzati:<br />
+puo' arrivare con la velocita' che gli pare.</p>
+<p>Quindi il fotone di cattura puo' avere qualsiasi energia (sopra un minimo), e non fa una riga:<br />
+<strong>fa un continuo</strong>. Se ne parla nel <a href="c06_continui.html">capitolo 6</a>.</p>
+<blockquote>
+<p><strong>cattura -&gt; continuo. cascata -&gt; righe.</strong></p>
+</blockquote>
+<p>Da qui in avanti ci si occupa solo della cascata.</p>
+<hr />
+<h2>3. Le assunzioni</h2>
+<p>Prima di scrivere l' equazione della cascata si fanno sei assunzioni. Non sono formalita': ognuna<br />
+toglie di mezzo un pezzo di fisica che in una nebulosa davvero non c'e'.</p>
+<p><strong>1. Non siamo in equilibrio termodinamico.</strong> Le collisioni sono troppo rare. Quindi Boltzmann non<br />
+si usa, e il bilancio va fatto a mano.</p>
+<p><strong>2. Si trascura l' emissione stimolata.</strong> Sarebbe: un atomo gia' eccitato viene colpito da un<br />
+fotone della sua stessa energia e ne emette un secondo identico. Serve un campo di radiazione<br />
+intenso, e qui il campo e' diluito.</p>
+<p><strong>3. I livelli $n>1$ non sono popolati per collisione.</strong> A $10^4$ K gli elettroni hanno 0.86 eV,<br />
+mentre per portare l' idrogeno su $n=3$ ne servono 12.1. Non ce la fanno proprio.</p>
+<p><strong>4. Tutti gli atomi che vengono ionizzati stavano sul fondamentale.</strong> Conseguenza della 3: se<br />
+nessuno e' eccitato, chi viene ionizzato parte per forza da $n=1$.</p>
+<p><strong>5. Siamo in equilibrio statistico.</strong> Le popolazioni non cambiano nel tempo: i processi atomici<br />
+sono velocissimi, la nebulosa cambia su scale di migliaia di anni.</p>
+<p><strong>6. Un livello $n$ si popola solo per ricombinazione diretta o come gradino di una cascata.</strong> Non<br />
+ci sono altre strade.</p>
+<hr />
+<h2>4. L'equazione</h2>
+<p>Con quelle assunzioni, per ogni livello $n$ si scrive:</p>
+<p>$$(\text{quello che popola } n) = (\text{quello che spopola } n)$$</p>
+<p>$$N_e N_p \alpha_n + \sum_{m>n}^{\infty} N_m A_{mn} = N_n \sum_{k<n}^{1} A_{nk}$$</p>
+<p>$N_e N_p \alpha_n$ $\quad$ le <strong>ricombinazioni dirette</strong> su $n$: serve un elettrone e un protone che<br />
+si incontrino, da cui il prodotto</p>
+<p>$\sum_{m>n} N_m A_{mn}$ $\quad$ le <strong>cascate dall' alto</strong>: tutti quelli che stanno sopra e scendono<br />
+su $n$</p>
+<p>$N_n \sum_{k<n} A_{nk}$ $\quad$ le <strong>partenze</strong>: tutti quelli che stanno su $n$ e se ne vanno piu'<br />
+in giu'</p>
+<hr />
+<h3>4.1 Perché non si risolve a mano</h3>
+<p>Guardiamo il secondo termine: per sapere quanti atomi ci sono su $n$, devo sapere quanti ce ne sono su<br />
+tutti i livelli <strong>sopra</strong>. E per sapere quello, devo sapere quanti ce ne sono ancora piu' sopra.</p>
+<p>E' un <strong>sistema infinito di equazioni accoppiate</strong>, ognuna che dipende da quelle di sopra. Chi<br />
+programma lo riconosce subito: e' un loop di dipendenze che non si chiude mai.</p>
+<p>Quindi si tronca a un $n$ massimo ragionevole e si risolve <strong>numericamente</strong>, al calcolatore.</p>
+<hr />
+<h3>4.2 Il risultato: $\alpha_{eff}$</h3>
+<p>Il punto e' che il risultato di quel conto non serve rifarlo ogni volta: si fa una volta, si<br />
+tabula, e si usa. Il pacchetto che ne esce si chiama <strong>coefficiente di ricombinazione efficace</strong>:</p>
+<p>$$\alpha_{eff}(\text{riga}, T_e) \qquad [\text{cm}^3 \text{s}^{-1}]$$</p>
+<p>Si legge come una funzione con due argomenti e un valore di ritorno:</p>
+<p><strong>in ingresso:</strong></p>
+<p>$riga$ $\quad$ quale transizione di quale ione (H$\alpha$, H$\beta$, ...)</p>
+<p>$T_e$ $\quad$ la temperatura elettronica del gas</p>
+<p><strong>in uscita:</strong> quanti fotoni <strong>di quella riga</strong> vengono prodotti in media per ogni ricombinazione.</p>
+<p><em><strong>Nota subito così de botto:</strong> tutta la complicazione del sistema infinito e' finita li' dentro.<br />
+Non e' una scorciatoia: e' che il conto e' stato fatto sul serio da qualcun altro, e il risultato e'<br />
+un numero tabulato. A te serve solo saper dire <strong>cosa</strong> ci sta dentro e <strong>cosa</strong> ne esce.</em></p>
+<hr />
+<h2>5. Dall'emissività all'intensità</h2>
+<p>Con $\alpha_{eff}$ in mano, l' intensita' della riga e':</p>
+<p>$$I_{nm} = \alpha_{eff} \frac{h \nu_{nm}}{4\pi} \int N_e^2 \, dr$$</p>
+<p>$h\nu_{nm}$ $\quad$ energia di un fotone di quella riga</p>
+<p>$4\pi$ $\quad$ perche' l' emissione e' <strong>isotropa</strong>, distribuita su tutto l' angolo solido</p>
+<p>$\int N_e^2 dr$ $\quad$ l' integrale lungo la linea di vista, si chiama <strong>emission measure</strong>: dice<br />
+quanto gas stai attraversando e quanto e' denso</p>
+<hr />
+<h3>5.1 Perché $N_e^2$</h3>
+<p>Stesso motivo del <a href="c051_atomo_due_livelli.html">capitolo 5</a>: per ricombinare serve che un elettrone<br />
+<strong>e</strong> un protone si incontrino. Due densita' che si moltiplicano, quindi il quadrato.</p>
+<hr />
+<h3>5.2 Perché qui non serve il trasporto radiativo</h3>
+<p>Ed e' il motivo per cui il capitolo si intitola "otticamente sottili".</p>
+<p>Il gas e' cosi' rarefatto che $\tau \ll 1$ nelle righe: <strong>ogni fotone prodotto esce senza essere<br />
+riassorbito.</strong> Quindi non serve risolvere l' equazione del trasporto del<br />
+<a href="c03_trasporto.html">capitolo 3</a>: quello che viene emesso e' esattamente quello che osservi.</p>
+<p>E' una semplificazione enorme, ed e' un regalo che fa la bassa densita'.</p>
+<hr />
+<h2>6. Il decremento di Balmer</h2>
+<p>Adesso il trucco che rende tutto questo utile davvero.</p>
+<p>Prendo due righe di Balmer, scrivo l' intensita' di ciascuna con la formula di sopra, e ne faccio<br />
+il <strong>rapporto</strong>:</p>
+<p>$$\frac{I(H\alpha)}{I(H\beta)} = \frac{\nu_{H\alpha}}{\nu_{H\beta}} \frac{\alpha^{eff}_{H\alpha}}{\alpha^{eff}_{H\beta}} \approx 2.86$$</p>
+<p>Guarda cosa e' sparito: <strong>l' angolo solido e l' emission measure</strong>. Tutta la parte geometrica, che<br />
+dipendeva da quanto e' grande la nebulosa, da quanto e' densa e da quanto e' lontana, <strong>si<br />
+semplifica</strong>.</p>
+<p>Resta un numero che dipende solo da fisica atomica e, debolmente, da $T_e$.</p>
+<p>Si chiama <strong>decremento di Balmer</strong>, e vale <strong>2.86</strong> (assumendo $T_e = 10^4$ K).</p>
+<hr />
+<h3>6.1 A cosa serve</h3>
+<p>E' un rapporto <strong>noto in partenza</strong>, uguale per tutte le nebulose. Quindi diventa un metro<br />
+campione:</p>
+<blockquote>
+<p>se misuro $H\alpha/H\beta$ e mi viene <strong>piu' di 2.86</strong>, vuol dire che qualcosa ha attenuato<br />
+$H\beta$ piu' di $H\alpha$.</p>
+</blockquote>
+<p>E siccome $H\beta$ e' piu' blu di $H\alpha$, il colpevole e' qualcosa che assorbe piu' nel blu:<br />
+<strong>la polvere interstellare</strong>. Il gas e' arrossato.</p>
+<p>Dal quanto ti scosti da 2.86 tiri fuori <strong>quanta</strong> polvere c'e'. Se ne parla nel<br />
+<a href="c056_polvere.html">capitolo 5.6</a>.</p>
+<p><em><strong>NOTA BENE:</strong> questa struttura torna un sacco di volte nel corso, e<br />
+conviene riconoscerla subito perche' ritorna: <strong>fai il rapporto fra due righe e la geometria se ne<br />
+va.</strong> Quello che resta dipende solo dalla fisica, quindi diventa uno strumento di misura. Lo stesso<br />
+identico trucco fa funzionare i diagnostici di [O III] e [S II] nel<br />
+<a href="c057_righe_proibite.html">capitolo 5.7</a>.</em></p>
+<hr />
+<h2>7. In breve</h2>
+<ul>
+<li>lo ione cattura un elettrone libero, che poi scende a cascata</li>
+<li><strong>cattura -&gt; continuo</strong> (perche' $E_{cin}$ e' libera), <strong>cascata -&gt; righe</strong></li>
+<li>$h\nu = E_{cin} + 13.6/n^2$, e si sommano perche' lo zero e' l' elettrone libero e fermo</li>
+<li>l' equazione di equilibrio statistico e' un <strong>sistema infinito accoppiato</strong>: si risolve<br />
+  numericamente</li>
+<li>il risultato si impacchetta in $\alpha_{eff}(\text{riga}, T_e)$ in cm$^3$ s$^{-1}$</li>
+<li>$I = \alpha_{eff} \frac{h\nu}{4\pi} \int N_e^2 dr$, dove l' integrale e' l' <strong>emission measure</strong></li>
+<li>$\tau \ll 1$: quello che viene emesso e' quello che osservi, niente trasporto</li>
+<li><strong>decremento di Balmer $H\alpha/H\beta = 2.86$</strong>: nel rapporto la geometria sparisce, e se misuri<br />
+  di piu' c'e' polvere</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Un elettrone viene catturato su $n=3$. Il fotone che esce dipende da quanto andava veloce<br />
+l' elettrone? E il livello su cui atterra, dipende dalla sua velocita'? Sono due domande diverse.<br />
+(-&gt; sezioni 2 e 2.1)</p>
+<p><strong>2.</strong> Dalla cattura esce un continuo, dalla cascata escono righe. Cos' e' che fa la differenza?<br />
+(-&gt; sezione 2.3)</p>
+<p><strong>3.</strong> L' equazione dell' equilibrio statistico non si risolve a mano. Qual e' esattamente<br />
+l' ostacolo? (-&gt; sezione 4.1)</p>
+<p><strong>4.</strong> Misuri $H\alpha/H\beta = 4.1$ invece di 2.86. Cosa concludi, e come fai a essere sicuro<br />
+che non dipenda dal fatto che quella nebulosa e' piu' grande o piu' vicina? (-&gt; sezioni 6 e 6.1)</p>
+<p><strong>5.</strong> Perche' l' intensita' va come $N_e^2$ e non come $N_e$? (-&gt; sezione 5.1)</p>
+<p><strong>6.</strong> In questo capitolo il trasporto radiativo del <a href="c03_trasporto.html">capitolo 3</a> non si usa<br />
+mai. Come mai possiamo permettercelo? (-&gt; sezione 5.2)</p>
+<div class="piedi"><a href="c051_atomo_due_livelli.html">&larr; 5.1-5.4 - Gas rarefatto: atomo a due livelli, densita' critica, quenching</a><a class="avanti" href="c056_polvere.html">5.6 - Estinzione da polvere &rarr;</a></div>
+</main>
+</div></body></html>

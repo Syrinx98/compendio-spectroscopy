@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Numeri e conversioni da avere in tasca</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html" class="qui">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>Numeri e conversioni da avere in tasca</h1>
+<p><em>Questo capitolo non spiega niente, quindi non ha un metodo: e' una cassetta degli attrezzi.<br />
+Leggilo di corsa la prima volta e torna qui quando serve.</em></p>
+<p>Questo capitolo non spiega niente. E' la roba che conviene sapere a memoria, perche' torna in ogni<br />
+singolo capitolo dopo e perche' avere il numero in testa ti fa capire subito se una cosa e'<br />
+plausibile oppure no.</p>
+<p>Se stai iniziando adesso, leggilo di corsa e torna qui quando serve.</p>
+<hr />
+<h2>1. La conversione più usata di tutte</h2>
+<p>$$\lambda [\unicode{xC5}] = \frac{12400}{E [eV]}$$</p>
+<p>Energia in elettronvolt, lunghezza d' onda in Angstrom. Questa la userai venti volte.</p>
+<p><strong>Attenzione al verso</strong>: e' una <strong>divisione</strong>, non una moltiplicazione. Piu' energia = lunghezza<br />
+d' onda piu' corta.</p>
+<p>Esempio: una riga a 5007 A a che energia corrisponde? $12400 / 5007 = 2.48$ eV.<br />
+Al contrario: un livello a 2.48 eV che riga fa? $12400 / 2.48 = 5000$ A circa.</p>
+<p><em><strong>SIGNIFICATO FISICO:</strong> avere questa in mano vuol dire poter passare in ogni momento dal<br />
+mondo delle righe (quello che osservi) al mondo dei livelli di energia (quello che spiega). Sono la<br />
+stessa cosa scritta in due unita' diverse.</em></p>
+<hr />
+<h2>2. Temperatura in energia</h2>
+<p>$$k_B T [eV] = \frac{T [K]}{11600}$$</p>
+<p>e al contrario, la temperatura che serve per avere in mano una certa energia:</p>
+<p>$$T [K] = \chi [eV] \times 11600$$</p>
+<table>
+<thead>
+<tr>
+<th>T</th>
+<th>$k_B T$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5800 K (Sole, superficie)</td>
+<td>0.5 eV</td>
+</tr>
+<tr>
+<td>$10^4$ K (nebulosa tipica)</td>
+<td><strong>0.86 eV</strong></td>
+</tr>
+<tr>
+<td>$10^5$ K</td>
+<td>8.6 eV</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quello da ricordare e' 0.86 eV</strong>, perche' e' l' energia tipica degli elettroni in una nebulosa e<br />
+torna in continuazione: e' il metro con cui misuri se un livello e' raggiungibile o no per via<br />
+collisionale.</p>
+<hr />
+<h2>3. L'idrogeno</h2>
+<p>$$E_n = -\frac{13.6}{n^2} \; eV$$</p>
+<p>Da cui, l' energia per salire dal fondamentale al livello $n$:</p>
+<p>$$\chi_{1n} = 13.6 \left( 1 - \frac{1}{n^2} \right) \; eV$$</p>
+<p><em><strong>Attenzione:</strong> e' $13.6 (1 - 1/n^2)$, non $13.6 / (1 - n^2)$. E' un errore facile da fare e ti<br />
+manda fuori strada di brutto.</em></p>
+<hr />
+<h3>3.1 Le quattro energie che contano</h3>
+<table>
+<thead>
+<tr>
+<th>quanto</th>
+<th>cosa fa</th>
+<th>riga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10.2 eV</strong></td>
+<td>sale da $n=1$ a $n=2$</td>
+<td>Ly$\alpha$, 1216 A</td>
+</tr>
+<tr>
+<td><strong>13.6 eV</strong></td>
+<td>ionizza da $n=1$</td>
+<td>limite di Lyman, 912 A</td>
+</tr>
+<tr>
+<td><strong>3.4 eV</strong></td>
+<td>ionizza da $n=2$</td>
+<td>limite di Balmer, 3646 A</td>
+</tr>
+<tr>
+<td><strong>1.51 eV</strong></td>
+<td>ionizza da $n=3$</td>
+<td>limite di Paschen, 8208 A</td>
+</tr>
+</tbody>
+</table>
+<p>Nota che 3.4 e' esattamente $13.6/4$, e 1.51 e' $13.6/9$: sono lo stesso numero diviso $n^2$.</p>
+<p><img alt="" src="data/livelli_idrogeno.png" /></p>
+<p><em><strong>Nota subito così de botto:</strong> il limite di Balmer sta a <strong>3.4 eV</strong>, non a 13.6. E' un errore in<br />
+cui si casca sempre, perche' "13.6" viene automatico appena si sente "ionizzare l' idrogeno". Ma<br />
+se l' elettrone parte gia' da $n=2$ ha gia' fatto meta' strada, e gliene servono molti meno.</em></p>
+<hr />
+<h3>3.2 Le righe di Balmer</h3>
+<table>
+<thead>
+<tr>
+<th>riga</th>
+<th>$\lambda$</th>
+<th>transizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H$\alpha$</td>
+<td>6563 A</td>
+<td>$3 \to 2$</td>
+</tr>
+<tr>
+<td>H$\beta$</td>
+<td>4861 A</td>
+<td>$4 \to 2$</td>
+</tr>
+<tr>
+<td>H$\gamma$</td>
+<td>4340 A</td>
+<td>$5 \to 2$</td>
+</tr>
+<tr>
+<td>H$\delta$</td>
+<td>4102 A</td>
+<td>$6 \to 2$</td>
+</tr>
+</tbody>
+</table>
+<p>Tutte finiscono su $n=2$ e cadono nel visibile: e' per questo che l' idrogeno si studia con Balmer<br />
+e non con Lyman, che sta tutta nell' ultravioletto.</p>
+<p>Le distanze fra righe consecutive si stringono man mano che si sale, e si accumulano contro il<br />
+limite a 3646 A.</p>
+<hr />
+<h3>3.3 Peso statistico</h3>
+<p>$$g_n = 2 n^2$$</p>
+<p>Quindi $g_1 = 2$, $g_2 = 8$, $g_3 = 18$. E le funzioni di partizione dell' idrogeno:</p>
+<p>$u_0 \approx 2$ $\quad$ per l' idrogeno neutro (a temperature normali domina il fondamentale)</p>
+<p>$u_1 = 1$ $\quad$ per l' idrogeno ionizzato: e' un protone nudo, ha un solo stato possibile</p>
+<hr />
+<h2>4. L'elio</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>energia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ionizzare He I (neutro -&gt; He II)</td>
+<td><strong>24.6 eV</strong></td>
+</tr>
+<tr>
+<td>ionizzare He II (-&gt; He III)</td>
+<td><strong>54.4 eV</strong></td>
+</tr>
+</tbody>
+</table>
+<p>E i livelli dell' He$^+$, che ha un elettrone solo come l' idrogeno ma carica nucleare doppia:</p>
+<p>$$E_n = -\frac{54.4}{n^2} \; eV$$</p>
+<p>Cioe' esattamente quattro volte l' idrogeno, perche' l' energia va come $Z^2$.</p>
+<hr />
+<h2>5. Densità: gli ordini di grandezza</h2>
+<table>
+<thead>
+<tr>
+<th>dove</th>
+<th>$N_e$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fotosfera stellare</td>
+<td>$\sim 10^{14}$ cm$^{-3}$</td>
+</tr>
+<tr>
+<td>nebulosa planetaria</td>
+<td>$10^3 - 10^4$ cm$^{-3}$</td>
+</tr>
+<tr>
+<td>regione H II</td>
+<td>$10^2 - 10^3$ cm$^{-3}$</td>
+</tr>
+<tr>
+<td>mezzo interstellare diffuso</td>
+<td>$\sim 1$ cm$^{-3}$</td>
+</tr>
+</tbody>
+</table>
+<p>Tienile a mente perche' sono la chiave di lettura di meta' corso: la stessa fisica, applicata a<br />
+densita' che differiscono di dieci ordini di grandezza, da' risultati opposti.</p>
+<hr />
+<h2>6. Notazione: i numeri romani</h2>
+<p>Il numero romano indica lo <strong>stadio di ionizzazione</strong>, e vale <strong>uno in piu'</strong> del numero di<br />
+elettroni persi:</p>
+<table>
+<thead>
+<tr>
+<th>scritto</th>
+<th>vuol dire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H I</td>
+<td>idrogeno <strong>neutro</strong></td>
+</tr>
+<tr>
+<td>H II</td>
+<td>idrogeno ionizzato (un protone)</td>
+</tr>
+<tr>
+<td>O III</td>
+<td>ossigeno che ha perso <strong>due</strong> elettroni</td>
+</tr>
+<tr>
+<td>He II</td>
+<td>elio che ha perso <strong>un</strong> elettrone</td>
+</tr>
+</tbody>
+</table>
+<p>Regola: <strong>numero romano = $i + 1$</strong>, dove $i$ e' quanti elettroni ha perso.</p>
+<p>E le parentesi quadre, come in <strong>[O III]</strong>, vogliono dire che quella e' una <strong>riga proibita</strong>.<br />
+Se ne parla nel <a href="c057_righe_proibite.html">capitolo 5.7</a>.</p>
+<hr />
+<h2>7. Un'altra trappola di notazione</h2>
+<p>Nel <a href="c02_boltzmann_saha.html">capitolo 2</a>, $N_0$ e $N_1$ sono <strong>stadi di ionizzazione</strong> (neutro,<br />
+ionizzato una volta).</p>
+<p>Nel <a href="c051_atomo_due_livelli.html">capitolo 5</a>, $N_1$ e $N_2$ sono <strong>livelli energetici</strong> dello stesso<br />
+ione.</p>
+<p>Stessa scrittura, cose completamente diverse. Guarda sempre di che capitolo si sta parlando.</p>
+<hr />
+<h2>8. In breve</h2>
+<p>Le tre che se sai solo quelle te la cavi:</p>
+<ul>
+<li>$\lambda[\unicode{xC5}] = 12400 / E[eV]$</li>
+<li>$k_B T = 0.86$ eV a $10^4$ K</li>
+<li>$E_n = -13.6/n^2$ per l' idrogeno</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p>Queste sono di riscaldamento, ma se ne sbagli una torna indietro subito.</p>
+<p><strong>1.</strong> Una riga cade a 4363 A. A che energia sta il salto che la produce? E se ti dicessi 2321 A,<br />
+in che parte dello spettro saresti? (-&gt; sezione 1)</p>
+<p><strong>2.</strong> In una nebulosa a $10^4$ K, un elettrone medio riesce a portare un atomo di idrogeno dal<br />
+fondamentale a $n=2$? Fai il confronto coi numeri, non a occhio. (-&gt; sezioni 2 e 3.1)</p>
+<p><strong>3.</strong> Ti dicono "per ionizzare l' idrogeno servono 13.6 eV". In che caso questa frase e'<br />
+sbagliata? (-&gt; sezione 3.1)</p>
+<p><strong>4.</strong> Cosa vuol dire esattamente [O III], e in cosa e' diverso da O III? (-&gt; sezione 6)</p>
+<div class="piedi"><a href="a1_di_cosa_parla.html">&larr; Di cosa parla tutto il corso</a><a class="avanti" href="c02_boltzmann_saha.html">2 - Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo &rarr;</a></div>
+</main>
+</div></body></html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.1-5.4 - Gas rarefatto: atomo a due livelli, densita' critica, quenching</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html" class="qui">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>5.1-5.4 - Gas rarefatto: atomo a due livelli, densita' critica, quenching</h1>
+<p><strong>Dispensa: cap. 5.1-5.4 (pag. 53-63).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong>. Si costruisce un bilancio pezzo per pezzo, e poi lo si legge nei<br />
+due casi limite: e' li' che sta tutto il capitolo.</em></p>
+<p>Da qui in poi si cambia mondo: si lascia la fotosfera e si va nelle nebulose. La temperatura e'<br />
+quasi la stessa ($\sim 10^4$ K), ma la densita' crolla di <strong>dieci ordini di grandezza</strong>.</p>
+<p>E la prima conseguenza e' pesante: <strong>Boltzmann non vale piu'</strong>.</p>
+<p>Boltzmann descrive un gas in cui le collisioni sono cosi' frequenti da imporre l' equilibrio. In<br />
+una nebulosa le collisioni sono rarissime. Quindi le popolazioni dei livelli <strong>vanno calcolate a<br />
+mano</strong>, contando chi sale e chi scende.</p>
+<p>Questo capitolo fa esattamente quel conto, nel caso piu' semplice possibile.</p>
+<hr />
+<h2>1. Il modello</h2>
+<p>Si prende un atomo (o uno ione: <strong>vale per qualsiasi specie</strong>, e il caso piu' importante non e'<br />
+affatto l' idrogeno) e si finge che abbia <strong>due soli livelli</strong>: uno basso dove sta di solito, e uno<br />
+alto dove puo' salire.</p>
+<p>Perche' si puo' fare una semplificazione cosi' brutale?</p>
+<ol>
+<li>perche' semplifica i conti, e questo e' onesto dirlo</li>
+<li>perche' in quelle condizioni <strong>e' quasi vero</strong>: a $10^4$ K l' energia tipica e' 0.86 eV, quindi<br />
+   di livelli davvero raggiungibili ce n'e' pochissimi. Gli altri stanno troppo in alto.</li>
+</ol>
+<p>In pratica: un livello in cui l' atomo sta, uno in cui puo' salire, e <strong>una sola riga</strong> che nasce<br />
+dalla transizione fra i due.</p>
+<hr />
+<h2>2. I modi per salire e per scendere</h2>
+<p>Adesso si contano i processi. Sono quattro in tutto, due che portano su e due che portano giu'.</p>
+<h3>2.1 Per salire da 1 a 2</h3>
+<p><strong>Assorbo un fotone</strong> di energia esatta $h\nu = E_2 - E_1$: si conta come $N_1 U B_{12}$.</p>
+<p><strong>Mi urta un elettrone libero</strong> abbastanza energetico, che mi cede energia: si conta come<br />
+$N_1 N_e Q_{12}$.</p>
+<p>$N_1$ $\quad$ densita' numerica di atomi sul livello 1</p>
+<p>$N_e$ $\quad$ densita' numerica di elettroni liberi</p>
+<p>$Q_{12}$ $\quad$ rate collisionale di eccitazione, in cm$^3$ s$^{-1}$</p>
+<p>$U B_{12}$ $\quad$ rate radiativo, dipende dal campo di radiazione $U$</p>
+<p><em><strong>Da tenere:</strong> il termine radiativo $U B_{12}$ <strong>si butta via</strong>. In una nebulosa<br />
+la stella e' lontanissima, il campo di radiazione arrivato li' e' <strong>diluito</strong> di un fattore<br />
+enorme, e i fotoni giusti per quella transizione praticamente non passano. Quindi resta solo il<br />
+canale collisionale: <strong>in una nebulosa si sale solo per urto.</strong></em></p>
+<hr />
+<h3>2.2 Per scendere da 2 a 1</h3>
+<p><strong>Emetto un fotone</strong>: si conta come $N_2 A_{21}$.</p>
+<p><strong>Cedo la mia energia a un elettrone che passa</strong> (urto di seconda specie, o superelastico): si<br />
+conta come $N_2 N_e Q_{21}$.</p>
+<p>$A_{21}$ $\quad$ coefficiente di Einstein, probabilita' di decadere spontaneamente al secondo</p>
+<p>$Q_{21}$ $\quad$ rate collisionale di diseccitazione</p>
+<p><strong>Questa e' la biforcazione centrale di tutto il capitolo</strong>, quindi fermiamoci un attimo:</p>
+<table>
+<thead>
+<tr>
+<th>come scendo</th>
+<th>cosa succede all' energia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>emetto un fotone</td>
+<td><strong>esce dalla nebulosa e la vedo</strong></td>
+</tr>
+<tr>
+<td>mi urta un elettrone</td>
+<td><strong>resta nel gas come calore, non la vedo</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Tutto quello che segue e' capire quale dei due vince.</p>
+<p><img alt="" src="data/due_livelli_processi.png" /></p>
+<hr />
+<h2>3. L'equazione di equilibrio statistico</h2>
+<p>Una nebulosa cambia su scale di migliaia di anni, mentre i processi atomici avvengono in frazioni<br />
+di secondo. Quindi, sui tempi che ci interessano, la situazione e' <strong>stabile</strong>: il numero di atomi<br />
+che salgono deve pareggiare quello di chi scende.</p>
+<p>$$(\text{quelli che salgono}) = (\text{quelli che scendono})$$</p>
+<p>$$N_1 N_e Q_{12} = N_2 A_{21} + N_2 N_e Q_{21}$$</p>
+<p>Da cui si ricava il rapporto fra le popolazioni:</p>
+<p>$$\frac{N_2}{N_1} = \frac{N_e Q_{12}}{A_{21} + N_e Q_{21}}$$</p>
+<p><em><strong>Qui si nota una cosa:</strong> questa formula sostituisce Boltzmann. Boltzmann diceva che il<br />
+rapporto fra due popolazioni dipende solo dalla temperatura. Qui invece dipende <strong>anche dalla<br />
+densita'</strong>, perche' $N_e$ compare sia sopra che sotto e non si semplifica. E' la firma del fatto<br />
+che non siamo in equilibrio.</em></p>
+<hr />
+<h3>3.1 Come si legge il denominatore</h3>
+<p>I due termini di sotto sono le <strong>due strade per svuotare il livello 2</strong>.</p>
+<p>$A_{21}$ $\quad$ svuotamento per emissione, e <strong>non dipende dalla densita'</strong>: e' una proprieta'<br />
+dell' atomo</p>
+<p>$N_e Q_{21}$ $\quad$ svuotamento per urto, e <strong>cresce con la densita'</strong></p>
+<p>Quale dei due comanda dipende da quanto e' denso il gas. Ed e' l' unica domanda che conta.</p>
+<hr />
+<h2>4. La densità critica</h2>
+<p>Domanda naturale, ed e' quella giusta da farsi:</p>
+<blockquote>
+<p>a che densita' i due si pareggiano?</p>
+</blockquote>
+<p>Si impone $A_{21} = N_e Q_{21}$ e si tira fuori quella densita', che si chiama <strong>densita' critica</strong>:</p>
+<p>$$N_c = \frac{A_{21}}{Q_{21}}$$</p>
+<p>$N_c$ e' la densita' alla quale un atomo eccitato ha <strong>la stessa probabilita'</strong> di decadere<br />
+emettendo un fotone o di essere spento da un urto.</p>
+<p><strong>Ogni transizione di ogni ione ha la sua $N_c$.</strong> Non e' un numero universale: dipende da $A_{21}$,<br />
+cioe' da quanto quella transizione e' veloce.</p>
+<hr />
+<h2>5. Primo regime: gas rarefatto ($N_e \ll N_c$)</h2>
+<p>Qui $N_e Q_{21}$ e' trascurabile davanti ad $A_{21}$, quindi:</p>
+<p>$$\frac{N_2}{N_1} = \frac{N_e Q_{12}}{A_{21}}$$</p>
+<p>Adesso il passaggio bello. L' emissivita' della riga e' "quanti decadimenti al secondo per<br />
+cm$^3$", cioe':</p>
+<p>$$\varepsilon \propto N_2 A_{21}$$</p>
+<p>Sostituendo $N_2$ trovato sopra:</p>
+<p>$$\varepsilon = N_1 N_e Q_{12}$$</p>
+<p><strong>$A_{21}$ si è cancellato.</strong></p>
+<hr />
+<h3>5.1 Cosa vuol dire che $A_{21}$ sparisce</h3>
+<p>Questo e' il punto piu' importante di tutto il capitolo, quindi lo scrivo lento.</p>
+<p>Se il gas e' abbastanza rarefatto, <strong>l' intensita' della riga non dipende da quanto quella<br />
+transizione e' probabile.</strong></p>
+<p>Il motivo, a pensarci, e' ovvio: se l' atomo e' salito su, prima o poi <strong>deve</strong> scendere, e<br />
+l' unico modo che ha e' emettere. Che ci metta $10^{-8}$ secondi o dieci secondi non cambia niente,<br />
+perche' tanto in quel tempo non lo disturba nessuno.</p>
+<blockquote>
+<p><strong>A bassa densita', ogni eccitazione diventa un fotone.</strong></p>
+</blockquote>
+<p>E l' emissivita' e' governata solo da <strong>quanto spesso si sale</strong>, cioe' dagli urti. Siccome<br />
+$N_1 \propto N_e$ nel gas:</p>
+<p>$$\varepsilon \propto N_e^2$$</p>
+<p>Va col <strong>quadrato</strong> della densita': serve un elettrone per urtare e un atomo da urtare.</p>
+<hr />
+<h2>6. Secondo regime: gas denso ($N_e \gg N_c$)</h2>
+<p>Qui succede il contrario: $A_{21}$ e' trascurabile davanti a $N_e Q_{21}$, quindi</p>
+<p>$$\frac{N_2}{N_1} = \frac{N_e Q_{12}}{N_e Q_{21}} = \frac{Q_{12}}{Q_{21}}$$</p>
+<p>$N_e$ <strong>si semplifica</strong>, e resta un rapporto fra due coefficienti collisionali.</p>
+<hr />
+<h3>6.1 Il rapporto $Q_{12}/Q_{21}$</h3>
+<p>Quel rapporto e' noto, e viene dal <strong>bilancio dettagliato</strong>: in equilibrio termodinamico ogni<br />
+processo e' bilanciato esattamente dal suo inverso, quindi</p>
+<p>$$N_1 N_e Q_{12} = N_2 N_e Q_{21} \quad \rightarrow \quad \frac{N_2}{N_1} = \frac{Q_{12}}{Q_{21}}$$</p>
+<p>e siccome in equilibrio quel rapporto lo da' Boltzmann:</p>
+<p>$$\frac{Q_{12}}{Q_{21}} = \frac{g_2}{g_1} e^{-h\nu / k_B T}$$</p>
+<p><em><strong>Nota:</strong> questa relazione si ricava assumendo l' equilibrio, ma poi si usa<br />
+<strong>anche fuori dall' equilibrio</strong>, e non e' una scorrettezza. Il motivo: e' una relazione fra<br />
+<strong>coefficienti</strong>, non fra popolazioni. Dentro non compaiono $N_1$ ne' $N_2$. I coefficienti sono<br />
+proprieta' dell' atomo e degli elettroni che lo urtano, e l' unica cosa che serve perche' valga e'<br />
+che gli elettroni abbiano una distribuzione di velocita' maxwelliana - cosa che in una nebulosa e'<br />
+vera, perche' gli elettroni si termalizzano fra loro molto in fretta.</em></p>
+<hr />
+<h3>6.2 Il risultato</h3>
+<p>Sostituendo in $\varepsilon \propto N_2 A_{21}$:</p>
+<p>$$\varepsilon = A_{21} N_1 \frac{g_2}{g_1} e^{-h\nu/k_B T}$$</p>
+<p><strong>Siamo tornati a Boltzmann.</strong> E stavolta $A_{21}$ <strong>c'e'</strong>, eccome.</p>
+<p>Il motivo fisico: a densita' alta il livello 2 non riesce ad accumularsi oltre il valore di<br />
+equilibrio, perche' ogni urto che eccita e' pareggiato da uno che diseccita. Quindi quello che<br />
+conta e' <strong>quanto sei veloce a emettere</strong> prima che ti spengano.</p>
+<p>E siccome $N_1 \propto N_e$:</p>
+<p>$$\varepsilon \propto N_e$$</p>
+<p>Va <strong>lineare</strong> con la densita', non piu' col quadrato.</p>
+<p><img alt="" src="data/emissivita_densita.png" /></p>
+<hr />
+<h2>7. Il quenching</h2>
+<p>Quello che succede nel regime denso ha un nome: <strong>quenching</strong>, cioe' spegnimento.</p>
+<blockquote>
+<p>l' atomo viene eccitato per urto, ma prima che faccia in tempo a emettere il fotone arriva un<br />
+secondo urto che gli riprende l' energia. Il fotone non viene mai emesso, e l' energia resta nel<br />
+gas come calore.</p>
+</blockquote>
+<p>E' esattamente il motivo per cui certe righe si vedono nelle nebulose e non si vedono in<br />
+laboratorio: in laboratorio non si riesce a fare il vuoto abbastanza spinto.</p>
+<hr />
+<h2>8. Il quadro completo</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>$N_e \ll N_c$</th>
+<th>$N_e \gg N_c$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chi svuota il livello 2</td>
+<td>l' emissione</td>
+<td>gli urti</td>
+</tr>
+<tr>
+<td>$A_{21}$ nella formula</td>
+<td><strong>sparisce</strong></td>
+<td><strong>compare</strong></td>
+</tr>
+<tr>
+<td>chi comanda</td>
+<td>quanto spesso si sale</td>
+<td>Boltzmann</td>
+</tr>
+<tr>
+<td>$\varepsilon$ va come</td>
+<td>$N_e^2$</td>
+<td>$N_e$</td>
+</tr>
+<tr>
+<td>destino dell' energia</td>
+<td>esce come fotone</td>
+<td>resta come calore</td>
+</tr>
+<tr>
+<td>le righe lente (proibite)</td>
+<td><strong>si vedono</strong></td>
+<td><strong>si spengono</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>8.1 Perché questo capitolo spiega le righe proibite</h3>
+<p>Ed ecco a cosa serviva tutto il discorso.</p>
+<p>Una riga <strong>proibita</strong> e' una riga con $A_{21}$ ridicolmente piccolo, tipo $10^{-2}$ s$^{-1}$ contro<br />
+i $10^8$ di una riga normale. Guardando la tabella:</p>
+<ul>
+<li><strong>ad alta densita'</strong>: l' emissivita' dipende da $A_{21}$, che e' minuscolo -&gt; la riga non si vede</li>
+<li><strong>a bassa densita'</strong>: $A_{21}$ <strong>non compare nella formula</strong> -&gt; alla riga non gliene importa<br />
+  niente di essere lenta, e si vede benissimo</li>
+</ul>
+<p>E c'e' anche il verso quantitativo: $N_c = A_{21}/Q_{21}$, quindi una riga con $A_{21}$ piccolo ha<br />
+$N_c$ <strong>bassissima</strong>, cioe' basta pochissima densita' per spegnerla.</p>
+<p>Se ne parla per bene nel <a href="c057_righe_proibite.html">capitolo 5.7</a>.</p>
+<hr />
+<h2>9. In breve</h2>
+<ul>
+<li>nelle nebulose Boltzmann non vale: le popolazioni si contano a mano con l' equilibrio statistico</li>
+<li>si sale <strong>solo per urto</strong>, perche' il campo di radiazione e' diluito</li>
+<li>si scende in due modi: emettendo (<strong>la vedo</strong>) o per urto (<strong>calore, non la vedo</strong>)</li>
+<li>$N_2/N_1 = N_e Q_{12} / (A_{21} + N_e Q_{21})$</li>
+<li>$N_c = A_{21}/Q_{21}$ e' la densita' a cui i due modi di scendere si pareggiano</li>
+<li>$N_e \ll N_c$: $A_{21}$ <strong>si cancella</strong>, $\varepsilon = N_1 N_e Q_{12} \propto N_e^2$, ogni<br />
+  eccitazione diventa un fotone</li>
+<li>$N_e \gg N_c$: torna Boltzmann, $\varepsilon \propto N_e$, le righe lente si spengono<br />
+  (<strong>quenching</strong>)</li>
+<li>$Q_{12}/Q_{21} = (g_2/g_1) e^{-h\nu/k_BT}$, dal bilancio dettagliato, e vale anche fuori<br />
+  equilibrio perche' lega <strong>coefficienti</strong> e non popolazioni</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> In una nebulosa, un atomo puo' salire di livello in due modi. Perche' se ne butta via uno?<br />
+(-&gt; sezione 2.1)</p>
+<p><strong>2.</strong> A bassa densita' l' emissivita' della riga non dipende da $A_{21}$. Spiega perche' con una<br />
+frase che parli dell' atomo, senza usare la formula. (-&gt; sezione 5.1)</p>
+<p><strong>3.</strong> La relazione $Q_{12}/Q_{21} = (g_2/g_1)e^{-h<br />
+u/k_BT}$ si ricava assumendo l' equilibrio, ma<br />
+poi la usiamo fuori dall' equilibrio. Perche' non e' una scorrettezza? (-&gt; sezione 6.1)</p>
+<p><strong>4.</strong> Ti danno due nebulose identiche tranne che per la densita': una a $10^2$ e una a $10^7$<br />
+cm$^{-3}$. In quale vedi la riga proibita, e di quanto cresce l' emissivita' se raddoppi la<br />
+densita' in ciascuna? (-&gt; sezioni 5.1, 6.2 e 8)</p>
+<p><strong>5.</strong> Nel regime denso ritrovi Boltzmann. Non e' strano, visto che eravamo partiti dicendo che in<br />
+nebulosa Boltzmann non vale? Sistema la contraddizione. (-&gt; sezione 6.2)</p>
+<p><strong>6.</strong> Una riga ha $N_c = 10^6$ cm$^{-3}$ e un' altra $N_c = 10^2$. Quale delle due ha<br />
+l' $A_{21}$ piu' grande, e come lo sai? (-&gt; sezione 4)</p>
+<div class="piedi"><a href="c04_righe_assorbimento.html">&larr; 4 - Righe in assorbimento: quanto e' forte e quanto e' larga</a><a class="avanti" href="c055_ricombinazione.html">5.5 - Righe di ricombinazione otticamente sottili &rarr;</a></div>
+</main>
+</div></body></html>

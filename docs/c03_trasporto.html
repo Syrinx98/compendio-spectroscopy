@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 - Trasporto radiativo: perche' una riga e' scura o luminosa</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html" class="qui">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>3 - Trasporto radiativo: perche' una riga e' scura o luminosa</h1>
+<p><strong>Dispensa: cap. 3 (pag. 35-40).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong>, ed e' il piu' importante di tutti: ogni pezzo si appoggia sul<br />
+precedente, quindi non saltarne nessuno anche se sembrano ovvi.</em></p>
+<p>Questo capitolo e' il piu' importante di tutti, lo dico subito. Non perche' sia difficile:<br />
+perche' e' l' unico che vale <strong>sempre</strong>, stelle e nebulose, righe in assorbimento e righe in<br />
+emissione. Tutto il resto del corso e' un caso particolare di quello che c'e' scritto qui.</p>
+<p>La domanda e':</p>
+<blockquote>
+<p>la luce attraversa un gas. Quando esce, cos' e' cambiato?</p>
+</blockquote>
+<hr />
+<h2>1. Le due sole cose che possono succedere</h2>
+<p>Prendi un raggio di intensita' $I$ e mandalo dentro uno straterello di gas spesso $ds$. Ci sono due<br />
+cose che possono succedere, e solo due:</p>
+<ol>
+<li><strong>il gas si mangia un po' di luce</strong> (assorbimento)</li>
+<li><strong>il gas ci aggiunge un po' di luce</strong> (emissione)</li>
+</ol>
+<p>Scritto:</p>
+<p>$$\frac{dI}{ds} = -k I + \varepsilon$$</p>
+<p>$k$ $\quad$ coefficiente di assorbimento, quanto il gas e' bravo a mangiare. Nota che moltiplica<br />
+$I$: piu' luce arriva, piu' ne viene tolta (togliere il 10% di tanto e' tanto).</p>
+<p>$\varepsilon$ $\quad$ emissivita', quanta luce il gas ci mette di suo. Non moltiplica $I$: il gas<br />
+emette per conto suo, che tu gli mandi luce o no.</p>
+<p><em><strong>Attenzione:</strong> tutta l' asimmetria del problema sta qui. L' assorbimento e'<br />
+proporzionale a quello che c'e', l' emissione no. Da questa differenza esce tutto il resto.</em></p>
+<hr />
+<h2>2. Primo trucco: mettere insieme i due coefficienti</h2>
+<p>L' equazione cosi' com' e' ha due coefficienti scomodi. Si raccoglie $k$:</p>
+<p>$$\frac{dI}{ds} = -k \left( I - \frac{\varepsilon}{k} \right)$$</p>
+<p>e si da' un nome a quel rapporto, che si chiama <strong>funzione sorgente</strong>:</p>
+<p>$$S \equiv \frac{\varepsilon}{k}$$</p>
+<p>quindi</p>
+<p>$$\frac{dI}{ds} = -k (I - S)$$</p>
+<hr />
+<h3>2.1 Che cos'è $S$, in parole</h3>
+<p>$S$ e' il rapporto fra quanto il gas emette e quanto assorbe. Dimensionalmente e' un' intensita', e<br />
+si legge cosi':</p>
+<blockquote>
+<p>$S$ e' l' intensita' verso cui il gas sta cercando di portare la radiazione.</p>
+</blockquote>
+<p>Guarda l' equazione: se $I$ e' piu' grande di $S$, la derivata e' negativa e $I$ <strong>cala</strong>. Se $I$ e'<br />
+piu' piccola di $S$, la derivata e' positiva e $I$ <strong>cresce</strong>. Se sono uguali, non succede niente.</p>
+<p><strong>Il gas tira sempre $I$ verso $S$.</strong></p>
+<hr />
+<h3>2.2 Il criterio generale (da qui esce tutto il corso)</h3>
+<table>
+<thead>
+<tr>
+<th>se</th>
+<th>vedi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$I > S$</td>
+<td><strong>assorbimento</strong> (riga scura)</td>
+</tr>
+<tr>
+<td>$I < S$</td>
+<td><strong>emissione</strong> (riga luminosa)</td>
+</tr>
+<tr>
+<td>$I = S$</td>
+<td><strong>niente riga</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Occhio a questo:</strong> questo e' il criterio generale, e non dipende da niente. Non<br />
+dipende dal fatto che tu stia guardando una stella o una nebulosa, non dipende dalla temperatura,<br />
+non dipende dalla densita'. Se ti ricordi solo una cosa di tutto il corso, ricordati questa: che<br />
+tipo di riga vedi dipende dal confronto fra la luce che arriva e la funzione sorgente del gas.</em></p>
+<hr />
+<h2>3. Secondo trucco: misurare il cammino in modo furbo</h2>
+<p>Dire "lo strato e' spesso un metro" non serve a niente, perche' dipende da quanto e' denso e da<br />
+quanto assorbe. Quello che conta e' <strong>quanto assorbimento c'e' lungo il cammino</strong>. Quindi si<br />
+cambia variabile:</p>
+<p>$$d\tau = k \, ds$$</p>
+<p>$\tau$ si chiama <strong>profondita' ottica</strong> ed e' adimensionale. Non misura una distanza: misura<br />
+quanto e' opaco il cammino.</p>
+<table>
+<thead>
+<tr>
+<th>$\tau$</th>
+<th>come si dice</th>
+<th>quanta luce passa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\tau \ll 1$</td>
+<td><strong>otticamente sottile</strong></td>
+<td>quasi tutta</td>
+</tr>
+<tr>
+<td>$\tau = 1$</td>
+<td>-</td>
+<td>il <strong>37%</strong> ($1/e$)</td>
+</tr>
+<tr>
+<td>$\tau \gg 1$</td>
+<td><strong>otticamente spesso</strong></td>
+<td>quasi niente</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Attenzione:</strong> otticamente sottile vuol dire $\tau \ll 1$. Il numero $2/3$ che si incontra piu'<br />
+avanti e' un' altra cosa: e' la profondita' a cui si definisce la fotosfera di una stella.</em></p>
+<hr />
+<h2>4. La soluzione</h2>
+<p>Con $\tau$ al posto di $s$, l' equazione si integra e viene:</p>
+<p>$$I = I_0 e^{-\tau} + S (1 - e^{-\tau})$$</p>
+<p>$I_0 e^{-\tau}$ $\quad$ <strong>quello che resta</strong> della luce di partenza: attenuato esponenzialmente</p>
+<p>$S(1 - e^{-\tau})$ $\quad$ <strong>quello che il gas ci ha messo di suo</strong></p>
+<hr />
+<h3>4.1 Leggerla nei casi limite</h3>
+<p>E' una media pesata fra $I_0$ e $S$, e il peso e' $e^{-\tau}$.</p>
+<p><strong>Se $\tau \to 0$</strong> (gas trasparente): $e^{-\tau} \to 1$, quindi $I \to I_0$. Non e' cambiato<br />
+niente, la luce passa e basta.</p>
+<p><strong>Se $\tau \to \infty$</strong> (gas opaco): $e^{-\tau} \to 0$, quindi $I \to S$. <strong>Ti sei dimenticato<br />
+completamente di $I_0$</strong>: qualunque cosa ci fosse dietro, tu vedi solo il gas.</p>
+<p><em><strong>Vale la pena dirlo:</strong> questo secondo caso e' il motivo per cui esiste il concetto di<br />
+fotosfera. Guardando una stella non vedi il centro: vedi lo strato dove $\tau$ diventa circa 1<br />
+(per convenzione $2/3$), perche' tutto quello che sta sotto e' schermato. La "superficie" di una<br />
+stella e' semplicemente la profondita' a cui il gas smette di essere trasparente.</em></p>
+<hr />
+<h2>5. Quando $S$ diventa Planck</h2>
+<p>Fin qui $S$ e' solo un rapporto fra due coefficienti. Ma se il gas e' in <strong>equilibrio<br />
+termodinamico locale (LTE)</strong>, cioe' se le collisioni sono cosi' frequenti da imporre a tutto quanto<br />
+la stessa temperatura $T$, allora vale la legge di Kirchhoff e viene fuori questa:</p>
+<p>$$S = B_\nu(T)$$</p>
+<p>cioe' la funzione sorgente diventa il <strong>corpo nero</strong> a quella temperatura.</p>
+<p><strong>Questa uguaglianza vale solo in LTE.</strong> Nelle nebulose non vale, ed e' esattamente per quello che<br />
+le nebulose si comportano in modo cosi' diverso.</p>
+<hr />
+<h2>6. Il caso delle stelle: perché le righe sono scure</h2>
+<p>Adesso mettiamo insieme i pezzi e rispondiamo alla domanda vera.</p>
+<p>Siamo in una fotosfera stellare, densa, in LTE, quindi $S = B(T)$. La temperatura <strong>cala</strong> salendo<br />
+verso l' esterno.</p>
+<p>Il punto e' questo: il coefficiente di assorbimento $k$ <strong>non e' lo stesso a tutte le lunghezze<br />
+d' onda</strong>. Alla lunghezza d' onda di una riga il gas assorbe molto di piu':</p>
+<p>$$k_{riga} \gg k_{continuo}$$</p>
+<p>Conseguenza diretta: $\tau$ arriva a 1 <strong>prima</strong>, cioe' piu' in alto.</p>
+<ul>
+<li><strong>nel continuo</strong> (fuori dalla riga): vedi fino in fondo, uno strato profondo e <strong>caldo</strong></li>
+<li><strong>dentro la riga</strong>: ti fermi molto prima, in uno strato alto e <strong>freddo</strong></li>
+</ul>
+<p>E siccome $S = B(T)$ e $B$ cresce con $T$, lo strato freddo emette <strong>meno</strong>. Quindi dentro la riga<br />
+arriva meno luce che nel continuo: <strong>la riga e' scura</strong>.</p>
+<p><img alt="" src="data/formazione_riga.png" /></p>
+<hr />
+<h3>6.1 La cosa che chiude il ragionamento</h3>
+<p>E qui ne segue una cosa che secondo me e' il modo migliore di verificare se hai capito davvero<br />
+questo capitolo:</p>
+<blockquote>
+<p><strong>senza un gradiente di temperatura non esiste nessuna riga.</strong></p>
+</blockquote>
+<p>Se la fotosfera fosse isoterma, tutti gli strati avrebbero la stessa $S$, e non importerebbe da<br />
+quale profondita' ti arriva la luce: vedresti sempre la stessa intensita'. Spettro liscio, nessuna<br />
+riga, ne' scura ne' luminosa.</p>
+<p><strong>Le righe non le fa il gas: le fa il gradiente.</strong> Il gas decide solo a che lunghezza d' onda<br />
+succede.</p>
+<p><img alt="" src="data/gradiente_vs_isoterma.png" /></p>
+<hr />
+<h2>7. Il caso delle nebulose: perché le righe sono luminose</h2>
+<p>Stesso identico criterio, situazione rovesciata.</p>
+<p>Guardi una nebulosa. Alle sue spalle non c'e' niente: <strong>$I_0 \approx 0$</strong>, e il fondo cielo e'<br />
+buio. Il gas invece emette, quindi $S > 0$.</p>
+<p>Quindi $I < S$, e per il criterio del punto 2.2 vedi <strong>emissione</strong>.</p>
+<p>E siccome il gas e' rarefatto, $\tau \ll 1$ nelle righe: tutti i fotoni prodotti escono senza<br />
+essere riassorbiti. Questo semplifica moltissimo la vita, e ci si torna nel<br />
+<a href="c055_ricombinazione.html">capitolo 5.5</a>.</p>
+<hr />
+<h3>7.1 Lo stesso gas, due risposte diverse</h3>
+<p>Su questo fermiamoci un secondo.</p>
+<p>Non e' che le nebulose siano fatte di roba diversa dalle stelle. E' lo stesso idrogeno. Quello che<br />
+cambia e' <strong>cosa c'e' dietro</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>cosa c'e' dietro</th>
+<th>$I_0$</th>
+<th>risultato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fotosfera</td>
+<td>strati piu' caldi e profondi</td>
+<td>grande</td>
+<td>$I > S$ -&gt; assorbimento</td>
+</tr>
+<tr>
+<td>nebulosa</td>
+<td>spazio vuoto</td>
+<td>~0</td>
+<td>$I < S$ -&gt; emissione</td>
+</tr>
+</tbody>
+</table>
+<p>Se metti una nube di gas <strong>davanti</strong> a una stella la vedi in assorbimento, se la metti <strong>di fianco</strong><br />
+la vedi in emissione. Stessa nube.</p>
+<hr />
+<h2>8. In breve</h2>
+<ul>
+<li>$dI/ds = -kI + \varepsilon$: solo due cose possono succedere, si toglie luce o se ne aggiunge</li>
+<li>$S = \varepsilon/k$ e' l' intensita' verso cui il gas tira la radiazione</li>
+<li>criterio generale: $I > S$ assorbimento, $I < S$ emissione, $I = S$ niente riga</li>
+<li>$\tau$ misura l' opacita' del cammino, non la distanza. $\tau = 1$ -&gt; passa il 37%</li>
+<li>$I = I_0 e^{-\tau} + S(1 - e^{-\tau})$: media pesata fra quello che entra e quello che il gas<br />
+  vorrebbe</li>
+<li>$S = B(T)$ <strong>solo in LTE</strong></li>
+<li>nelle stelle le righe sono scure perche' dentro la riga vedi uno strato piu' alto e piu' freddo</li>
+<li><strong>senza gradiente di temperatura non c'e' nessuna riga</strong></li>
+<li>nelle nebulose sono luminose perche' dietro non c'e' niente</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Hai una nube di gas e una stella. Come devi disporle per vedere le righe in assorbimento?<br />
+E per vederle in emissione? La nube e' sempre la stessa. (-&gt; sezioni 2.2 e 7.1)</p>
+<p><strong>2.</strong> Una fotosfera perfettamente isoterma: che spettro produce? Rispondi ragionando su $S$, non<br />
+a memoria. (-&gt; sezione 6.1)</p>
+<p><strong>3.</strong> Perche' guardando il Sole non vedi il suo centro? La risposta sta in una formula sola.<br />
+(-&gt; sezione 4.1)</p>
+<p><strong>4.</strong> Dentro una riga il gas assorbe molto di piu' che nel continuo. Come mai questo la rende<br />
+<strong>scura</strong> e non luminosa? Fai il percorso completo, sono tre passaggi. (-&gt; sezione 6)</p>
+<p><strong>5.</strong> In che condizioni puoi scrivere $S = B(T)$? E cosa succede se lo fai in una nebulosa?<br />
+(-&gt; sezione 5)</p>
+<div class="piedi"><a href="c02_boltzmann_saha.html">&larr; 2 - Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a><a class="avanti" href="c04_righe_assorbimento.html">4 - Righe in assorbimento: quanto e' forte e quanto e' larga &rarr;</a></div>
+</main>
+</div></body></html>

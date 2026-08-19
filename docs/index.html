@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compendio di Astronomical Spectroscopy</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html" class="qui">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>Compendio di Astronomical Spectroscopy</h1>
+<p>Questo e' un compendio del corso, scritto da uno studente che l' ha appena fatto, per gli studenti<br />
+che lo stanno facendo.</p>
+<p>Non e' un riassunto della dispensa e non la sostituisce. E' il percorso logico: <strong>come si arriva a<br />
+una formula, e perche' quella formula ha quella faccia li'.</strong></p>
+<hr />
+<h2>Cosa ci trovi e cosa NON ci trovi</h2>
+<p><strong>Non ci trovi le derivazioni.</strong> Non c'e' un solo conto svolto. Se ti serve il passaggio<br />
+matematico sta nella dispensa, e li' e' fatto bene.</p>
+<p><strong>Ci trovi gli step logici</strong>, cioe':</p>
+<ol>
+<li>che problema stiamo cercando di risolvere</li>
+<li>che cosa ci serve sapere per risolverlo</li>
+<li>che assunzioni facciamo, e perche' possiamo farle</li>
+<li>che formula ne esce</li>
+<li>cosa vuol dire ogni pezzo della formula</li>
+<li>cosa succede se un pezzo diventa grande o piccolo (i casi limite: e' li' che si capisce)</li>
+</ol>
+<p><em><strong>Nota subito così de botto:</strong> il punto 6 e' quello che conta davvero. Una formula che sai<br />
+scrivere ma non sai leggere nei suoi casi limite e' una formula che non hai capito. Leggerla vuol<br />
+dire: se questo termine cresce cosa succede? se questo va a zero cosa resta?</em></p>
+<hr />
+<h2>I due modi in cui sono scritti i capitoli</h2>
+<p>Non sono scritti tutti uguali, e non e' un caso. Ci sono due metodi, e ogni volta che ne uso uno lo<br />
+dico all' inizio del capitolo, cosi' sai cosa aspettarti.</p>
+<p><strong>Il PODS.</strong> Serve quando c'e' un ragionamento da difendere, cioe' quando la cosa da capire non e'<br />
+una formula ma il <strong>perche'</strong> quella formula esiste. Funziona cosi':</p>
+<p><strong>Premise</strong> $\quad$ quello che osservo, il dato di partenza</p>
+<p><strong>Objection</strong> $\quad$ l' obiezione che rompe la premessa: se fosse cosi' semplice, vedrei<br />
+un' altra cosa</p>
+<p><strong>Deduction</strong> $\quad$ cosa ne deduco, visto che l' obiezione regge</p>
+<p><strong>Specification</strong> $\quad$ lo strumento preciso che mi serve per andare avanti</p>
+<p>Il pezzo che conta e' l' <strong>Objection</strong>: e' li' che si capisce se hai capito. Se sai dire da solo<br />
+perche' la spiegazione ovvia non funziona, la formula dopo te la ricavi quasi da solo.</p>
+<p><strong>I mattoncini.</strong> Servono quando la cosa e' difficile e va posata piano: un concetto per volta,<br />
+ognuno appoggiato al precedente, e non si va avanti finche' quello prima non e' fermo. Li uso nei<br />
+punti dove io mi ero incartato: la funzione sorgente, il fotone di cattura, il gradino di Balmer.</p>
+<p>Quando vedi una sezione fatta di pezzetti corti separati da una linea, sono quelli.</p>
+<hr />
+<h2>Come si studia con questo</h2>
+<p>Leggi un capitolo, poi chiudilo e prova a rispondere a questa domanda:</p>
+<blockquote>
+<p>se mi metti davanti una nebulosa (o una stella) con queste caratteristiche, cosa vedo e perche'?</p>
+</blockquote>
+<p>Se ci riesci, vai avanti. Se non ci riesci, non e' che ti manca la formula: ti manca il motivo per<br />
+cui c'e'.</p>
+<p>Alla fine di ogni capitolo ci sono delle <strong>domande tattiche</strong>. Non sono domande da ripasso a<br />
+memoria: sono domande che si rispondono solo ragionando, e ognuna ti dice a quale sezione tornare<br />
+se ti blocchi. Non guardare la sezione prima di averci provato, se no non servono a niente.</p>
+<hr />
+<h2>Indice</h2>
+<p><strong>I numeri sono quelli della dispensa</strong>, non una numerazione mia: se qui leggi "5.7", nelle note<br />
+e' il paragrafo 5.7. Cosi' non devi mai stare a tradurre fra i due.</p>
+<p>Le prime tre pagine non hanno numero perche' non corrispondono a niente della dispensa: sono roba<br />
+di servizio.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>capitolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><a href="c03_trasporto.html">Trasporto radiativo</a></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><a href="c04_righe_assorbimento.html">Righe in assorbimento: EW e allargamenti</a></td>
+</tr>
+<tr>
+<td><strong>5.1-5.4</strong></td>
+<td><a href="c051_atomo_due_livelli.html">Atomo a due livelli, densita' critica, quenching</a></td>
+</tr>
+<tr>
+<td><strong>5.5</strong></td>
+<td><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></td>
+</tr>
+<tr>
+<td><strong>5.6</strong></td>
+<td><a href="c056_polvere.html">Estinzione da polvere</a></td>
+</tr>
+<tr>
+<td><strong>5.7</strong></td>
+<td><a href="c057_righe_proibite.html">Righe proibite</a></td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><a href="c06_continui.html">I continui</a></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><a href="c08_stromgren.html">La sfera di Stromgren</a></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></td>
+</tr>
+</tbody>
+</table>
+<p>Ogni capitolo sta in piedi da solo: se ti serve solo Stromgren, vai all' 8 e leggi quello.</p>
+<hr />
+<h2>Da dove viene questa roba</h2>
+<p>Dalla dispensa del corso (<code>notes_28Jul2021.pdf</code>) e dagli appunti che mi sono fatto studiando. Le<br />
+formule le ho ricontrollate contro la dispensa, ma <strong>le sviste sono possibili</strong>: se trovi qualcosa<br />
+che non torna, fidati della dispensa e correggi qui.</p>
+<div class="piedi"><a class="avanti" href="a1_di_cosa_parla.html">Di cosa parla tutto il corso &rarr;</a></div>
+</main>
+</div></body></html>

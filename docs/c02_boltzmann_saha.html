@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2 - Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html" class="qui">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>2 - Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</h1>
+<p><strong>Dispensa: cap. 2 (pag. 19-34).</strong></p>
+<p><em>Capitolo in <strong>PODS</strong>. Le formule qui sono due e si imparano in un pomeriggio, la fatica sta nel<br />
+capire perche' servono: si parte<br />
+da un dato osservativo, si mette l' obiezione che lo rende assurdo, e solo dopo si tirano<br />
+fuori gli strumenti.</em></p>
+<p>Questo capitolo risponde a una domanda sola, ed e' una domanda che viene da un dato osservativo:</p>
+<blockquote>
+<p>guardo le stelle lungo la sequenza spettrale, e le righe di Balmer sono debolissime nelle O,<br />
+diventano fortissime nelle A0, e poi tornano deboli nelle K e M. <strong>Perche' c'e' un massimo in<br />
+mezzo?</strong></p>
+</blockquote>
+<p>Se le righe di Balmer venissero dall' idrogeno, e l' idrogeno c'e' dappertutto, uno si aspetterebbe<br />
+che siano piu' o meno uguali ovunque. E invece no.</p>
+<p><img alt="" src="data/seq.png" /></p>
+<hr />
+<h2>1. Cosa serve per fare una riga di Balmer</h2>
+<p>Prima di tutto capiamo chi le fa, queste righe.</p>
+<p>Le righe di Balmer sono transizioni che partono (in assorbimento) dal livello $n=2$ dell' idrogeno<br />
+neutro. Quindi per vederle mi serve un atomo che sia:</p>
+<ol>
+<li><strong>neutro</strong> (se e' ionizzato non ha piu' l' elettrone, non assorbe niente)</li>
+<li><strong>eccitato su $n=2$</strong> (se sta sul fondamentale assorbe in Lyman, che e' nell' UV e da terra non<br />
+   si vede)</li>
+</ol>
+<p>Due condizioni <strong>in contrasto fra loro</strong>, ed e' tutto li'.</p>
+<p><em><strong>NOTA BENE:</strong> questa e' la struttura logica di tutto il capitolo. Ogni volta che<br />
+in fisica trovi un massimo, quasi sempre e' perche' hai due condizioni che tirano in direzioni<br />
+opposte, una che cresce e una che cala.</em></p>
+<hr />
+<h2>2. Primo pezzo: quanti sono eccitati su n=2? (Boltzmann)</h2>
+<p>Dentro un atomo neutro, come si spartiscono gli elettroni fra i livelli? Lo dice Boltzmann:</p>
+<p>$$\frac{N_{i,n}}{N_i} = \frac{g_{i,n}}{u_i(T)} e^{-\chi_{i,n} / k_B T}$$</p>
+<p>$N_{i,n}$ $\quad$ quanti atomi dello ione $i$ stanno sul livello $n$</p>
+<p>$N_i$ $\quad$ quanti atomi di quello ione ci sono in totale</p>
+<p>$\chi_{i,n}$ $\quad$ quanto costa in energia salire dal fondamentale al livello $n$</p>
+<p>$g_{i,n}$ $\quad$ il <strong>peso statistico</strong> del livello: quanti stati quantici diversi stanno alla<br />
+stessa energia. Per l' idrogeno $g_n = 2n^2$.</p>
+<p>$u_i(T)$ $\quad$ la <strong>funzione di partizione</strong>, cioe' la somma di tutti i pesi statistici pesati<br />
+col loro esponenziale. E' il normalizzatore: serve a far tornare i conti su tutti i livelli. Per<br />
+l' idrogeno neutro a temperature normali $u_0 \approx 2$ (il fondamentale domina e vale 2), mentre<br />
+$u_1 = 1$ perche' l' idrogeno ionizzato e' un protone nudo, ha un solo stato possibile.</p>
+<hr />
+<h3>2.1 Come si legge</h3>
+<p>La formula ha <strong>due fattori</strong>, e fanno due cose diverse:</p>
+<ul>
+<li><strong>l' esponenziale</strong> $e^{-\chi/k_BT}$ e' la penalita' energetica: piu' il livello e' alto, piu' e'<br />
+  raro. Cresce con $T$.</li>
+<li><strong>il rapporto</strong> $g_n / u$ e' un fattore geometrico, conta gli stati: e' li' anche a temperatura<br />
+  altissima.</li>
+</ul>
+<p>La cosa da tenere: l' esponenziale, quando $T \to \infty$, tende a <strong>1</strong>, non all' infinito. Quindi<br />
+Boltzmann <strong>satura</strong>. Per l' idrogeno il massimo che puoi ottenere e'</p>
+<p>$$\frac{N_{0,2}}{N_0} \to \frac{g_2}{u_0} = \frac{2 \cdot 2^2}{2} = 4$$</p>
+<p>Cioe' per quanto scaldi, non superi quel tetto.</p>
+<p>Segnati questo, che fra due paragrafi e' il punto della storia.</p>
+<p><img alt="" src="data/esponenziale_boltzmann_vero.png" /></p>
+<hr />
+<h3>2.2 Un numero per farsi un' idea</h3>
+<p>A $T = 10^4$ K, per l' idrogeno, il rapporto fra chi sta su $n=2$ e chi sta su $n=1$ vale</p>
+<p>$$\frac{N_{0,2}}{N_{0,1}} = 2.9 \times 10^{-5}$$</p>
+<p>Cioe' <strong>un atomo su 35000</strong> e' su $n=2$. Sono pochissimi, ed e' proprio in quel regime che le righe<br />
+di Balmer sono al massimo. Fa capire quanto sia sensibile la faccenda.</p>
+<hr />
+<h2>3. Secondo pezzo: quanti sono ancora neutri? (Saha)</h2>
+<p>Boltzmann mi dice come si distribuiscono gli elettroni <strong>dentro</strong> uno ione. Non mi dice niente su<br />
+quanti atomi siano ancora neutri. Per quello serve Saha:</p>
+<p>$$\frac{N_{i+1}}{N_i} P_e = 2 \frac{u_{i+1}(T)}{u_i(T)} C \, T^{5/2} e^{-\chi_i / k_B T}$$</p>
+<p>$\chi_i$ $\quad$ il potenziale di ionizzazione (per H I: 13.6 eV)</p>
+<p>$P_e$ $\quad$ la pressione elettronica, sta al <strong>denominatore</strong> del rapporto</p>
+<p>$C$ $\quad$ un mucchio di costanti. Non serve impararla: viene dal conteggio delle celle nello<br />
+spazio delle fasi, e il 2 davanti sono i due stati di spin dell' elettrone libero.</p>
+<hr />
+<h3>3.1 Perché $P_e$ sta di sotto</h3>
+<p>Domanda che ha senso farsi: perche' piu' elettroni ci sono in giro, meno ionizzazione vedo?</p>
+<p>Perche' la ionizzazione non e' una strada a senso unico. E' un equilibrio fra ionizzazione e<br />
+ricombinazione. Se il gas e' pieno di elettroni liberi, gli ioni ne riacchiappano uno piu' spesso,<br />
+quindi all' equilibrio ne trovo meno di ionizzati.</p>
+<hr />
+<h3>3.2 Perché c'è quel $T^{5/2}$</h3>
+<p>Questo e' il pezzo che rende Saha diverso da Boltzmann, quindi meglio capirlo bene.</p>
+<p>Quando ionizzo, l' elettrone non finisce in un altro livello: finisce <strong>libero</strong>. E gli stati<br />
+disponibili per un elettrone libero non sono un numeretto fisso come $g_n$, sono tutto lo spazio<br />
+delle fasi, che si allarga alla grande quando alzo la temperatura.</p>
+<p>Quindi Saha ha davanti un fattore che <strong>cresce senza tetto</strong>, mentre Boltzmann aveva un tetto.</p>
+<hr />
+<h2>4. Terzo pezzo: mettere insieme i due</h2>
+<p>Io non voglio ne' "la frazione di neutri" ne' "la frazione di eccitati". Voglio la frazione di<br />
+atomi che sono <strong>neutri e insieme eccitati su $n=2$</strong>, rispetto a tutto l' idrogeno che c'e'.</p>
+<p>Si mettono insieme cosi' (dispensa pag. 25):</p>
+<p>$$\frac{N_{0,2}}{N_{tot}} = \frac{N_{0,2}/N_0}{1 + N_1/N_0}$$</p>
+<p><strong>Sopra c'e' Boltzmann, sotto c'e' Saha.</strong></p>
+<p>Sopra: la frazione di neutri che sta su $n=2$.<br />
+Sotto: $1 + N_1/N_0$ e' il modo di dire "tutti gli atomi, neutri piu' ionizzati", diviso i neutri.</p>
+<hr />
+<h3>4.1 L'assunzione nascosta</h3>
+<p>Qui dentro c'e' un' assunzione che conviene sempre dichiarare, perche' e' quella che fa vedere che<br />
+hai capito cosa stai facendo: <strong>si sta assumendo che ci sia solo idrogeno.</strong></p>
+<p>Non e' un' assunzione sulla densita': la densita' totale <strong>si semplifica</strong>, perche' sto facendo un<br />
+rapporto fra popolazioni dello stesso elemento. E' un' assunzione sulla composizione chimica.</p>
+<hr />
+<h2>5. Il risultato: perché c'è il massimo</h2>
+<p>Adesso il grafico si legge da solo.</p>
+<p><strong>A bassa temperatura</strong> (stelle K, M): l' idrogeno e' tutto neutro, Saha non morde. Pero' Boltzmann<br />
+non ce la fa a portare nessuno su $n=2$: servono 10.2 eV e non ce ne sono. <strong>Poche righe.</strong></p>
+<p><strong>Salendo</strong>: Boltzmann comincia a popolare $n=2$. Le righe crescono.</p>
+<p><strong>A $T = 9877$ K</strong> (stelle <strong>A0</strong>): massimo.</p>
+<p><strong>Continuando a salire</strong>: qui succede il sorpasso. Boltzmann ha gia' dato quasi tutto quello che<br />
+poteva (satura a 4), mentre Saha ha il $T^{5/2}$ che continua a spingere. Comincio a perdere atomi<br />
+neutri piu' in fretta di quanti ne ecciti. <strong>Le righe crollano.</strong></p>
+<p><strong>A temperature da stella O</strong>: idrogeno tutto ionizzato, niente atomi neutri, <strong>niente righe di<br />
+Balmer</strong>.</p>
+<p><img alt="" src="data/boltzmann_e_saha.png" /></p>
+<hr />
+<h3>5.1 Tutta la storia in cinque righe</h3>
+<blockquote>
+<p>Eccitare costa meno che ionizzare (10.2 eV contro 13.6), quindi salendo di temperatura Boltzmann<br />
+parte per primo e le righe crescono. Ma Boltzmann satura a $g_2/u_0 = 4$, mentre Saha ha un<br />
+$T^{5/2}$ che non ha tetto. Quando la ionizzazione sorpassa l' eccitazione, le righe crollano.<br />
+Il punto di sorpasso e' il massimo, e cade nelle A0 a circa 9900 K.</p>
+</blockquote>
+<hr />
+<h3>5.2 Qualche numero sulla ionizzazione dell' idrogeno</h3>
+<table>
+<thead>
+<tr>
+<th>T</th>
+<th>quanto idrogeno e' ionizzato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9600 K</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>$10^4$ K</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>14000 K</td>
+<td>~100%</td>
+</tr>
+</tbody>
+</table>
+<p>Fa vedere quanto e' brusca la transizione: in poco piu' di 4000 K si passa da meta' a tutto.</p>
+<hr />
+<h2>6. Una domanda che può arrivare: fino a che n si arriva?</h2>
+<p>In teoria i livelli dell' idrogeno sono infiniti, $E_n = -13.6/n^2$ si infittiscono verso lo zero.<br />
+In pratica esiste un $n^*$ massimo oltre il quale non vedi piu' niente, e il motivo e' bello:</p>
+<p>le righe di una serie, andando verso il limite, si stringono sempre di piu' fra loro. Quando la<br />
+loro distanza scende sotto la <strong>larghezza</strong> della riga stessa, si fondono in un continuo e non le<br />
+distingui piu'.</p>
+<p>Esempio, sulla serie di Balmer:</p>
+<ul>
+<li>fra la transizione $10 \to 2$ e la $11 \to 2$ ci sono <strong>27 A</strong>: distinguibilissime</li>
+<li>fra la $100 \to 2$ e la $101 \to 2$ ci sono <strong>0.03 A</strong>: impossibile</li>
+</ul>
+<p>E siccome la larghezza della riga dipende dagli urti, cioe' dalla densita', <strong>$n^*$ dipende dalla<br />
+densita' del gas</strong>: gas denso -&gt; righe larghe -&gt; si fondono prima -&gt; $n^*$ basso.</p>
+<hr />
+<h2>7. Attenzione alla notazione</h2>
+<p>Due trappole in cui e' facile cascare:</p>
+<ol>
+<li><strong>$N_1/N_0$ in questo capitolo sono stadi di ionizzazione</strong> (neutro, ionizzato una volta), non<br />
+   livelli energetici. Nel capitolo 5, quando si parla di atomo a due livelli, $N_2/N_1$ sono<br />
+   invece <strong>livelli</strong>. Stessa scrittura, cose diverse.</li>
+<li><strong>Il numero romano vale $i+1$</strong>: H I e' l' idrogeno <strong>neutro</strong>, O III e' l' ossigeno ionizzato<br />
+<strong>due</strong> volte.</li>
+</ol>
+<hr />
+<h2>8. In breve</h2>
+<ul>
+<li>Balmer ha un massimo perche' servono due cose in contrasto: atomo neutro E eccitato su $n=2$</li>
+<li>Boltzmann distribuisce <strong>dentro</strong> uno ione, e <strong>satura</strong></li>
+<li>Saha distribuisce <strong>fra</strong> stadi di ionizzazione, e ha $T^{5/2}$ che <strong>non satura</strong></li>
+<li>il massimo e' il punto in cui Saha sorpassa Boltzmann: <strong>9877 K, stelle A0</strong></li>
+<li>$P_e$ sta sotto in Saha perche' piu' elettroni liberi = piu' ricombinazione</li>
+<li>$n^*$ e' finito e dipende dalla densita'</li>
+</ul>
+<p><em><strong>Ultima nota:</strong> questo capitolo e' l' unico posto del corso in cui si usa Boltzmann sul serio.<br />
+Dal capitolo 5 in poi si passa alle nebulose, dove Boltzmann <strong>non vale piu'</strong> perche' le<br />
+collisioni sono troppo rare per mantenere l' equilibrio. Tieni da parte questa formula, perche' piu'<br />
+avanti ricomparira' come <strong>caso limite</strong>: quando la densita' e' alta, il conto fatto a mano torna a<br />
+darti Boltzmann. Vedi il <a href="c051_atomo_due_livelli.html">capitolo 5</a>.</em></p>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Scalda l' idrogeno all' infinito. Boltzmann cosa fa? E Saha? Rispondi guardando le due<br />
+formule, non a memoria. (-&gt; sezioni 2.1 e 3.2)</p>
+<p><strong>2.</strong> Nella formula di Saha la pressione elettronica sta al denominatore. Prova a spiegare<br />
+perche' con una frase che parli di quello che succede agli atomi, senza citare la formula.<br />
+(-&gt; sezione 3.1)</p>
+<p><strong>3.</strong> Uno ti dice: "il massimo delle righe di Balmer cade dove il gas ha la densita' giusta".<br />
+Dov' e' l' errore? (-&gt; sezione 4.1)</p>
+<p><strong>4.</strong> A $10^4$ K solo un atomo di idrogeno su 35000 sta su $n=2$. Eppure e' li' che le righe di<br />
+Balmer sono al massimo. Come si mette insieme? (-&gt; sezioni 2.2 e 5)</p>
+<p><strong>5.</strong> In un gas molto denso il numero massimo di livelli visibili $n^*$ e' piu' alto o piu' basso<br />
+che in un gas rarefatto? Il ragionamento passa da un altro capitolo, quale? (-&gt; sezione 6, e<br />
+<a href="c04_righe_assorbimento.html">capitolo 4</a>)</p>
+<div class="piedi"><a href="a2_numeri_in_tasca.html">&larr; Numeri e conversioni da avere in tasca</a><a class="avanti" href="c03_trasporto.html">3 - Trasporto radiativo: perche' una riga e' scura o luminosa &rarr;</a></div>
+</main>
+</div></body></html>

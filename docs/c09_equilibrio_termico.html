@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9 - Equilibrio termico: chi scalda e chi raffredda</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html" class="qui">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>9 - Equilibrio termico: chi scalda e chi raffredda</h1>
+<p><strong>Dispensa: cap. 9 (pag. 111 e seguenti).</strong></p>
+<p><em>Capitolo in <strong>PODS</strong>: si parte da una domanda che sembra ingenua (perche' non si scalda<br />
+all' infinito?) e si finisce con un grafico che spiega tutto il corso.</em></p>
+<p>Ultimo capitolo, e chiude un cerchio. Per tutto il corso si e' detto "una nebulosa sta a $10^4$ K"<br />
+e lo si e' usato per fare i conti. Adesso si spiega <strong>perche'</strong> ci sta.</p>
+<p>La domanda e':</p>
+<blockquote>
+<p>la stella pompa energia nella nebulosa in continuazione. Perche' allora non si scalda<br />
+all' infinito?</p>
+</blockquote>
+<hr />
+<h2>1. L'equazione</h2>
+<p>Perche' due processi opposti si pareggiano:</p>
+<p>$$\Gamma = \Lambda$$</p>
+<p>$\Gamma$ $\quad$ tasso di <strong>riscaldamento</strong>: energia data al gas per unita' di volume e di tempo,<br />
+in erg cm$^{-3}$ s$^{-1}$</p>
+<p>$\Lambda$ $\quad$ tasso di <strong>raffreddamento</strong>, stesse unita'</p>
+<p>La temperatura si assesta al valore in cui i due si eguagliano. Ed e' il motivo per cui <strong>tutte</strong><br />
+le nebulose fotoionizzate stanno intorno a $10^4$ K, indipendentemente da quanto e' grande la<br />
+stella che le illumina.</p>
+<hr />
+<h2>2. Chi scalda: la fotoionizzazione</h2>
+<p>Il capo assoluto e' la <strong>fotoionizzazione</strong>, ed e' facile da capire.</p>
+<p>Arriva un fotone stellare con energia sopra la soglia, diciamo 20 eV. Ne spende 13.6 per strappare<br />
+l' elettrone, e <strong>i 6.4 eV che avanzano se li porta via l' elettrone come energia cinetica</strong>.</p>
+<p>Quell' elettrone poi sfreccia in giro, urta gli altri, e distribuisce l' energia a tutto il gas.<br />
+<strong>Il gas si scalda.</strong></p>
+<p>$$\bar{E}_e = \frac{\int_{\nu_0}^{\infty} h(\nu - \nu_0) \frac{k_\nu I_\nu}{h\nu} d\nu}{\int_{\nu_0}^{\infty} \frac{k_\nu I_\nu}{h\nu} d\nu}$$</p>
+<p>$\bar{E}_e$ $\quad$ energia cinetica media del singolo elettrone liberato</p>
+<p>$h(\nu - \nu_0)$ $\quad$ l' energia in eccesso sulla soglia, quella che finisce all' elettrone</p>
+<p>$\frac{k_\nu I_\nu}{h\nu}$ $\quad$ il numero di fotoionizzazioni per unita' di volume e di tempo</p>
+<p>Cioe': e' la media dell' energia in eccesso, pesata su quante fotoionizzazioni avvengono a ogni<br />
+frequenza.</p>
+<hr />
+<h3>2.1 La cosa importante di questa formula</h3>
+<p>Guarda cosa c'e' sopra e sotto: $I_\nu$ compare in tutti e due, e <strong>si semplifica</strong>.</p>
+<blockquote>
+<p><strong>$\bar{E}_e$ dipende dallo spettro della stella, non dalla sua intensita'.</strong></p>
+</blockquote>
+<p>Vuol dire che una stella lontana o vicina scalda gli elettroni allo stesso modo: cambia <strong>quanti</strong><br />
+ne libera, non <strong>quanto energetici</strong> sono. Quello che conta e' la temperatura della stella, che<br />
+decide la forma dello spettro.</p>
+<p>Vicino alla stella, con l' approssimazione di Wien, viene:</p>
+<p>$$\bar{E}_e = \psi_0 k_B T$$</p>
+<p>con $\psi_0$ dell' ordine di 1 (e $T$ e' la temperatura della <strong>stella</strong>, non del gas).</p>
+<hr />
+<h3>2.2 Un effetto di indurimento</h3>
+<p>Siccome $k_\nu \propto \nu^{-3}$ (vedi la <a href="c07_ionizzazione.html">capitolo 7</a>), i fotoni<br />
+piu' energetici attraversano la nube senza essere assorbiti, mentre quelli appena sopra soglia<br />
+vengono mangiati subito.</p>
+<p>Conseguenza: <strong>piu' ci si allontana dalla stella, piu' gli elettroni liberati escono energetici</strong>,<br />
+perche' li' arrivano solo i fotoni duri.</p>
+<hr />
+<h3>2.3 Il bilancio netto</h3>
+<p>Il riscaldamento vero non e' tutta l' energia che entra: bisogna togliere quella che se ne va con le<br />
+ricombinazioni, perche' l' elettrone catturato si porta via la sua energia cinetica.</p>
+<p>$$\Gamma_{ph} = N_1 N_e \left[ \alpha_0 \bar{E}_e - \frac{1}{2} m_e \langle \sigma_{fb} v^3 \rangle \right]$$</p>
+<p>Il primo pezzo e' quello che entra, il secondo quello che esce.</p>
+<p>E qui torna il risultato del <a href="c07_ionizzazione.html">capitolo 7</a>: $\sigma_{fb}$ <strong>cala</strong> al crescere<br />
+di $v$, quindi a farsi catturare sono soprattutto gli elettroni <strong>lenti</strong>. Entrano elettroni<br />
+veloci ed escono elettroni lenti: il bilancio e' positivo, il gas si scalda.</p>
+<hr />
+<h3>2.4 Gli altri canali (minori)</h3>
+<ul>
+<li>ionizzazione di H I da <strong>raggi cosmici</strong></li>
+<li><strong>effetto fotoelettrico</strong> sulla superficie dei grani di polvere</li>
+<li>evaporazione di molecole H$_2$ dai grani</li>
+</ul>
+<hr />
+<h2>3. Chi raffredda: le righe proibite dei metalli</h2>
+<p>E qui si capisce perche' il <a href="c057_righe_proibite.html">capitolo 5.7</a> era cosi' importante.</p>
+<p>Il meccanismo, in tre passi:</p>
+<ol>
+<li>un elettrone libero <strong>urta</strong> uno ione dei metalli (O, N, S) e lo porta su un livello<br />
+<strong>metastabile</strong> poco sopra il fondamentale. Quell' urto <strong>toglie energia cinetica al gas</strong>.</li>
+<li>lo ione decade ed emette un fotone.</li>
+<li>la nebulosa e' otticamente sottile a quella riga, quindi <strong>il fotone se ne va</strong> portandosi<br />
+   dietro l' energia.</li>
+</ol>
+<p>Netto: quell' energia il gas non se la riprende piu'.</p>
+<hr />
+<h3>3.1 Perché sono i metalli e non l'idrogeno</h3>
+<p>Questa e' la domanda giusta da farsi, e la risposta e' un confronto fra due numeri.</p>
+<p>A $10^4$ K gli elettroni hanno $k_B T_e = 0.86$ eV.</p>
+<table>
+<thead>
+<tr>
+<th>specie</th>
+<th>primo livello raggiungibile</th>
+<th>ci arrivano?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>idrogeno</td>
+<td><strong>10.2 eV</strong></td>
+<td>no, mai</td>
+</tr>
+<tr>
+<td>[O III], [N II], [S II]</td>
+<td><strong>2-5 eV</strong></td>
+<td>si'</td>
+</tr>
+</tbody>
+</table>
+<p>L' idrogeno e' fuori portata: per eccitarlo servirebbero elettroni dodici volte piu' energetici<br />
+della media, e la coda della maxwelliana non ne fornisce abbastanza.</p>
+<p>I metalli invece hanno i livelli metastabili a pochi eV, per il motivo visto nel<br />
+<a href="c057_righe_proibite.html">capitolo 5.7</a> (stessa configurazione elettronica del fondamentale).</p>
+<p><em><strong>Nota subito così de botto:</strong> fa una certa impressione. I metalli sono una traccia, tipo un<br />
+atomo su diecimila. Eppure sono loro a fissare la temperatura di tutta la nebulosa, perche' sono<br />
+gli unici che gli elettroni riescono a eccitare. La roba che c'e' in abbondanza non serve a niente<br />
+se sta troppo in alto.</em></p>
+<hr />
+<h3>3.2 La formula</h3>
+<p>$$\Lambda_{coll} = N_e \sum_m (E_m - E_1)(N_{i1} Q_{1m} - N_{im} Q_{m1})$$</p>
+<p>$(E_m - E_1)$ $\quad$ l' energia del salto fondamentale -&gt; metastabile</p>
+<p>$N_{i1} Q_{1m}$ $\quad$ le eccitazioni: <strong>energia tolta</strong> al gas</p>
+<p>$N_{im} Q_{m1}$ $\quad$ le diseccitazioni collisionali: <strong>energia restituita</strong> al gas</p>
+<p>Il secondo termine e' quello che rovina tutto quando la densita' e' alta. Se ne parla fra due<br />
+paragrafi.</p>
+<p>Per [O III] 5007, mettendo dentro i numeri:</p>
+<p>$$\Lambda \simeq 1.57 \times 10^{-21} N_e N_p \frac{e^{-2.877 \times 10^4 / T_e}}{\sqrt{T_e}}$$</p>
+<p><strong>Il pezzo che conta e' quell' esponenziale.</strong> $2.877 \times 10^4$ K e' $\Delta E / k_B$ della riga<br />
+5007. Il raffreddamento e' <strong>spento</strong> a bassa temperatura e <strong>si accende di colpo</strong> quando $T_e$ si<br />
+avvicina a quella soglia.</p>
+<hr />
+<h3>3.3 Gli altri canali di raffreddamento</h3>
+<p><strong>Free-free</strong> (bremsstrahlung, vedi <a href="c06_continui.html">capitolo 6</a>):</p>
+<p>$$\Lambda_{ff} \propto N_e N_p \sqrt{T_e}$$</p>
+<p>Va come $\sqrt{T_e}$, quindi cresce <strong>piano</strong>, senza soglie e senza esponenziali. E' il<br />
+raffreddamento <strong>dominante in una nebulosa di solo idrogeno</strong>, dove non ci sono metalli.</p>
+<p><strong>Ricombinazione</strong>: l' elettrone catturato si porta via la sua energia cinetica. E' gia' contato<br />
+dentro $\Gamma_{ph}$ col segno meno.</p>
+<p><strong>Collisioni con i grani di polvere.</strong></p>
+<hr />
+<h2>4. Il termostato</h2>
+<p>Adesso il pezzo che spiega tutto, ed e' un grafico da saper disegnare.</p>
+<p>Si mettono in scala logaritmica i due tassi (normalizzati per $N_e N_p$) in funzione di $T_e$:</p>
+<p><strong>sull' asse X</strong>: $T_e$, la temperatura degli elettroni del gas</p>
+<p><strong>sull' asse Y</strong>: i tassi $\Gamma$ e $\Lambda$</p>
+<p>E le due curve hanno forme molto diverse:</p>
+<ul>
+<li><strong>$\Gamma_{ph}$ e' quasi piatta</strong>, anzi cala piano. Il motivo e' il punto 2.1: l' energia che il<br />
+  fotone regala all' elettrone la decide <strong>la stella</strong>, e la temperatura del gas non c' entra<br />
+  niente.</li>
+<li><strong>$\Lambda$ sale</strong>, e quella collisionale sale <strong>ripidissima</strong>, per via dell' esponenziale<br />
+  $e^{-\Delta E / k_B T_e}$.</li>
+</ul>
+<p><strong>Dove le due curve si incrociano c'e' la temperatura di equilibrio.</strong></p>
+<hr />
+<h3>4.1 Perché è un termostato vero</h3>
+<p>Guarda cosa succede se ci si sposta dall' incrocio:</p>
+<ul>
+<li><strong>$T_e$ sale sopra</strong>: il raffreddamento esplode (esponenziale) mentre il riscaldamento resta<br />
+  quello -&gt; la temperatura viene ributtata giu'</li>
+<li><strong>$T_e$ scende sotto</strong>: il raffreddamento si spegne di colpo mentre il riscaldamento continua -&gt;<br />
+  la temperatura risale</li>
+</ul>
+<p>E' un equilibrio <strong>stabile</strong>, e si autoregola. Per questo tutte le nebulose con metalli finiscono<br />
+intorno a $10^4$ K.</p>
+<p><img alt="" src="data/termostato.png" /></p>
+<hr />
+<h3>4.2 Una nebulosa di solo idrogeno</h3>
+<p>Caso limite da tenersi in tasca, perche' fa vedere quanto contano i metalli.</p>
+<p>Senza metalli non c'e' il raffreddamento collisionale: resta solo il free-free, che va come<br />
+$\sqrt{T_e}$ ed e' molto meno efficiente.</p>
+<p>La curva di $\Lambda$ e' molto piu' bassa e molto meno ripida, quindi <strong>l' incrocio si sposta a<br />
+temperature nettamente piu' alte</strong>.</p>
+<p>Detto altrimenti: sono i metalli a tenere fredde le nebulose.</p>
+<hr />
+<h2>5. Il legame col quenching</h2>
+<p>Torna il <a href="c051_atomo_due_livelli.html">capitolo 5</a>, e stavolta con una conseguenza grossa.</p>
+<blockquote>
+<p><strong>la riga raffredda solo se il fotone esce.</strong></p>
+</blockquote>
+<p>Se la densita' supera $N_c$, lo ione eccitato viene <strong>spento da un secondo urto</strong> prima di riuscire<br />
+a emettere: l' energia torna all' elettrone che lo ha urtato e <strong>resta dentro il gas</strong>.</p>
+<p>Quindi: sopra la densita' critica, quel canale di raffreddamento <strong>si spegne</strong>, e la temperatura di<br />
+equilibrio <strong>sale</strong>.</p>
+<p>E' il termine $N_{im} Q_{m1}$ della formula al punto 3.2: sotto $N_c$ e' trascurabile, sopra $N_c$<br />
+cresce fino a cancellare quasi del tutto il primo pezzo.</p>
+<hr />
+<h2>6. E se la stella si spegne di colpo?</h2>
+<p>Domanda che chiude bene il corso, perche' obbliga a usare tutto quello che si e' visto.</p>
+<p>Succede questo: la nebulosa si raffredda, tutto ricombina, righe e continuo spariscono, e nel<br />
+visibile non la vedi piu' (ma e' ancora li': va cercata a lunghezze d' onda maggiori).</p>
+<p>Quanto ci mette? Si divide l' energia termica che c'e' da smaltire per il tasso a cui la si smaltisce:</p>
+<p>$$t_c = \frac{\frac{3}{2} k_B T N_p}{\Lambda}$$</p>
+<p>Coi numeri di una nebulosa a $10^4$ K:</p>
+<p>$$t_c \sim \frac{10^{12}}{N_p} \; \text{s}$$</p>
+<p>Con $N_p = 10^2$ cm$^{-3}$: circa <strong>300 anni</strong>. In una nebulosa di solo idrogeno, dove raffredda<br />
+solo il free-free, ci mette circa dieci volte tanto.</p>
+<hr />
+<h3>6.1 Il tempo di ricombinazione</h3>
+<p>L' altro tempo caratteristico e':</p>
+<p>$$t_r = \frac{1}{N_e \alpha_0}$$</p>
+<p>Con gli stessi numeri viene circa <strong>800 anni</strong>.</p>
+<p><em><strong>In pratica:</strong> tutti e due i tempi vanno come $1/N$. Quindi <strong>piu' e' densa la<br />
+nebulosa, piu' in fretta si spegne.</strong> E' lo stesso motivo di sempre: le cose succedono per<br />
+incontri, e in un gas denso ci si incontra piu' spesso.</em></p>
+<hr />
+<h2>7. In breve</h2>
+<ul>
+<li>la temperatura sta ferma perche' $\Gamma = \Lambda$, ed e' per questo che tutte le nebulose<br />
+  fotoionizzate stanno a $\sim 10^4$ K</li>
+<li><strong>scalda la fotoionizzazione</strong>: l' energia in eccesso sopra la soglia se la porta via l' elettrone<br />
+  come energia cinetica</li>
+<li>$\bar{E}_e$ dipende dallo <strong>spettro</strong> della stella, non dalla sua intensita' (si semplifica)</li>
+<li><strong>raffreddano le righe proibite dei metalli</strong> eccitate per urto: l' urto ruba energia al gas e il<br />
+  fotone la porta fuori</li>
+<li>sono i metalli perche' a $k_BT_e = 0.86$ eV i loro livelli metastabili (2-5 eV) sono<br />
+  raggiungibili e i 10.2 eV dell' idrogeno no</li>
+<li><strong>il grafico</strong>: $\Gamma$ quasi piatta, $\Lambda$ che sale ripida per l' esponenziale, e<br />
+  l' incrocio fissa $T_e$</li>
+<li>e' un equilibrio <strong>stabile</strong>: se $T_e$ sale il raffreddamento esplode, se scende si spegne</li>
+<li>in una nebulosa di <strong>solo H</strong> raffredda solo il free-free, molto meno efficiente -&gt;<br />
+  temperatura di equilibrio <strong>piu' alta</strong></li>
+<li><strong>quenching</strong>: sopra $N_c$ il fotone non esce, l' energia resta nel gas, quella riga non<br />
+  raffredda piu' e la temperatura sale</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Una nebulosa viene scaldata in continuazione dalla stella. Perche' non arriva a un milione<br />
+di gradi? (-&gt; sezioni 1 e 4.1)</p>
+<p><strong>2.</strong> I metalli sono un atomo su diecimila, eppure sono loro a decidere la temperatura. Come si<br />
+spiega? Il confronto e' fra due numeri soli. (-&gt; sezione 3.1)</p>
+<p><strong>3.</strong> L' energia che il fotone regala all' elettrone dipende da quanto e' vicina la stella?<br />
+(-&gt; sezione 2.1)</p>
+<p><strong>4.</strong> Disegna il grafico del termostato: cosa metti sui due assi, che forma hanno le due curve, e<br />
+perche' proprio quelle forme? (-&gt; sezione 4)</p>
+<p><strong>5.</strong> Prendi una nebulosa e alza la densita' sopra la densita' critica di [O III]. La temperatura<br />
+di equilibrio sale o scende? Fai il percorso completo. (-&gt; sezione 5)</p>
+<p><strong>6.</strong> In una nebulosa di solo idrogeno la temperatura di equilibrio e' piu' alta o piu' bassa che<br />
+in una coi metalli? E chi raffredda, li'? (-&gt; sezione 4.2)</p>
+<p><strong>7.</strong> La stella si spegne di colpo. Cosa vedi succedere, e in quanto tempo? E la nebulosa piu'<br />
+densa si spegne prima o dopo? (-&gt; sezioni 6 e 6.1)</p>
+<div class="piedi"><a href="c08_stromgren.html">&larr; 8 - La sfera di Stromgren</a></div>
+</main>
+</div></body></html>

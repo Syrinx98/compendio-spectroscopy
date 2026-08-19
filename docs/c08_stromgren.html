@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8 - La sfera di Stromgren</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00;
+        --barra:#fafafa; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e6e6e6; --bg2:#22252b; --bordo:#3a3f47; --link:#6bb6ff;
+          --nota:#e0c060; --barra:#1b1e23; }
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); margin: 0;
+       font: 17px/1.7 -apple-system, "Segoe UI", system-ui, sans-serif; }
+
+/* impaginazione: menu fisso a sinistra, testo al centro. sotto i 900px il menu va in cima */
+.riga { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
+.menu { width: 290px; flex: none; padding: 26px 18px; position: sticky; top: 0;
+        max-height: 100vh; overflow-y: auto; border-right: 1px solid var(--bordo);
+        background: var(--barra); font-size: 14.5px; }
+.menu h2 { font-size: 15px; margin: 0 0 14px; border: 0; padding: 0; }
+.menu ul { margin: 0; padding: 0; list-style: none; }
+.menu li { margin: 9px 0; line-height: 1.35; display: flex; gap: 9px; }
+.menu .num { flex: none; width: 46px; text-align: right; color: #999;
+             font-variant-numeric: tabular-nums; }
+.menu a.qui { font-weight: 600; color: var(--fg); }
+.testo { flex: 1; min-width: 0; padding: 26px 30px 100px; max-width: 800px; }
+@media (max-width: 900px) {
+  .riga { display: block; }
+  .menu { width: auto; position: static; max-height: none; border-right: 0;
+          border-bottom: 1px solid var(--bordo); }
+  .testo { padding: 20px 16px 80px; }
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 25px; margin: 6px 0 16px; line-height: 1.3; }
+h2 { font-size: 20px; margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid var(--bordo); }
+h3 { font-size: 17px; margin: 26px 0 10px; padding: 9px 12px; background: var(--bg2);
+     border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--link); }
+code { background: var(--bg2); padding: 2px 5px; border-radius: 4px; font-size: 15px; }
+pre { background: var(--bg2); padding: 12px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 100%; border-radius: 6px; background: #fff; }
+hr { border: 0; border-top: 1px solid var(--bordo); margin: 30px 0; }
+blockquote { border-left: 3px solid var(--link); margin: 18px 0; padding: 2px 0 2px 14px;
+             background: var(--bg2); border-radius: 0 4px 4px 0; }
+blockquote p { margin: 8px 0; }
+table { border-collapse: collapse; display: block; overflow-x: auto; margin: 16px 0; }
+td, th { border: 1px solid var(--bordo); padding: 6px 10px; }
+th { background: var(--bg2); }
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+/* le "note subito cosi' de botto": in corsivo grassetto nel markdown, qui si fanno notare */
+em strong, strong em { color: var(--nota); }
+/* avanti / indietro in fondo alla pagina */
+.piedi { display: flex; justify-content: space-between; gap: 14px; margin-top: 60px;
+         padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 15px; }
+.piedi a { display: block; max-width: 46%; }
+.piedi .avanti { text-align: right; margin-left: auto; }
+</style>
+<script>window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head><body><div class="riga">
+<nav class="menu"><h2><a href="index.html">Compendio di<br>Astronomical Spectroscopy</a></h2>
+<ul><li><span class="num"></span><a href="index.html">Compendio di Astronomical Spectroscopy</a></li><li><span class="num"></span><a href="a1_di_cosa_parla.html">Di cosa parla tutto il corso</a></li><li><span class="num"></span><a href="a2_numeri_in_tasca.html">Numeri e conversioni da avere in tasca</a></li><li><span class="num">2</span><a href="c02_boltzmann_saha.html">Popolazioni: Boltzmann, Saha e perche' Balmer ha un massimo</a></li><li><span class="num">3</span><a href="c03_trasporto.html">Trasporto radiativo: perche' una riga e' scura o luminosa</a></li><li><span class="num">4</span><a href="c04_righe_assorbimento.html">Righe in assorbimento: quanto e' forte e quanto e' larga</a></li><li><span class="num">5.1-5.4</span><a href="c051_atomo_due_livelli.html">Gas rarefatto: atomo a due livelli, densita' critica, quenching</a></li><li><span class="num">5.5</span><a href="c055_ricombinazione.html">Righe di ricombinazione otticamente sottili</a></li><li><span class="num">5.6</span><a href="c056_polvere.html">Estinzione da polvere</a></li><li><span class="num">5.7</span><a href="c057_righe_proibite.html">Righe proibite: perche' esistono e come si usano</a></li><li><span class="num">6</span><a href="c06_continui.html">I continui</a></li><li><span class="num">7</span><a href="c07_ionizzazione.html">Sezione d' urto ed equilibrio di ionizzazione</a></li><li><span class="num">8</span><a href="c08_stromgren.html" class="qui">La sfera di Stromgren</a></li><li><span class="num">9</span><a href="c09_equilibrio_termico.html">Equilibrio termico: chi scalda e chi raffredda</a></li></ul></nav>
+<main class="testo">
+<h1>8 - La sfera di Stromgren</h1>
+<p><strong>Dispensa: cap. 8 (pag. 99-110).</strong></p>
+<p><em>Capitolo a <strong>mattoncini</strong>: si costruisce l' equazione un pezzo per volta, e poi si legge il<br />
+risultato negli andamenti. Il bordo, alla fine, e' il pezzo che sorprende di piu'.</em></p>
+<p>Nel <a href="c07_ionizzazione.html">capitolo 7</a> si e' fatto il bilancio fra ionizzazioni e ricombinazioni<br />
+<strong>in un punto</strong>. Adesso si guarda tutta la nube insieme e ci si fa la domanda geometrica:</p>
+<blockquote>
+<p>una stella calda dentro una nube di idrogeno. <strong>Fin dove arriva la zona ionizzata?</strong></p>
+</blockquote>
+<hr />
+<h2>1. Il quadro</h2>
+<p>Una stella molto calda, tipo una O o una B, immersa in una nube di idrogeno.</p>
+<p>Il raggio della stella e' <strong>milioni di volte piu' piccolo</strong> di quello della nube, quindi per questo<br />
+conto la stella e' un punto che sputa fotoni ionizzanti in tutte le direzioni.</p>
+<p>L' idea di Stromgren e' che si arrivi a una situazione stazionaria: c'e' una regione ionizzata<br />
+attorno alla stella, e la sua dimensione e' fissata da un <strong>equilibrio</strong>.</p>
+<hr />
+<h2>2. Il ragionamento</h2>
+<p>Bisogna partire da una cosa: un atomo per <strong>restare</strong> ionizzato ha bisogno di essere continuamente<br />
+ri-ionizzato, perche' altrimenti prima o poi ricattura un elettrone.</p>
+<p>Quindi non si contano atomi, si contano <strong>tassi</strong>: quante ionizzazioni al secondo e quante<br />
+ricombinazioni al secondo.</p>
+<p>$$(\text{fotoni ionizzanti emessi dalla stella al secondo}) = (\text{ricombinazioni al secondo in tutta la sfera})$$</p>
+<p>Il raggio $R_S$ e' quello per cui i due numeri si pareggiano: dentro quel raggio la stella ce la fa<br />
+a tenere tutto ionizzato, fuori non ce la fa piu'.</p>
+<hr />
+<h2>3. Il lato sinistro</h2>
+<p>Il tasso di emissione di fotoni ionizzanti (energia sopra 13.6 eV) della stella si chiama $Q$ e si<br />
+prende cosi' com'e', in fotoni al secondo. E' un dato della stella.</p>
+<hr />
+<h2>4. Il lato destro</h2>
+<p>Si costruisce a partire da un pezzo gia' visto nel <a href="c055_ricombinazione.html">capitolo 5.5</a>: le<br />
+ricombinazioni dirette sul livello $n$ sono</p>
+<p>$$N_e N_p \alpha_n$$</p>
+<p>Ma qui interessano le ricombinazioni su <strong>tutti</strong> i livelli, quindi si somma:</p>
+<p>$$\sum_n N_e N_p \alpha_n = N_e N_p \sum_n \alpha_n$$</p>
+<p>E questo e' il numero di ricombinazioni al secondo <strong>per cm$^3$</strong>. Per avere quelle di tutta la<br />
+sfera basta moltiplicare per il volume:</p>
+<p>$$\frac{4}{3}\pi R^3 N_e N_p \sum_n \alpha_n$$</p>
+<hr />
+<h2>5. L'approssimazione "on the spot"</h2>
+<p>Adesso c'e' un passaggio che sembra un dettaglio tecnico ma non lo e'.</p>
+<p>Vediamo cosa succede quando un elettrone ricombina finendo <strong>direttamente sul fondamentale</strong><br />
+($n=1$): l' elettrone cade da libero fino a $-13.6$ eV, quindi emette un fotone da <strong>13.6 eV</strong>, che<br />
+e' esattamente un fotone ionizzante.</p>
+<p>Quel fotone viene subito riassorbito li' vicino e ionizza un altro atomo. Quindi:</p>
+<p>$$13.6 \, eV + \text{neutro} \rightarrow \text{ionizzato} \rightarrow \text{neutro} + 13.6 \, eV$$</p>
+<p><strong>Il conto si pareggia</strong>: quella ricombinazione ha prodotto il fotone che serve a rifare la<br />
+ionizzazione che ha appena annullato. Netto: zero.</p>
+<p>Quindi le ricombinazioni su $n=1$ <strong>non vanno contate</strong>, e la somma parte da $n=2$:</p>
+<p>$$\alpha_B = \sum_{n \geq 2} \alpha_n$$</p>
+<p>Questo si chiama <strong>on the spot approximation</strong> (il "sul posto" e' perche' si assume che quel fotone<br />
+venga riassorbito subito li', senza viaggiare).</p>
+<p><em><strong>Vale la pena dirlo:</strong> $\alpha_B$ si chiama <strong>caso B</strong>, e $\alpha_A$ (con dentro anche<br />
+$n=1$) e' il caso A. E' la stessa distinzione che c'e' dietro il valore 2.86 del decremento di<br />
+Balmer nel <a href="c055_ricombinazione.html">capitolo 5.5</a>: anche li' si assume caso B. Nelle nebulose si usa<br />
+sempre il caso B, perche' i fotoni di Lyman non escono mai vivi.</em></p>
+<hr />
+<h2>6. La formula</h2>
+<p>$$Q = \frac{4}{3} \pi R_S^3 \, N_e N_p \, \alpha_B$$</p>
+<p>e isolando il raggio:</p>
+<p>$$R_S = \left( \frac{3 Q}{4\pi N_e N_p \alpha_B} \right)^{1/3}$$</p>
+<p><em><strong>Attenzione:</strong> la radice e' <strong>cubica</strong>, non quadrata. Viene dal volume della sfera, che va come<br />
+$R^3$.</em></p>
+<hr />
+<h3>6.1 Come si legge</h3>
+<p><strong>Dipendenza da $Q$: debolissima.</strong></p>
+<p>$$R_S \propto Q^{1/3}$$</p>
+<p>Se la stella emette <strong>mille volte</strong> piu' fotoni ionizzanti, il raggio cresce solo di <strong>dieci</strong><br />
+volte. Ed e' ovvio a pensarci: il volume va come il cubo, quindi per raddoppiare il raggio serve<br />
+otto volte piu' roba.</p>
+<p><strong>Dipendenza dalla densita': piu' forte.</strong></p>
+<p>Assumendo $N_e \approx N_p = N$ (idrogeno puro completamente ionizzato):</p>
+<p>$$R_S \propto N^{-2/3}$$</p>
+<p>L' esponente e' $2/3$ e non $1/3$ perche' la densita' nella formula compare <strong>due volte</strong>: una per<br />
+gli elettroni e una per i protoni. Piu' e' densa la nube, piu' la sfera e' piccola: la stella<br />
+consuma i suoi fotoni piu' in fretta.</p>
+<hr />
+<h2>7. Il bordo</h2>
+<p>E qui c'e' la cosa che sorprende di piu'.</p>
+<p>Verrebbe da pensare che la ionizzazione sfumi piano piano allontanandosi dalla stella. Invece no:<br />
+<strong>crolla di colpo</strong>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>quanto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>raggio tipico della sfera</td>
+<td>1 - 100 pc</td>
+</tr>
+<tr>
+<td>spessore del bordo</td>
+<td><strong>~0.005 pc</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Il bordo e' quattro ordini di grandezza piu' sottile del raggio. Su scala della nebulosa e'<br />
+praticamente una superficie.</p>
+<hr />
+<h3>7.1 Perché è così netto: il conto</h3>
+<p>Lo spessore del bordo e' la distanza in cui $\tau$ passa da 0 a 1, ed e' il libero cammino medio<br />
+della <a href="c07_ionizzazione.html">capitolo 7</a>:</p>
+<p>$$L = \frac{1}{N \sigma} = \frac{1}{10 \times 6.3 \times 10^{-18}} \simeq 1.6 \times 10^{16} \; \text{cm} \simeq 0.005 \; pc$$</p>
+<p>con $N = 10$ cm$^{-3}$ di idrogeno neutro e $\sigma = 6.3 \times 10^{-18}$ cm$^2$ (la sezione<br />
+d' urto per fotoni da 13.6 eV).</p>
+<p>E piu' la nube e' densa, piu' il bordo e' sottile: a $N = 10^3$ cm$^{-3}$ viene $10^{-4}$ pc, cioe'<br />
+<strong>paragonabile al sistema solare</strong>.</p>
+<hr />
+<h3>7.2 Perché è così netto: il meccanismo</h3>
+<p>Il conto dice quanto e' spesso, ma il motivo per cui e' un crollo e non una sfumatura e' un<br />
+<strong>effetto a valanga</strong>:</p>
+<p>$$\text{piu' idrogeno neutro} \rightarrow \text{piu' assorbimento} \rightarrow \text{meno fotoni sopravvivono} \rightarrow \text{piu' idrogeno neutro}$$</p>
+<p>E' un anello che si rinforza da solo. Appena la ionizzazione comincia a calare, cala sempre piu' in<br />
+fretta.</p>
+<p><img alt="" src="data/stromgren_profilo.png" /></p>
+<p><em><strong>Questa e' la parte che conta:</strong> un piccolo avvertimento. Tutto questo dipende dalla <strong>forma del<br />
+continuo ionizzante</strong>: se la stella produce tanti fotoni molto energetici, quelli vedono $\sigma$<br />
+piccola (va come $\nu^{-3}$) e viaggiano molto piu' lontano, quindi il bordo si ammorbidisce.</em></p>
+<hr />
+<h2>8. Ionization bounded e matter bounded</h2>
+<p>Due situazioni completamente diverse, e conviene saperle distinguere.</p>
+<p><strong>Ionization bounded</strong>: e' il caso descritto finora. C'e' idrogeno in abbondanza, e a finire sono<br />
+i <strong>fotoni</strong>. Il raggio e' quello di Stromgren e la formula vale.</p>
+<p><strong>Matter bounded</strong>: la nube e' piu' piccola della sfera di Stromgren che le competerebbe. A finire<br />
+e' la <strong>materia</strong>: la stella avrebbe ancora fotoni da spendere, ma non c'e' piu' niente da<br />
+ionizzare, e quei fotoni escono nello spazio.</p>
+<blockquote>
+<p>nel caso matter bounded la formula di $R_S$ <strong>non si applica</strong>: il raggio della zona ionizzata e'<br />
+semplicemente il raggio della nube.</p>
+</blockquote>
+<p>Il modo di distinguerli osservativamente: in una nebulosa matter bounded non si vede la buccia di<br />
+gas neutro attorno, e la radiazione ionizzante scappa fuori.</p>
+<hr />
+<h2>9. Stratificazione della ionizzazione</h2>
+<p>Attorno alla stella non c'e' solo idrogeno: c'e' anche elio, e ci sono i metalli. E ogni specie ha<br />
+la sua soglia:</p>
+<table>
+<thead>
+<tr>
+<th>specie</th>
+<th>soglia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H I</td>
+<td>13.6 eV</td>
+</tr>
+<tr>
+<td>He I</td>
+<td>24.6 eV</td>
+</tr>
+<tr>
+<td>He II</td>
+<td>54.4 eV</td>
+</tr>
+</tbody>
+</table>
+<p>Ognuna ha quindi la <strong>sua</strong> sfera di Stromgren, e le sfere sono <strong>concentriche</strong>: la zona He III<br />
+sta dentro la zona He II, che sta dentro la zona H II.</p>
+<hr />
+<h3>9.1 Perché le sfere hanno raggi diversi</h3>
+<p>Questo e' il punto da capire bene, perche' e' facile dare la risposta sbagliata.</p>
+<p>Guardando la formula, verrebbe da pensare che cambi $\alpha_B$. Ma il motivo vero e' un altro:<br />
+<strong>cambia $Q$</strong>.</p>
+<p>$Q$ e' il numero di fotoni <strong>sopra la soglia</strong>. La stella emette come un corpo nero, quindi il suo<br />
+spettro cala esponenzialmente sulla coda di Wien: piu' alzi la soglia, meno fotoni trovi sopra.</p>
+<ul>
+<li>sopra 13.6 eV ce ne sono tanti</li>
+<li>sopra 24.6 eV molti meno</li>
+<li>sopra 54.4 eV pochissimi (e solo le stelle piu' calde ne hanno)</li>
+</ul>
+<p>Meno fotoni disponibili -&gt; sfera piu' piccola.</p>
+<p><em><strong>Attenzione al verso:</strong> salendo in <strong>energia</strong> ci sono meno fotoni. Non "salendo in<br />
+temperatura": alzando la temperatura della stella i fotoni energetici <strong>aumentano</strong>. La coda di<br />
+Planck si legge lungo l' asse dell' energia a temperatura fissata.</em></p>
+<hr />
+<h3>9.2 A cosa serve saperlo</h3>
+<p>La stratificazione e' osservabile: guardando una nebulosa si vedono le righe di ioni diversi in<br />
+zone diverse, e piu' lo ione e' "alto" piu' sta vicino alla stella.</p>
+<p>Da come sono messe quelle zone si risale alla <strong>temperatura della stella</strong> che le illumina, anche<br />
+senza vederla bene.</p>
+<hr />
+<h2>10. In breve</h2>
+<ul>
+<li><strong>equilibrio</strong>: i fotoni ionizzanti emessi al secondo pareggiano le ricombinazioni al secondo in<br />
+  tutta la sfera</li>
+<li>$Q = \frac{4}{3}\pi R_S^3 N_e N_p \alpha_B$, da cui<br />
+  $R_S = \left( \frac{3Q}{4\pi N_e N_p \alpha_B} \right)^{1/3}$ (radice <strong>cubica</strong>)</li>
+<li><strong>on the spot</strong>: le ricombinazioni su $n=1$ producono un fotone ionizzante e si annullano da<br />
+  sole, quindi si somma da $n=2$ -&gt; $\alpha_B$, il <strong>caso B</strong></li>
+<li>$R_S \propto Q^{1/3}$: mille volte piu' fotoni = dieci volte il raggio</li>
+<li>$R_S \propto N^{-2/3}$: l' esponente e' $2/3$ perche' la densita' compare due volte</li>
+<li>il <strong>bordo e' sottilissimo</strong>: 0.005 pc contro 1-100 pc di raggio, perche'<br />
+  $L = 1/(N\sigma)$ ed e' un effetto a valanga</li>
+<li><strong>ionization bounded</strong> = finiscono i fotoni (formula valida); <strong>matter bounded</strong> = finisce la<br />
+  materia (formula non valida)</li>
+<li><strong>stratificazione</strong> He II / He III: cambia <strong>$Q$</strong>, non $\alpha$, perche' sulla coda di Planck ci<br />
+  sono meno fotoni sopra soglie piu' alte</li>
+</ul>
+<hr />
+<h2>Domande tattiche</h2>
+<p><strong>1.</strong> Prendi una stella e mettici attorno una nube dieci volte piu' densa. Il raggio di Stromgren<br />
+di quanto cambia? Attento all' esponente, e sappi dire da dove viene. (-&gt; sezione 6.1)</p>
+<p><strong>2.</strong> Perche' nella somma delle ricombinazioni si parte da $n=2$ e non da $n=1$? Racconta cosa<br />
+succede a quel fotone. (-&gt; sezione 5)</p>
+<p><strong>3.</strong> Il raggio della sfera e' di 10 pc e il bordo e' spesso 0.005 pc. Come mai cosi' netto? Ci<br />
+sono due risposte, una col conto e una col meccanismo: dille tutte e due. (-&gt; sezioni 7.1 e 7.2)</p>
+<p><strong>4.</strong> Ti dicono che una certa nebulosa e' matter bounded. Puoi ancora usare la formula di $R_S$?<br />
+E cosa ti aspetti di vedere attorno? (-&gt; sezione 8)</p>
+<p><strong>5.</strong> La sfera di He III e' piu' piccola di quella di H II. Verrebbe da dire che e' perche' l' elio<br />
+ricombina diversamente. Perche' e' la risposta sbagliata, e qual e' quella giusta? (-&gt; sezione 9.1)</p>
+<p><strong>6.</strong> Se una stella emette mille volte piu' fotoni ionizzanti, il raggio cresce solo di dieci<br />
+volte. Perche' cosi' poco? La risposta e' geometrica. (-&gt; sezione 6.1)</p>
+<div class="piedi"><a href="c07_ionizzazione.html">&larr; 7 - Sezione d' urto ed equilibrio di ionizzazione</a><a class="avanti" href="c09_equilibrio_termico.html">9 - Equilibrio termico: chi scalda e chi raffredda &rarr;</a></div>
+</main>
+</div></body></html>
