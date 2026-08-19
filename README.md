@@ -7,6 +7,9 @@ formula, coi casi limite e il motivo per cui quella formula ha quella faccia li'
 
 **Si legge qui: [https://syrinx98.github.io/compendio-spectroscopy/](https://syrinx98.github.io/compendio-spectroscopy/)**
 
+Se serve offline o sul telefono, [**compendio.html**](https://syrinx98.github.io/compendio-spectroscopy/compendio.html)
+e' tutto quanto in un file solo, immagini comprese.
+
 ---
 
 ## Cosa ci trovi
@@ -51,7 +54,7 @@ Ogni capitolo sta in piedi da solo.
 | `data\` | i grafici in png |
 | `grafici\` | gli script matplotlib che li generano |
 | `docs\` | il sito, quello che si vede su GitHub Pages |
-| `compendio.html` | tutto in un file unico, per leggerlo sul telefono senza la cartella dietro |
+| `docs\compendio.html` | tutto in un file unico, per leggerlo sul telefono senza la cartella dietro |
 
 Il prefisso dei file serve solo a tenerli in ordine: `c055_` e' il paragrafo 5.5.
 

@@ -99,6 +99,13 @@ Ogni capitolo sta in piedi da solo: se ti serve solo Stromgren, vai all' 8 e leg
 
 ---
 
+## Per leggerlo altrove
+
+Se ti serve averlo sul telefono o offline, [**compendio.html**](compendio.html) e' tutto quanto in
+un file solo, immagini comprese: lo scarichi e si apre ovunque, anche senza rete.
+
+---
+
 ## Da dove viene questa roba
 
 Dalla dispensa del corso (`notes_28Jul2021.pdf`) e dagli appunti che mi sono fatto studiando. Le

@@ -17,7 +17,7 @@ import re
 import markdown
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-FUORI = os.path.join(BASE, "sito", "compendio.html")
+FUORI = os.path.join(BASE, "docs", "compendio.html")
 
 CSS = """
 :root { --bg:#fff; --fg:#1a1a1a; --bg2:#f4f4f4; --bordo:#ddd; --link:#0b5fa5; --nota:#7a5c00; }
